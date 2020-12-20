@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
+        <title>命令行界面设计指南</title>
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="命令行界面设计指南" />
+        <meta property="og:title"  content="命令行界面设计指南" />
+        
+        <meta name="description"         content="一个开源指南，可帮助您编写更好的命令行程序，采用经典的UNIX原则并对其进行优化，以适应现代生产环境的需要。" />
+        <meta name="twitter:description" content="一个开源指南，可帮助您编写更好的命令行程序，采用经典的UNIX原则并对其进行优化，以适应现代生产环境的需要。" />
+        <meta property="og:description"  content="一个开源指南，可帮助您编写更好的命令行程序，采用经典的UNIX原则并对其进行优化，以适应现代生产环境的需要。" />
+        
+        <meta name="twitter:image" content="https://clig.dev/CLIG-social-card.jpg" />
+        <meta property="og:image"  content="https://clig.dev/CLIG-social-card.jpg" />
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLXNEPQY85"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-DLXNEPQY85');
+        </script>
+
+        {{ $css := resources.Get "css/main.css" | resources.ToCSS }}
+        <link rel="stylesheet" media="screen" href="/css/main.css">
+        <link rel="stylesheet" media="print" href="/css/print.css">
+    </head>
+    <body>
+        {{- block "main" . }}{{- end }}
+        {{ $js := resources.Get "js/main.js" }}
+        <script src="{{ $js.Permalink }}"></script>
+    </body>
+</html>
