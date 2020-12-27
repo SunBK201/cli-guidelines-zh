@@ -51,33 +51,30 @@ Design by [Mark Hurrell](https://mhurrell.co.uk/). Thanks to Andreas Jansson for
 
 今天的大多数人都不知道命令行是什么，更不用说他们为什么要费心使用它了。正如计算机先驱Alan Kay在[2017年的一次采访](https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now)中所说，“因为人们不理解计算机是什么，他们以为自己在iPhone里就有了计算机，这种错觉就像 '吉他英雄' 与真吉他一样糟糕”。
 
-Kay’s “real guitar” isn’t the CLI—not exactly.
-He was talking about ways of programming computers that offer the power of the CLI and that transcend writing software in text files.
-There is a belief among Kay’s disciples that we need to break out of a text-based local maxima that we’ve been living in for decades.
+Kay的“真吉他”不完全是CLI。他谈论的是计算机编程的方法，它提供CLI的功能，超越了用文本文件编写软件。Kay的学生们认为，我们需要打破我们已经生活了几十年的基于文本的局部最大值。
 
-It’s exciting to imagine a future where we program computers very differently.
-Even today, spreadsheets are by far the most popular programming language, and the no-code movement is taking off quickly as it attempts to replace some of the intense demand for talented programmers.
+想象未来我们用完全不同的方式来编写计算机程序是一件令人兴奋的事情。即使在今天，电子表格仍然是迄今为止最流行的编程语言，而无代码运动正在迅速发展，因为它试图取代一些对有才华的程序员的强烈需求
 
-Yet with its creaky, decades-old constraints and inexplicable quirks, the command line is still the most _versatile_ corner of the computer.
-It lets you pull back the curtain, see what’s really going on, and creatively interact with the machine at a level of sophistication and depth that GUIs cannot afford.
-It’s available on almost any laptop, for anyone who wants to learn it.
-It can be used interactively, or it can be automated.
-And, it doesn’t change as fast as other parts of the system.
-There is creative value in its stability.
+然而，尽管命令行有其陈旧的、数十年之久的约束和令人费解的怪异，但它依旧是计算机中最 _万能_ 的一角。
+它让你拉开计算机真正的面纱，看看里面到底发生了什么，并使你创造性地以GUI无法承受的复杂和深度与机器进行交互。
+任何想学习它的人都可以在几乎所有的笔记本电脑上使用它。
+它可以交互使用，也可以自动化使用。
+此外，它的变化速度不如系统其他部分快。
+其创造价值源于稳定性。
 
-So, while we still have it, we should try to maximize its utility and accessibility.
+所以，当我们仍然拥有它的时候，我们应该尽量最大化它的效用和可访问性。
 
-A lot has changed about how we program computers since those early days.
-The command line of the past was _machine-first_: little more than a REPL on top of a scripting platform.
-But as general-purpose interpreted languages have flourished, the role of the shell script has shrunk.
-Today's command line is _human-first_: a text-based UI that affords access to all kinds of tools, systems and platforms.
-In the past, the editor was inside the terminal—today, the terminal is just as often a feature of the editor.
-And there’s been a proliferation of `git`-like multi-tool commands.
-Commands within commands, and high-level commands that perform entire workflows rather than atomic functions.
+从很早之前开始，我们的计算机编程方式发生了很大的变化。
+过去的命令行是 _机器优先_ 的: 和脚本平台上的REPL差不多。
+但是，随着通用解释语言的蓬勃发展，shell脚本的作用已经缩小。
+今天的命令行是 _以人为本_ 的: 一个基于文本的UI，提供对各种工具、系统和平台的访问。
+在过去，编辑器是在终端里的，今天终端通常是编辑器的一个功能。
+类似`git`的多工具命令也在大量涌现。
+命令中的命令，以及执行整个工作流而不是原子功能的高级命令。
 
-Inspired by traditional UNIX philosophy, driven by an interest in encouraging a more delightful and accessible CLI environment, and guided by our experiences as programmers, we decided it was time to revisit the best practices and design principles for building command-line programs.
+受传统UNIX原则的启发，受令人愉快和可访问的CLI环境的兴趣驱动，以及在我们作为程序员的经验的指导下，我们决定是时候重温构建命令行程序的最佳实践和设计原则了。
 
-Long live the command line!
+命令行万岁！
 
 ## 介绍 {#introduction}
 
