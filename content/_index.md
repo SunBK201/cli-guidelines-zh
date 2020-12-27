@@ -1,6 +1,6 @@
 # 命令行界面设计指南
 
-这是一个[开源指南](https://github.com/cli-guidelines/cli-guidelines)，可帮助您编写更好的命令行程序，采用经典的UNIX原则并对其进行优化，以适应现代生产环境的需要。
+这是一个[开源指南](https://github.com/SunBK201/cli-guidelines-zh)，可帮助您编写更好的命令行程序，采用经典的UNIX原则并对其进行优化，以适应现代生产环境的需要。
 
 ## 译者 {#authors}
 
@@ -10,7 +10,7 @@
 
 [@SunBK201](https://github.com/SunBK201)
 
-<iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=cli-guidelines&repo=cli-guidelines&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+<iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=SunBK201&repo=cli-guidelines-zh&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 
 ## 作者 {#authors}
 
@@ -47,11 +47,9 @@ Design by [Mark Hurrell](https://mhurrell.co.uk/). Thanks to Andreas Jansson for
 但是，如果你有幸能够访问Internet，那么你可以从Usenet（一个早期的Internet社区）获得帮助，那里面满是和你一样沮丧的人。
 他们可以帮助你解决问题，或者至少提供一些精神支持。
 
-Forty years later, computers have become so much more accessible to everyone, often at the expense of low-level end user control.
-On many devices, there is no command-line access at all, in part because it goes against the corporate interests of walled gardens and app stores.
+40年后，每个人都变得能够使用计算机，但这通常是在牺牲以底层终端用户控制为代价实现的。在许多设备上，根本没有命令行访问方式，一部分原因是这与“围墙花园”和应用商店公司的利益相悖。
 
-Most people today don’t know what the command line is, much less why they would want to bother with it.
-As computing pioneer Alan Kay said in [a 2017 interview](https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now), “Because people don't understand what computing is about, they think they have it in the iPhone, and that illusion is as bad as the illusion that 'Guitar Hero' is the same as a real guitar.”
+今天的大多数人都不知道命令行是什么，更不用说他们为什么要费心使用它了。正如计算机先驱Alan Kay在[2017年的一次采访](https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now)中所说，“因为人们不理解计算机是什么，他们以为自己在iPhone里就有了计算机，这种错觉就像 '吉他英雄' 与真吉他一样糟糕”。
 
 Kay’s “real guitar” isn’t the CLI—not exactly.
 He was talking about ways of programming computers that offer the power of the CLI and that transcend writing software in text files.
