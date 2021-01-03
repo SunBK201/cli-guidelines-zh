@@ -1,6 +1,6 @@
 # 命令行界面设计指南
 
-这是一个[开源指南](https://github.com/SunBK201/cli-guidelines-zh)，可帮助您编写更好的命令行程序，采用经典的UNIX原则并对其进行优化，以适应现代生产环境的需要。
+这是一个[开源指南](https://github.com/SunBK201/cli-guidelines-zh)，可帮助您编写更好的命令行程序，采用经典的UNIX哲学并对其进行优化，以适应现代生产环境的需要。
 
 ## 译者 {#authors}
 
@@ -78,58 +78,58 @@ Kay的“真吉他”不完全是CLI。他谈论的是计算机编程的方法�
 
 ## 介绍 {#introduction}
 
-This document covers both high-level design philosophy, and concrete guidelines.
-It’s heavier on the guidelines because our philosophy as practitioners is not to philosophize too much.
-We believe in learning by example, so we’ve provided plenty of those.
+本文档涵盖了高层次的设计理念和具体的指导方针。
+它在指导方针上更加偏重，因为作为实践者，我们的原则是不需要进行太多的高谈阔论。
+我们相信要通过例子学习，因此我们也准备了不少例子以供大家学习。
 
-This guide doesn’t cover full-screen terminal programs like emacs and vim.
-Full-screen programs are niche projects—very few of us will ever be in the position to design one.
+这篇指南不会包含类似emacs和vim那样全屏终端程序。
+全屏程序是小众项目，很少有人能设计出这样的项目。
 
-This guide is also agnostic about programming languages and tooling in general.
+一般来说，本指南也不涉及编程语言和工具。
 
-Who is this guide for?
-- If you are creating a CLI program and you are looking for principles and concrete best practices for its UI design, this guide is for you.
-- If you are a professional “CLI UI designer,” that’s amazing—we’d love to learn from you.
-- If you’d like to avoid obvious missteps of the variety that go against 40 years of CLI design conventions, this guide is for you.
-- If you want to delight people with your program’s good design and helpful help, this guide is definitely for you.
-- If you are creating a GUI program, this guide is not for you—though you may learn some GUI anti-patterns if you decide to read it anyway.
-- If you are designing an immersive, full-screen CLI port of Minecraft, this guide isn’t for you.
-  (But we can’t wait to see it!)
+本指南适用于谁？
+- 如果您正在创建一个CLI程序，并且您正在为它的UI设计寻找原则和具体的最佳实践，那么本指南就是为您准备的。
+- 如果您是专业的 “CLI UI设计师” ，那就太好了，我们很乐意向您学习。
+- 如果您想避免与40年来的CLI设计惯例相悖的错误，本指南非常适合您。
+- 如果您想通过程序的良好设计和有用的帮助使人们满意，那么本指南绝对适合您。
+- 如果您正在创建一个GUI程序，这篇指南不适合你，但是如果你决定阅读它，你可能会学到一些GUI的错误模式。
+- 如果您正在设计Minecraft的沉浸式全屏CLI端口，则本指南不适合您。
+  (但我们已经等不及要看了!)
 
 ## 原则 {#philosophy}
 
-These are what we consider to be the fundamental principles of good CLI design.
+这些是我们认为优秀的CLI设计的基本原则。
 
-### Human-first design {#human-first-design}
+### 以人为本设计 {#human-first-design}
 
-Traditionally, UNIX commands were written under the assumption they were going to be used primarily by other programs.
-They had more in common with functions in a programming language than with graphical applications.
+传统上，UNIX命令是在假定它们将主要由其他程序使用的情况下编写的。
+与图形应用程序相比，它们与编程语言中的函数有更多的共同之处。
 
-Today, even though many CLI programs are used primarily (or even exclusively) by humans, a lot of their interaction design still carries the baggage of the past.
-It’s time to shed some of this baggage: if a command is going to be used primarily by humans, it should be designed for humans first.
+如今，尽管许多CLI程序主要(甚至专门)由人类使用，但它们的许多交互设计仍然承载着过去的包袱。
+现在是时候摆脱这些包袱了: 如果一个命令主要是由人类使用的，那么它应该首先为人类设计。
 
-### Simple parts that work&nbsp;together {#simple-parts-that-work-together}
+### 简单部件协同工作 {#simple-parts-that-work-together}
 
-A core tenet of [the original UNIX philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) is the idea that small, simple programs with clean interfaces can be combined to build larger systems.
-Rather than stuff more and more features into those programs, you make programs that are modular enough to be recombined as needed.
+[最初的UNIX哲学](https://en.wikipedia.org/wiki/Unix_philosophy)中一个核心原则是具有干净接口的简单程序可以组合起来构建更大的系统。
+与往这些程序中添加越来越多的特性不同，您制作的程序足够模块化，可以根据需要进行重构。
 
-In the old days, pipes and shell scripts played a crucial role in the process of composing programs together.
-Their role might have diminished with the rise of general-purpose interpreted languages, but they certainly haven’t gone away.
-What’s more, large-scale automation—in the form of CI/CD, orchestration and configuration management—has flourished.
-Making programs composable is just as important as ever.
+在过去，管道和Shell脚本在将程序组合在一起的过程中起着至关重要的作用。
+随着通用解释语言的兴起，它们的作用可能已减弱，但它们的确没有消失。
+更重要的是，以CI/CD，业务流程和配置管理形式的大型自动化蓬勃发展。
+使程序具有可组合性和以往一样重要。
 
-Fortunately, the long-established conventions of the UNIX environment, designed for this exact purpose, still help us today.
-Standard in/out/err, signals, exit codes and other mechanisms ensure that different programs click together nicely.
-Plain, line-based text is easy to pipe between commands.
-JSON, a much more recent invention, affords us more structure when we need it, and lets us more easily integrate command-line tools with the web.
+幸运的是，UNIX环境中长期建立的约定(专为这一目的而设计)至今仍对我们有帮助。
+标准的输入/输出/错误，信号，退出代码和其他机制可确保不同的程序很好地连接在一起。
+普通的、基于行的文本很容易在命令之间进行管道连接。
+JSON是一项较新的发明，它在需要时为我们提供了更多结构，并使我们可以更轻松地将命令行工具与Web集成。
 
-Whatever software you’re building, you can be absolutely certain that people will use it in ways you didn’t anticipate.
-Your software _will_ become a part in a larger system—your only choice is over whether it will be a well-behaved part.
+无论您要构建什么软件，都可以绝对确定人们会以您意想不到的方式使用它。
+您的软件 _将_ 成为一个更大系统中的一部分，您唯一的选择是它是否是一个行为良好的部分。
 
-Most importantly, designing for composability does not need to be at odds with designing for humans first.
-Much of the advice in this document is about how to achieve both.
+最重要的是，针对可组合性的设计不必与以人为本的设计相矛盾。
+本文中的大部分建议都是关于如何同时实现这两者的。
 
-### Consistency across programs {#consistency-across-programs}
+### 跨程序的一致性 {#consistency-across-programs}
 
 The terminal’s conventions are hardwired into our fingers.
 We had to pay an upfront cost by learning about command line syntax, flags, environment variables and so on, but it pays off in long-term efficiency… as long as programs are consistent.
