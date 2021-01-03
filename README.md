@@ -4,6 +4,8 @@
 
 原项目是[cli-guidelines](https://github.com/cli-guidelines/cli-guidelines)，译者对其进行了汉化翻译，以供英文不好的朋友阅读。
 
+这是指南的源代码。要阅读它，请访问 [cli-guidelines-zh](https://sunbk201.github.io/cli-guidelines-zh/)
+
 ## Contributing
 
 The content of the guide lives in a single Markdown file, [content/_index.md](content/_index.md).
