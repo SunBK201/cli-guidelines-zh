@@ -1,8 +1,8 @@
 # 命令行界面设计指南
 
-这是一个开源指南，可帮助您编写更好的命令行程序，采用经典的UNIX原则并对其进行优化，以适应现代生产环境的需要。
+这是一个开源指南，可帮助您编写更好的命令行程序，采用经典的UNIX哲学并对其进行优化，以适应现代生产环境的需要。
 
-原项目是[cli-guidelines](https://github.com/cli-guidelines/cli-guidelines)，译者对其进行了汉化翻译，以供英文不好的朋友阅读。
+原项目是 [cli-guidelines](https://github.com/cli-guidelines/cli-guidelines)，译者对其进行了汉化翻译，以供英文不好的朋友阅读。
 
 这是指南的源代码。要阅读它，请访问 [cli-guidelines-zh](https://sunbk201.github.io/cli-guidelines-zh/)
 

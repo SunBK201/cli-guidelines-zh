@@ -131,32 +131,32 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 
 ### 跨程序的一致性 {#consistency-across-programs}
 
-The terminal’s conventions are hardwired into our fingers.
-We had to pay an upfront cost by learning about command line syntax, flags, environment variables and so on, but it pays off in long-term efficiency… as long as programs are consistent.
+终端的约定已牢牢扎根于我们的手指。
+我们在前期必须支付成本来学习命令行语法、标志、环境变量等等，但只要程序是一致的，它就会在长期的效率方面得到回报。
 
-Where possible, a CLI should follow patterns that already exist.
-That’s what makes CLIs intuitive and guessable; that’s what makes users efficient.
+CLI应尽可能地遵循已经存在地模式。
+这就是使CLI直观易懂的原因。也就是使用户高效的原因。
 
-That being said, sometimes consistency conflicts with ease of use.
-For example, many long-established UNIX commands don't output much information by default, which can cause confusion or worry for people less familiar with the command line.
+话虽如此，有时一致性与易用性也会产生冲突。
+例如，许多历史悠久的UNIX命令默认情况下不会输出太多信息，这可能会给那些不太熟悉命令行的人造成混乱或担忧。
 
-When following convention would compromise a program’s usability, it might be time to break with it—but such a decision should be made with care.
+当遵循惯例会损害程序的可用性时，可能是时候打破它了，但这样的决定应该谨慎做出。
 
-### Saying (just) enough {#saying-just-enough}
+### 输出适中 {#saying-just-enough}
 
-The terminal is a world of pure information.
-You could make an argument that information is the interface—and that, just like with any interface, there’s often too much or too little of it.
+终端是一个纯信息的世界。
+你可以认为信息是一个界面，就像任何界面一样，经常有太多或太少的信息。
 
-A command is saying too little when it hangs for several minutes and the user starts to wonder if it’s broken.
-A command is saying too much when it dumps pages and pages of debugging output, drowning what’s truly important in an ocean of loose detritus.
-The end result is the same: a lack of clarity, leaving the user confused and irritated.
+当命令挂起几分钟时，由于输出的信息太少了，用户开始怀疑它是否坏了。
+当命令输出一页又一页的调试信息时，由于输出的信息太多了，反而淹没了在松散碎片中真正重要的部分。
+最终的结果是相同的: 缺乏清晰度，让用户感到困惑和恼火。
 
-It can be very difficult to get this balance right, but it’s absolutely crucial if software is to empower and serve its users.
+这种平衡很难做到，但如果软件要为用户提供服务，这绝对是至关重要的。
 
 ### Ease of discovery {#ease-of-discovery}
 
-When it comes to making functionality discoverable, GUIs have the upper hand.
-Everything you can do is laid out in front of you on the screen, so you can find what you need without having to learn anything, and perhaps even discover things you didn’t know were possible.
+当涉及到功能的可发现性时，GUI占了上风。
+你能做的一切都显示在你面前的屏幕上，因此您无需学习任何内容就可以找到所需的功能，甚至可以发现自己不知道的功能。
 
 It is assumed that command-line interfaces are the opposite of this—that you have to remember how to do everything.
 The original [Macintosh Human Interface Guidelines](https://archive.org/details/applehumaninterf00appl), published in 1987, recommend “See-and-point (instead of remember-and-type),” as if you could only choose one or the other.
