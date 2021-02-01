@@ -49,30 +49,30 @@
         <li><a href="#simple-parts-that-work-together">简单部件协同工作</a></li>
         <li><a href="#consistency-across-programs">跨程序的一致性</a></li>
         <li><a href="#saying-just-enough">输出适中</a></li>
-        <li><a href="#ease-of-discovery">Ease of discovery</a></li>
-        <li><a href="#conversation-as-the-norm">Conversation as the norm</a></li>
-        <li><a href="#robustness-principle">Robustness</a></li>
-        <li><a href="#empathy">Empathy</a></li>
-        <li><a href="#chaos">Chaos</a></li>
+        <li><a href="#ease-of-discovery">易发现性</a></li>
+        <li><a href="#conversation-as-the-norm">对话是常态</a></li>
+        <li><a href="#robustness-principle">鲁棒性</a></li>
+        <li><a href="#empathy">同感共情</a></li>
+        <li><a href="#chaos">混乱</a></li>
       </ul>
     </li>
     <li><a href="#guidelines">指南</a>
       <ul>
-        <li><a href="#the-basics">The Basics</a></li>
-        <li><a href="#help">Help</a></li>
-        <li><a href="#output">Output</a></li>
-        <li><a href="#errors">Errors</a></li>
-        <li><a href="#arguments-and-flags">Arguments and flags</a></li>
-        <li><a href="#interactivity">Interactivity</a></li>
-        <li><a href="#subcommands">Subcommands</a></li>
-        <li><a href="#robustness-guidelines">Robustness</a></li>
-        <li><a href="#future-proofing">Future-proofing</a></li>
-        <li><a href="#signals">Signals and control characters</a></li>
-        <li><a href="#configuration">Configuration</a></li>
-        <li><a href="#environment-variables">Environment variables</a></li>
-        <li><a href="#naming">Naming</a></li>
-        <li><a href="#distribution">Distribution</a></li>
-        <li><a href="#analytics">Analytics</a></li>
+        <li><a href="#the-basics">基础</a></li>
+        <li><a href="#help">帮助</a></li>
+        <li><a href="#output">输出</a></li>
+        <li><a href="#errors">错误</a></li>
+        <li><a href="#arguments-and-flags">参数与标志</a></li>
+        <li><a href="#interactivity">交互性</a></li>
+        <li><a href="#子命令">子命令</a></li>
+        <li><a href="#robustness-guidelines">鲁棒性</a></li>
+        <li><a href="#future-proofing">前瞻性</a></li>
+        <li><a href="#signals">信号和控制字符</a></li>
+        <li><a href="#configuration">配置</a></li>
+        <li><a href="#environment-variables">环境变量</a></li>
+        <li><a href="#naming">命名</a></li>
+        <li><a href="#distribution">发布</a></li>
+        <li><a href="#analytics">分析数据</a></li>
       </ul>
     </li>
     <li><a href="#深入阅读">深入阅读</a></li>
@@ -184,85 +184,85 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 当命令输出一页又一页的调试信息时，由于输出的信息太多了，反而淹没了在松散碎片中真正重要的部分。
 最终的结果是相同的: 缺乏清晰度，让用户感到困惑和恼火。</p>
 <p>这种平衡很难做到，但如果软件要为用户提供服务，这绝对是至关重要的。</p>
-<h3 id="ease-of-discovery">Ease of discovery</h3>
+<h3 id="ease-of-discovery">易发现性</h3>
 <p>当涉及到功能的可发现性时，GUI占了上风。
 你能做的一切都显示在你面前的屏幕上，因此您无需学习任何内容就可以找到所需的功能，甚至可以发现自己不知道的功能。</p>
-<p>It is assumed that command-line interfaces are the opposite of this—that you have to remember how to do everything.
-The original <a href="https://archive.org/details/applehumaninterf00appl">Macintosh Human Interface Guidelines</a>, published in 1987, recommend “See-and-point (instead of remember-and-type),” as if you could only choose one or the other.</p>
-<p>These things needn’t be mutually exclusive.
-The efficiency of using the command-line comes from remembering commands, but there’s no reason the commands can’t help you learn and remember.</p>
-<p>Discoverable CLIs have comprehensive help texts, provide lots of examples, suggest what command to run next, suggest what to do when there is an error.
-There are lots of ideas that can be stolen from GUIs to make CLIs easier to learn and use, even for power users.</p>
-<p><em>Citation: The Design of Everyday Things (Don Norman), Macintosh Human Interface Guidelines</em></p>
-<h3 id="conversation-as-the-norm">Conversation as the norm</h3>
-<p>GUI design, particularly in its early days, made heavy use of <em>metaphor</em>: desktops, files, folders, recycle bins.
-It made a lot of sense, because computers were still trying to bootstrap themselves into legitimacy.
-The ease of implementation of metaphors was one of the huge advantages GUIs wielded over CLIs.
-Ironically, though, the CLI has embodied an accidental metaphor all along: it’s a conversation.</p>
-<p>Beyond the most utterly simple commands, running a program usually involves more than one invocation.
-Usually, this is because it’s hard to get it right the first time: the user types a command, gets an error, changes the command, gets a different error, and so on, until it works.
-This mode of learning through repeated failure is like a conversation the user is having with the program.</p>
-<p>Trial-and-error isn’t the only type of conversational interaction, though.
-There are others:</p>
+<p>假设命令行界面与此相反，您必须记住如何做所有的事情。
+最初的 <a href="https://archive.org/details/applehumaninterf00appl">Macintosh人机界面指南</a>，发布于1987年，推荐使用 “看见并指向（而不是记住并键入）” 方式，就好像您只能选择其中一种一样。</p>
+<p>这些事情不必相互排斥。
+使用命令行的效率来自于记住命令，但是没有理由命令不能帮助您学习和记住命令。</p>
+<p>可发现的CLI包含全面的帮助文本，提供许多示例，建议下一步要运行什么命令，发生错误时应采取的措施。
+可以从GUI窃取很多想法，以使CLI易于学习和使用，即使对于高级用户也是如此。</p>
+<p><em>引用: The Design of Everyday Things (Don Norman)，Macintosh Human Interface Guidelines</em></p>
+<h3 id="conversation-as-the-norm">对话是常态</h3>
+<p>GUI设计，尤其是在早期，大量使用了 <em>比喻</em>: 桌面、文件、文件夹、回收站。
+这是很有道理的，因为计算机仍然试图使自己更加合理。
+比喻的易于实现是GUI相对于CLI的巨大优势之一。
+然而，具有讽刺意味的是，CLI一直体现了一个偶然的比喻: 它是一场对话。</p>
+<p>除了最简单的命令之外，运行一个程序通常涉及不止一次的调用。
+通常，这是因为很难在第一次就正确使用它：用户键入命令，遇到错误，更改命令，遇到其他错误等等，直到可以正常使用。
+通过反复失败来学习的这种模式就像用户与程序进行的对话。</p>
+<p>不过，试错法并不是对话互动的唯一方式。
+此外还有：</p>
 <ul>
-<li>Running one command to set up a tool and then learning what commands to run to actually start using it.</li>
-<li>Running several commands to set up an operation, and then a final command to run it (e.g. multiple <code>git add</code>s, followed by a <code>git commit</code>).</li>
-<li>Exploring a system—for example, doing a lot of <code>cd</code> and <code>ls</code> to get a sense of a directory structure, or <code>git log</code> and <code>git show</code> to explore the history of a file.</li>
-<li>Doing a dry-run of a complex operation before running it for real.</li>
+<li>运行一个命令来设置工具，然后学习运行哪些命令才能真正开始使用它。</li>
+<li>运行几个命令来设置一个操作，然后运行最后一个命令（比如 多个 <code>git add</code>，后面跟着一个 <code>git commit</code>）。</li>
+<li>探索一个系统，例如用许多 <code>cd</code> 和 <code>ls</code> 来了解目录结构，或使用 <code>git log</code> 和 <code>git show</code> 来查看文件的历史。</li>
+<li>在真正运行一个复杂的操作之前，先进行一次演习。</li>
 </ul>
-<p>Acknowledging the conversational nature of command-line interaction means you can bring relevant techniques to bear on its design.
-You can suggest possible corrections when user input is invalid, you can make the intermediate state clear when the user is going through a multi-step process, you can confirm for them that everything looks good before they do something scary.</p>
-<p>The user is conversing with your software, whether you intended it or not.
-At worst, it’s a hostile conversation which makes them feel stupid and resentful.
-At best, it’s a pleasant exchange that speeds them on their way with newfound knowledge and a feeling of achievement.</p>
-<p><em>Further reading: <a href="https://www.nngroup.com/articles/anti-mac-interface/">The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)</a></em></p>
-<h3 id="robustness-principle">Robustness</h3>
-<p>Robustness is both an objective and a subjective property.
-Software should <em>be</em> robust, of course: unexpected input should be handled gracefully, operations should be idempotent where possible, and so on.
-But it should also <em>feel</em> robust.</p>
-<p>You want your software to feel like it isn’t going to fall apart.
-You want it to feel immediate and responsive, as if it were a big mechanical machine, not a flimsy plastic “soft switch.”</p>
-<p>Subjective robustness requires attention to detail and thinking hard about what can go wrong.
-It’s lots of little things: keeping the user informed about what’s happening, explaining what common errors mean, not printing scary-looking stack traces.</p>
-<p>As a general rule, robustness can also come from keeping it simple.
-Lots of special cases and complex code tend to make a program fragile.</p>
-<h3 id="empathy">Empathy</h3>
-<p>Command-line tools are a programmer’s creative toolkit, so they should be enjoyable to use.
-This doesn’t mean turning them into a video game, or using lots of emoji (though there’s nothing inherently wrong with emoji 😉).
-It means giving the user the feeling that you are on their side, that you want them to succeed, that you have thought carefully about their problems and how to solve them.</p>
-<p>There’s no list of actions you can take that will ensure they feel this way, although we hope that following our advice will take you some of the way there.
-Delighting the user means <em>exceeding their expectations</em> at every turn, and that starts with empathy.</p>
-<h3 id="chaos">Chaos</h3>
-<p>The world of the terminal is a mess.
-Inconsistencies are everywhere, slowing us down and making us second-guess ourselves.</p>
-<p>Yet it’s undeniable that this chaos has been a source of power.
-The terminal, like the UNIX-descended computing environment in general, places very few constraints on what you can build.
-In that space, all manner of invention has bloomed.</p>
-<p>It’s ironic that this document implores you to follow existing patterns, right alongside advice that contradicts decades of command-line tradition.
-We’re just as guilty of breaking the rules as anyone.</p>
-<p>The time might come when you, too, have to break the rules.
-Do so with intention and clarity of purpose.</p>
+<p>承认命令行交互的对话性意味着您可以将相关技术应用到它的设计中。
+当用户输入无效时，您可以提出纠正建议; 当用户经历多个步骤的过程时，您可以明确中间状态; 您可以在用户做一些骚操作之前向他们确认一切进行正常。</p>
+<p>用户正在与您的软件进行对话，不管您是否有意为之。
+在最坏的情况下，这是一场充满敌意的谈话，让他们感到愚蠢和怨恨。
+在最好的情况下，这是一种愉快的交流，可以加速他们获得新知识和成就感的过程。</p>
+<p><em>深入阅读: <a href="https://www.nngroup.com/articles/anti-mac-interface/">The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)</a></em></p>
+<h3 id="robustness-principle">鲁棒性</h3>
+<p>鲁棒性既是一种客观属性，也是一种主观属性。
+当然，软件 <em>应该</em> 是健壮的: 异常的输入应该被妥善处理，操作应该在可能的情况下是幂等的，等等。
+但它也应该 <em>感觉</em> 是健壮的。</p>
+<p>你想让你的软件在感觉上不会崩溃。
+你希望它能给人一种即时响应的感觉，就好像它是一个巨大的机械机器，而不是一个脆弱的塑料“软开关”。</p>
+<p>主观的鲁棒性需要关注细节，并认真思考可能出错的地方。
+这里有许多小细节: 让用户知道当前正在发生什么，解释常见错误的含义，不打印可怕的堆栈跟踪。</p>
+<p>通常，鲁棒性也可以来自简单性。
+许多特殊情况和复杂的代码往往会使程序变得脆弱。</p>
+<h3 id="empathy">同感共情</h3>
+<p>命令行工具是程序员的创作工具，所以使用起来应该很愉快。
+这并不意味着要把它们变成一款电子游戏，或者使用大量的表情符号（尽管表情符号本身并没有什么错 😉）。
+这意味着要让用户觉得你站在他们一边，你希望他们成功，你已经仔细考虑过他们的问题以及如何解决问题。</p>
+<p>虽然我们希望遵循我们的建议会给你带来一些帮助，但你所能采取的行动并不能确保他们有这种感觉。
+取悦用户意味着每一次都 <em>超过他们的期望</em>，这始于同感共情。</p>
+<h3 id="chaos">混乱</h3>
+<p>这个世界的终端一团糟，
+前后矛盾无处不在，拖慢了我们的脚步，让我们反思自己。</p>
+<p>然而，不可否认的是，这种混乱一直是力量的源泉。
+终端，就像一般的UNIX下的计算环境一样，对您可以构建的内容设置很少的限制。
+在这个领域里，各种各样的发明都如雨后春笋般涌现。</p>
+<p>具有讽刺意味的是，本文档劝告您遵循现有模式，并提出与数十年来命令行传统相矛盾的建议。
+我们和其他人一样对违反规则感到内疚。</p>
+<p>也许您也该打破规矩了。
+有明确目的要这样做。</p>
 <blockquote>
-<p>“Abandon a standard when it is demonstrably harmful to productivity or user satisfaction.” — Jef Raskin, <a href="https://en.wikipedia.org/wiki/The_Humane_Interface">The Humane Interface</a></p>
+<p>“当一个标准明显损害了生产力或用户满意度时，那么是时候放弃这个标准了” — Jef Raskin, <a href="https://en.wikipedia.org/wiki/The_Humane_Interface">The Humane Interface</a></p>
 </blockquote>
 <h2 id="guidelines">指南</h2>
-<p>This is a collection of specific things you can do to make your command-line program better.</p>
-<p>The first section contains the essential things you need to follow.
-Get these wrong, and your program will be either hard to use or a bad CLI citizen.</p>
-<p>The rest are nice-to-haves.
-If you have the time and energy to add these things, your program will be a lot better than the average program.</p>
-<p>The idea is that, if you don’t want to think too hard about the design of your program, you don’t have to: just follow these rules and your program will probably be good.
-On the other hand, if you’ve thought about it and determined that a rule is wrong for your program, that’s fine.
-(There’s no central authority that will reject your program for not following arbitrary rules.)</p>
-<p>Also—these rules aren’t written in stone.
-If you disagree with a general rule for good reason, we hope you’ll <a href="https://github.com/cli-guidelines/cli-guidelines">propose a change</a>.</p>
-<h3 id="the-basics">The Basics</h3>
-<p>There are a few basic rules you need to follow.
-Get these wrong, and your program will be either very hard to use, or flat-out broken.</p>
-<p><strong>Use a command-line argument parsing library where you can.</strong>
-Either your language’s built-in one, or a good third-party one.
-They will normally handle arguments, flag parsing, help text, and even spelling suggestions in a sensible way.</p>
-<p>Here are some that we like:</p>
+<p>这是一组可以使您的命令行程序进一步优化的特定操作。</p>
+<p>第一部分包含您需要遵循的基本内容。
+如果这一部分犯错，您的程序会很难用。</p>
+<p>其余的部分也都值得去学习。
+如果你有时间和精力去添加这些东西，你的程序会比其他一般的程序好很多。</p>
+<p>如果你不打算花太多精力在程序的设计上，则不必：只需遵循这些规则，您的程序就可能很好。
+另一方面，如果您考虑过并确定以下规则对您的程序是错误的，那也是可以的。
+(没有一个权威会因为没有遵循任意规则而拒绝你的程序。)</p>
+<p>另外，这些规则不是一成不变的。
+如果你有充分的理由不同意这些规则，您可以<a href="https://github.com/cli-guidelines/cli-guidelines">提出建议</a>.</p>
+<h3 id="the-basics">基础</h3>
+<p>这里有一些您需要遵守的基本规则。
+弄错这些，您的程序要么使用体验很差，要么就会彻底崩溃。</p>
+<p><strong>可以的话，使用命令行参数解析库.</strong>
+命令行参数解析库要么是语言内置的，要么是优秀的第三方解析库。
+这些解析库通常会以一种合理的方式处理参数、解析标记、提供帮助文本，甚至拼写建议。</p>
+<p>以下是常见的一些解析库：</p>
 <ul>
 <li>Go: <a href="https://github.com/spf13/cobra">Cobra</a>, <a href="https://github.com/urfave/cli">cli</a></li>
 <li>Java: <a href="https://picocli.info/">picocli</a></li>
@@ -272,29 +272,29 @@ They will normally handle arguments, flag parsing, help text, and even spelling 
 <li>Rust: <a href="https://clap.rs/">clap</a>, <a href="https://github.com/TeXitoi/structopt">structopt</a></li>
 <li>PHP: <a href="https://github.com/symfony/console">console</a></li>
 </ul>
-<p><strong>Return zero exit code on success, non-zero on failure.</strong>
-Exit codes are how scripts determine whether a program succeeded or failed, so you should report this correctly.
-Map the non-zero exit codes to the most important failure modes.</p>
-<p><strong>Send output to <code>stdout</code>.</strong>
-The primary output for your command should go to <code>stdout</code>.
-Anything that is machine readable should also go to <code>stdout</code>—this is where piping sends things by default.</p>
-<p><strong>Send messaging to <code>stderr</code>.</strong>
-Log messages, errors, and so on should all be sent to <code>stderr</code>.
-This means that when commands are piped together, these messages are displayed to the user and not fed into the next command.</p>
-<h3 id="help">Help</h3>
-<p><strong>Display help text when passed no options, the <code>-h</code> flag, or the <code>--help</code> flag.</strong></p>
-<p><strong>Display a concise help text by default.</strong>
-If you can, display help by default when <code>myapp</code> or <code>myapp subcommand</code> is run.
-Unless your program is very simple and does something obvious by default (e.g. <code>ls</code>), or your program reads input interactively (e.g. <code>cat</code>).</p>
-<p>The concise help text should only include:</p>
+<p><strong>成功时返回零退出码，失败时返回非零退出码.</strong>
+退出码是描述一个程序执行成功还是失败的方式，因此您应该正确地报告这一点。
+此外，将非零的退出码映射到最重要的失败模式。</p>
+<p><strong>将 output 发送到 <code>stdout</code>.</strong>
+您的命令的主要的 output 应该是 <code>stdout</code>.
+任何机器可读的内容也应该转到 <code>stdout</code>—这是管道默认发送的地方。</p>
+<p><strong>将 messaging 发送到 <code>stderr</code>.</strong>
+日志消息，错误等都应发送到 <code>stderr</code>.
+这意味着当命令通过管道传输时，这些消息将显示给用户，而不是馈入下一个命令。</p>
+<h3 id="help">帮助</h3>
+<p><strong>当程序运行没有任何启动选项, 或者用户输入 <code>-h</code>, 或 <code>--help</code> 时, 显示帮助文本.</strong></p>
+<p><strong>默认显示精简的帮助文档。</strong>
+如果可以，尽量在运行 <code>myapp</code> 或 <code>myapp subcommand</code> 时显示帮助文档。
+除非您的应用程序非常简单，并且默认情况下会执行明确的操作 (e.g. <code>ls</code>，或者您的程序是交互式读取输入的 (e.g. <code>cat</code>)。</p>
+<p>精简的帮助文档应该只包含:</p>
 <ul>
-<li>A description of what your program does.</li>
-<li>One or two example invocations.</li>
-<li>Descriptions of flags, unless there are lots of them.</li>
-<li>An instruction to pass the <code>--help</code> flag for more information.</li>
+<li>有关程序功能的说明。</li>
+<li>一到两个调用示例。</li>
+<li>启动参数的描述，除非有很多启动参数。</li>
+<li>提示通过 <code>--help</code> 可以获取更多信息。</li>
 </ul>
-<p><code>jq</code> does this well.
-When you type <code>jq</code>, it displays an introductory description and an example, then prompts you to pass <code>jq --help</code> for the full listing of flags:</p>
+<p><code>jq</code> 是一个很好的典范。
+当你输入 <code>jq</code> 时，会显示描述信息和使用示例，然后提示你可以通过 <code>jq --help</code> 获取完整的参数列表：</p>
 <pre><code>$ jq
 jq - commandline JSON processor [version 1.6]
 
@@ -321,42 +321,40 @@ Example:
     }
 
 For a listing of options, use jq --help.
-</code></pre><p><strong>Show full help when <code>-h</code> and <code>--help</code> is passed.</strong>
-All of these should show help:</p>
+</code></pre><p><strong>通过 <code>-h</code> 和 <code>--help</code> 显示完整的帮助信息.</strong>
+以下的输入都应该显示帮助信息:</p>
 <pre><code>$ myapp
 $ myapp --help
 $ myapp -h
-</code></pre><p>Ignore any other flags and arguments that are passed—you should be able to add <code>-h</code> to the end of anything and it should show help.
-Don’t overload <code>-h</code>.</p>
-<p>If your program is <code>git</code>-like, the following should also offer help:</p>
+</code></pre><p>如果一些命令和参数没有出现在默认帮助信息中，那么应该在该命令或参数的后面通过 <code>-h</code> 可以获取该命令或参数的帮助信息。</p>
+<p>如果你的程序时类<code>git</code>程序，以下的情况也应提供帮助信息：</p>
 <pre><code>$ myapp help
 $ myapp help subcommand
 $ myapp subcommand --help
 $ myapp subcommand -h
-</code></pre><p><strong>Provide a support path for feedback and issues.</strong>
-A website or GitHub link in the top-level help text is common.</p>
-<p><strong>In help text, link to the web version of the documentation.</strong>
-If you have a specific page or anchor for a subcommand, link directly to that.
-This is particularly useful if there is more detailed documentation on the web, or further reading that might explain the behavior of something.</p>
-<p><strong>Lead with examples.</strong>
-Users tend to use examples over other forms of documentation, so show them first in the help page, particularly the common complex uses.
-If it helps explain what it’s doing and it isn’t too long, show the actual output too.</p>
-<p>You can tell a story with a series of examples, building your way toward complex uses.</p>
+</code></pre><p><strong>提供反馈和问题的支持途径.</strong>
+一个网站或GitHub链接出现在顶级帮助文档中，这是很常见的做法。</p>
+<p><strong>在帮助文本中提供Web版的文档链接</strong>
+如果您有相关子命令的特定页面或锚点，那就直接链接到该页面或锚点。
+如果在Web上有更详细的说明文档，或者对一些命令参数进行进一步解释，则此功能特别有用。</p>
+<p><strong>提供使用示例.</strong>
+用户倾向于使用示例而不是其他形式的文档，因此请首先在帮助页面中显示使用示例，尤其是常见的一些常见用法。如果可以帮助解释此示例的功能，也请显示实际输出结果。</p>
+<p>您可以通过一系列示例为复杂的使用打下基础。</p>
 <!-- TK example? -->
-<p><strong>If you’ve got loads of examples, put them somewhere else,</strong> in a cheat sheet command or a web page.
-It’s useful to have exhaustive, advanced examples, but you don’t want to make your help text really long.</p>
-<p>For more complex use cases, e.g. when integrating with another tool, it might be appropriate to write a fully-fledged tutorial.</p>
-<p><strong>Don’t bother with man pages.</strong>
-We believe that if you’re following these guidelines for help and documentation, you won’t need man pages.
-Not enough people use man pages, and they don’t work on Windows.
-If your CLI framework and package manager make it easy to output man pages, go for it, but otherwise your time is best spent improving web docs and built-in help text.</p>
-<p><em>Citation: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
-<p><strong>If your help text is long, pipe it through a pager.</strong>
+<p><strong>如果您有大量示例，请将它们放在其他地方,</strong> 例如Web上.
+拥有详尽的高级示例很有帮助，但是最好不要让帮助文本太长。</p>
+<p>对于更复杂的用例，例如与其他工具集成时，您可能需要编写完整的教程。</p>
+<p><strong>不要去管man page.</strong>
+如果您遵循这些准则获取帮助和文档，那么根本就不需要man page。
+没有太多的人使用man page，并且man page在Windows上也无法使用。
+如果您的CLI框架和程序包管理器使输出man page变得容易，那么可以加入man page，否则，您最好把时间用在改进Web文档和内置帮助文本上去。</p>
+<p><em>引用: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
+<p><strong>如果你的帮助文本长, pipe it through a pager.</strong>
 This is one useful thing that <code>man</code> does for you.
-See the advice in the “Output” section below.</p>
-<p><strong>Display the most common flags and commands at the start of the help text.</strong>
-It’s fine to have lots of flags, but if you’ve got some really common ones, display them first.
-For example, the Git command displays the commands for getting started and the most commonly used subcommands first:</p>
+参见下面的“输出”一章</p>
+<p><strong>在帮助文本的开头显示最常用的参数和命令.</strong>
+当有许多参数的时候，首先显示最常用的部分参数。
+例如，Git命令首先显示用于入门的命令以及最常用的子命令：</p>
 <pre><code>$ git
 usage: git [--version] [--help] [-C &lt;path&gt;] [-c &lt;name&gt;=&lt;value&gt;]
            [--exec-path[=&lt;path&gt;]] [--html-path] [--man-path] [--info-path]
@@ -445,7 +443,7 @@ Be intentional in making that decision, and document both syntaxes.</p>
 <p><strong>If your command is expecting to have something piped to it and <code>stdin</code> is an interactive terminal, display help immediately and quit.</strong>
 This means it doesn’t just hang, like <code>cat</code>.
 Alternatively, you could print a log message to <code>stderr</code>.</p>
-<h3 id="output">Output</h3>
+<h3 id="output">输出</h3>
 <p><strong>Human-readable output is paramount.</strong>
 Humans come first, machines second.
 The most simple and straightforward heuristic for whether a particular output stream (<code>stdout</code> or <code>stderr</code>) is being read by a human is <em>whether or not it’s a TTY</em>.
@@ -576,7 +574,7 @@ You shouldn’t use a pager if <code>stdin</code> or <code>stdout</code> is not 
 This does not page if the content fills one screen, ignores case when you search, enables color and formatting, and leaves the contents on the screen when <code>less</code> quits.</p>
 <p>There might be libraries in your language that are more robust than piping to <code>less</code>.
 For example, <a href="https://github.com/prompt-toolkit/pypager">pypager</a> in Python.</p>
-<h3 id="errors">Errors</h3>
+<h3 id="errors">错误</h3>
 <p>One of the most common reasons to consult documentation is to fix errors.
 If you can make errors into documentation, then this will save the user loads of time.</p>
 <p><strong>Catch errors and <a href="https://www.nngroup.com/articles/error-message-guidelines/">rewrite them for humans</a>.</strong>
@@ -594,7 +592,7 @@ That said, don’t forget about the signal-to-noise ratio: you don’t want to o
 Consider writing the debug log to a file instead of printing it to the terminal.</p>
 <p><strong>Make it effortless to submit bug reports.</strong>
 One nice thing you can do is provide a URL and have it pre-populate as much information as possible.</p>
-<h3 id="arguments-and-flags">Arguments and flags</h3>
+<h3 id="arguments-and-flags">参数与标志</h3>
 <p>A note on terminology:</p>
 <ul>
 <li><em>Arguments</em>, or <em>args</em>, are positional parameters to a command.
@@ -706,7 +704,7 @@ Unfortunately, not every context in which a command is run will have access to m
 For example, <code>systemd</code> service definitions, <code>exec</code> system calls, and some <code>Dockerfile</code> command forms do not support the substitutions available in most shells.
 What’s more, this approach has the same security issue of leaking the file’s contents into places like the output of <code>ps</code>.
 It’s best avoided.)</p>
-<h3 id="interactivity">Interactivity</h3>
+<h3 id="interactivity">交互性</h3>
 <p><strong>Only use prompts or interactive elements if <code>stdin</code> is an interactive terminal (a TTY).</strong>
 This is a pretty reliable way to tell whether you’re piping data into a command or whether it&rsquo;s being run in a script, in which case a prompt won’t work and you should throw an error telling the user what flag to pass.</p>
 <p><strong>If <code>--no-input</code> is passed, don’t prompt or do anything interactive.</strong>
@@ -721,7 +719,7 @@ Make it clear how to get out.
 If your program hangs on network I/O etc, always make Ctrl-C still work.
 If it’s a wrapper around program execution where Ctrl-C can’t quit (SSH, tmux, telnet, etc), make it clear how to do that.
 For example, SSH allows escape sequences with the <code>~</code> escape character.</p>
-<h3 id="subcommands">Subcommands</h3>
+<h3 id="子命令">子命令</h3>
 <p>If you’ve got a tool that’s sufficiently complex, you can reduce its complexity by making a set of subcommands.
 If you have several tools that are very closely related, you can make them easier to use and discover by combining them into a single command (for example, RCS vs. Git).</p>
 <p>They’re useful for sharing stuff—global flags, help text, configuration, storage mechanisms.</p>
@@ -736,7 +734,7 @@ Be consistent with the verbs you use across different types of objects.</p>
 <p><strong>Don’t have ambiguous or similarly-named commands.</strong>
 For example, having two subcommands called “update” and “upgrade” is quite confusing.
 You might want to use different words, or disambiguate with extra words.</p>
-<h3 id="robustness-guidelines">Robustness</h3>
+<h3 id="robustness-guidelines">鲁棒性</h3>
 <p><strong>Validate user input.</strong>
 Everywhere your program accepts data from the user, it will eventually be given bad data.
 Check early and bail out before anything bad happens, and <a href="#errors">make the errors understandable</a>.</p>
@@ -775,7 +773,7 @@ This makes it both more robust and more responsive.</p>
 Be prepared for that.
 They will wrap it in scripts, use it on bad internet connections, run many instances of it at once, and use it in environments you haven’t tested in, with quirks you didn’t anticipate.
 (Did you know macOS filesystems are case-insensitive but also case-preserving?)</p>
-<h3 id="future-proofing">Future-proofing</h3>
+<h3 id="future-proofing">前瞻性</h3>
 <p>In software of any kind, it’s crucial that interfaces don’t change without a lengthy and well-documented deprecation process.
 Subcommands, arguments, flags, configuration files, environment variables: these are all interfaces, and you’re committing to keeping them working.
 (<a href="https://semver.org/">Semantic versioning</a> can only excuse so much change; if you’re putting out a major version bump every month, it’s meaningless.)</p>
@@ -810,7 +808,7 @@ Imagine it’s 20 years from now.
 Will your command still run the same as it does today, or will it stop working because some external dependency on the internet has changed or is no longer maintained?
 The server most likely to not exist in 20 years is the one that you are maintaining right now.
 (But don’t build in a blocking call to Google Analytics either.)</p>
-<h3 id="signals">Signals and control characters</h3>
+<h3 id="signals">信号和控制字符</h3>
 <p><strong>If a user hits Ctrl-C (the INT signal), exit as soon as possible.</strong>
 Say something immediately, before you start clean-up.
 Add a timeout to any clean-up code so it can’t hang forever.</p>
@@ -822,7 +820,7 @@ Tell the user what will happen when they hit Ctrl-C again, in case it is a destr
 ^CGracefully stopping... (press Ctrl+C again to force)
 </code></pre><p>Your program should expect to be started in a situation where clean-up has not been run.
 (See <a href="https://lwn.net/Articles/191059/">Crash-only software: More than meets the eye</a>.)</p>
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration">配置</h3>
 <p>Command-line tools have lots of different types of configuration, and lots of different ways to supply it (flags, environment variables, project-level config files).
 The best way to supply each piece of configuration depends on a few factors, chief among them <em>specificity</em>, <em>stability</em> and <em>complexity</em>.</p>
 <p>Configuration generally falls into a few categories:</p>
@@ -875,7 +873,7 @@ Here is the precedence for config parameters, from highest to lowest:</p>
 <li>User-level configuration</li>
 <li>System wide configuration</li>
 </ul>
-<h3 id="environment-variables">Environment variables</h3>
+<h3 id="environment-variables">环境变量</h3>
 <p><strong>Environment variables are for behavior that <em>varies with the context</em> in which a command is run.</strong>
 The “environment” of an environment variable is the terminal session—the context in which the command is running.
 So, an env var might change each time a command runs, or between terminal sessions on one machine, or between instantiations of one project across several machines.</p>
@@ -916,7 +914,7 @@ Many languages have libraries for reading <code>.env</code> files (<a href="http
 <li>It often contains sensitive credentials &amp; key material that would be better stored more securely</li>
 </ul>
 <p>If it seems like these limitations will hamper usability or security, then a dedicated config file might be more appropriate.</p>
-<h3 id="naming">Naming</h3>
+<h3 id="naming">命名</h3>
 <p>The name of your program is particularly important on the CLI: your users will be typing it all the time, and it needs to be easy to remember and type.</p>
 <p><strong>Make it a simple, memorable word.</strong>
 But not too generic, or you’ll step on the toes of other commands and confuse users.
@@ -932,7 +930,7 @@ Some words flow across the QWERTY keyboard much more easily than others, and it�
 <code>apple</code> trips you up with the double letter.
 <code>orange</code> is longer than both, but flows much better.</p>
 <p><em>Further reading: <a href="https://smallstep.com/blog/the-poetics-of-cli-command-names/">The Poetics of CLI Command Names</a></em></p>
-<h3 id="distribution">Distribution</h3>
+<h3 id="distribution">发布</h3>
 <p><strong>If possible, distribute as a single binary.</strong>
 If your language doesn’t compile to binary executables as standard, see if it has something like <a href="https://www.pyinstaller.org/">PyInstaller</a>.
 If you really can’t distribute as a single binary, use the platform’s native package installer so you aren’t scattering things on disk that can’t easily be removed.
@@ -940,7 +938,7 @@ Tread lightly on the user’s computer.</p>
 <p>If you’re making a language-specific tool, such as a code linter, then this rule doesn’t apply—it’s safe to assume the user has an interpreter for that language installed on their computer.</p>
 <p><strong>Make it easy to uninstall.</strong>
 If it needs instructions, put them at the bottom of the install instructions—one of the most common times people want to uninstall software is right after installing it.</p>
-<h3 id="analytics">Analytics</h3>
+<h3 id="analytics">分析数据</h3>
 <p>Usage metrics can be helpful to understand how users are using your program, how to make it better, and where to focus effort.
 But, unlike websites, users of the command-line expect to be in control of their environment, and it is surprising when programs do things in the background without telling them.</p>
 <p><strong>Do not phone home usage or crash data without consent.</strong>
@@ -980,6 +978,6 @@ Encourage feedback and feature requests in your docs and repos, and try to draw 
     </main>
 
         
-        <script src="js/main.js"></script>
+        <script src="/js/main.js"></script>
     </body>
 </html>
