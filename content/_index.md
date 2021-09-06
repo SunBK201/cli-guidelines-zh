@@ -1,16 +1,16 @@
 # 命令行界面设计指南
 
-这是一个[开源指南](https://github.com/SunBK201/cli-guidelines-zh)，可帮助您编写更好的命令行程序，采用经典的UNIX哲学并对其进行优化，以适应现代生产环境的需要。
+这是一个[开源指南](https://github.com/SunBK201/cli-guidelines-zh)，可以帮助您编写出更好的命令行程序，采用经典的UNIX哲学并对其进行改进，以适应现代生产环境的需要。
 
 ## 译者 {#authors}
 
 **SunBK201** 
 
-原项目是[cli-guidelines](https://github.com/cli-guidelines/cli-guidelines)，译者对其进行了汉化翻译，以供英文不好的朋友阅读。
+原项目是[cli-guidelines](https://github.com/cli-guidelines/cli-guidelines)，译者对其进行了本地化。
 
 [@SunBK201](https://github.com/SunBK201)
 
-<iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=SunBK201&repo=cli-guidelines-zh&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+<iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=SunBK201&repo=cli-guidelines-zh&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="40" title="GitHub"></iframe>
 
 ## 作者 {#authors}
 
