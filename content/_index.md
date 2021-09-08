@@ -130,7 +130,7 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 ### 程序间一致性 {#consistency-across-programs}
 
 终端的约定已牢牢扎根于我们的手指。
-我们在前期必须支付成本来学习命令行语法、flags、环境变量等等，但只要程序与程序之间的规则模式是一致的，我们付出的学习成本就会在长期的效率方面得到回报。
+我们在前期必须支付成本来学习命令行语法、选项、环境变量等等，但只要程序与程序之间的规则模式是一致的，我们付出的学习成本就会在长期的效率方面得到回报。
 
 因此，CLI应尽可能地遵循现已存在的规则模式。
 这也就是CLI这么符合直觉性和易猜性的原因，也是使用CLI用户如此高效的原因。
@@ -258,11 +258,11 @@ _深入阅读: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 这里有一些您需要遵守的基本规则。
 弄错这些，您的程序要么使用体验很差，要么就会彻底崩溃。
 
-**可以的话，使用命令行参数解析库.**
+**请尽量使用命令行参数解析库.**
 命令行参数解析库要么是语言内置的，要么是优秀的第三方解析库。
-这些解析库通常会以一种合理的方式处理参数、解析标记、提供帮助文本，甚至拼写建议。
+这些解析库通常会以一种合理的方式处理参数、解析选项、提供帮助文本，甚至拼写建议。
 
-以下是常见的一些解析库：
+以下是一些常见的解析库：
 * Go: [Cobra](https://github.com/spf13/cobra), [cli](https://github.com/urfave/cli)
 * Java: [picocli](https://picocli.info/)
 * Node: [oclif](https://oclif.io/)
@@ -271,12 +271,12 @@ _深入阅读: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 * Rust: [clap](https://clap.rs/), [structopt](https://github.com/TeXitoi/structopt)
 * PHP: [console](https://github.com/symfony/console)
 
-**成功时返回零退出码，失败时返回非零退出码.**
+**成功时返回0退出码，失败时返回非0退出码.**
 退出码是描述一个程序执行成功还是失败的方式，因此您应该正确地报告这一点。
-此外，将非零的退出码映射到最重要的失败模式。
+此外，应将非0的退出码映射到最重要的失败模式。
 
 **将 output 发送到 `stdout`.**
-您的命令的主要的 output 应该是 `stdout`.
+您命令的主要的 output 应该是 `stdout`.
 任何机器可读的内容也应该转到 `stdout`—这是管道默认发送的地方。
 
 **将 messaging 发送到 `stderr`.**
@@ -285,21 +285,21 @@ _深入阅读: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 
 ### 帮助 {#help}
 
-**当程序运行没有任何启动选项, 或者用户输入 `-h`, 或 `--help` 时, 显示帮助文本.**
+**当命令的调用没有传入任何选项时, 或者用户输入 `-h`, 或 `--help` 时, 显示帮助文本.**
 
-**默认显示精简的帮助文档。**
+**默认显示精简的帮助文本。**
 如果可以，尽量在运行 `myapp` 或 `myapp subcommand` 时显示帮助文档。
 除非您的应用程序非常简单，并且默认情况下会执行明确的操作 (e.g. `ls`，或者您的程序是交互式读取输入的 (e.g. `cat`)。
 
-精简的帮助文档应该只包含:
+精简的帮助文本应该只包含:
 
 - 有关程序功能的说明。
 - 一到两个调用示例。
-- 启动参数的描述，除非有很多启动参数。
+- 选项的描述，除非有很多选项。
 - 提示通过 `--help` 可以获取更多信息。
 
 `jq` 是一个很好的典范。
-当你输入 `jq` 时，会显示描述信息和使用示例，然后提示你可以通过 `jq --help` 获取完整的参数列表：
+当你输入 `jq` 时，会显示描述信息和使用示例，然后提示你可以通过 `jq --help` 获取完整的选项列表：
 
 ```
 $ jq
@@ -339,9 +339,9 @@ $ myapp --help
 $ myapp -h
 ```
 
-如果一些命令和参数没有出现在默认帮助信息中，那么应该在该命令或参数的后面通过 `-h` 可以获取该命令或参数的帮助信息。
+如果一些选项和参数没有出现在默认帮助信息中，那么应该可以在该选项或参数的后面通过 `-h` 获取该选项或参数的帮助信息。
 
-如果你的程序时类`git`程序，以下的情况也应提供帮助信息：
+如果你的程序是`git-like`程序，以下的情况也应提供帮助信息：
 
 ```
 $ myapp help
@@ -350,11 +350,11 @@ $ myapp subcommand --help
 $ myapp subcommand -h
 ```
 
-**提供反馈和问题的支持途径.**
-一个网站或GitHub链接出现在顶级帮助文档中，这是很常见的做法。
+**提供feedback和issues的途径.**
+一个网站或GitHub链接出现在顶级帮助文本中，这是很常见的做法。
 
-**在帮助文本中提供Web版的文档链接**
-如果您有相关子命令的特定页面或锚点，那就直接链接到该页面或锚点。
+**在帮助文本中提供Web版的文档链接.**
+如果您有关于子命令的特定说明页面或锚点，那就直接加入到帮助中。
 如果在Web上有更详细的说明文档，或者对一些命令参数进行进一步解释，则此功能特别有用。
 
 **提供使用示例.**
@@ -366,11 +366,11 @@ $ myapp subcommand -h
 **如果您有大量示例，请将它们放在其他地方,** 例如Web上.
 拥有详尽的高级示例很有帮助，但是最好不要让帮助文本太长。
 
-对于更复杂的用例，例如与其他工具集成时，您可能需要编写完整的教程。
+对于更复杂的用例，例如与需要与其他工具集成，您可能需要编写完整的教程。
 
 **不要去管man page.**
-如果您遵循这些准则获取帮助和文档，那么根本就不需要man page。
-没有太多的人使用man page，并且man page在Windows上也无法使用。
+如果您遵循这些准则提供文档和帮助，那么根本就不需要man page。
+没有多少人使用man page，并且man page在Windows上也无法使用。
 如果您的CLI框架和程序包管理器使输出man page变得容易，那么可以加入man page，否则，您最好把时间用在改进Web文档和内置帮助文本上去。
 
 _引用: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
@@ -379,7 +379,7 @@ _引用: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3
 This is one useful thing that `man` does for you.
 参见下面的“输出”一章
 
-**在帮助文本的开头显示最常用的参数和命令.**
+**在帮助文本的开头显示最常用的选项和命令.**
 当有许多参数的时候，首先显示最常用的部分参数。
 例如，Git命令首先显示用于入门的命令以及最常用的子命令：
 
@@ -412,9 +412,9 @@ examine the history and state (see also: git help revisions)
 …
 ```
 
-**Use formatting in your help text.**
-Bold headings make it much easier to scan.
-But, try to do it in a terminal-independent way so that your users aren't staring down a wall of escape characters.
+**在帮助文本中使用不同格式.**
+加粗的标题能够更加容易被找到。
+但是，应尽量以独立于终端的方式进行，这样用户就不会盯着一堆转义字符了。
 
 <pre>
 <code>
@@ -459,11 +459,11 @@ list your apps
 
 Note: When `heroku apps --help` is piped through a pager, the command emits no escape characters.
 
-**If the user did something wrong and you can guess what they meant, suggest it.**
-For example, `brew update jq` tells you that you should run `brew upgrade jq`.
+**如果用户进行了错误操作，你可以猜测用户想要做什么，并提出建议.**
+比如, `brew update jq` 告诉你你应该运行 `brew upgrade jq`.
 
-You can ask if they want to run the suggested command, but don’t force it on them.
-For example:
+你可以询问他们是否想运行建议的命令，但不要强迫他们这样做。
+比如:
 
 ```
 $ heroku pss
@@ -471,21 +471,21 @@ $ heroku pss
 Did you mean ps? [y/n]:
 ```
 
-Rather than suggesting the corrected syntax, you might be tempted to just run it for them, as if they’d typed it right in the first place.
-Sometimes this is the right thing to do, but not always.
+你可能会想，与其建议他们使用正确的语法，不如直接为他们运行，就好像他们一开始就打对了一样。
+有时这是正确的，但并不总是这样。
 
-Firstly, invalid input doesn’t necessarily imply a simple typo—it can often mean the user has made a logical mistake, or misused a shell variable.
-Assuming what they meant can be dangerous, especially if the resulting action modifies state.
+首先，无效的输入并不一定意味着简单的键入错误--它往往意味着用户犯了一个逻辑错误，或者误用了一个shell变量。
+假设他们的意思可能是危险的，特别是如果由此产生的操作修改了状态。
 
-Secondly, be aware that if you change what the user typed, they won’t learn the correct syntax.
-In effect, you’re ruling that the way they typed it is valid and correct, and you’re committing to supporting that indefinitely.
-Be intentional in making that decision, and document both syntaxes.
+其次，要注意，如果你改变了用户输入的内容，他们就不会学到正确的语法。
+实际上，你是在裁定他们输入的方式是否有效和正确，而且你承诺将无限期地支持这种方式。
+在做出这个决定时，要有意识地记录两种语法。
 
 _Further reading: [“Do What I Mean”](http://www.catb.org/~esr/jargon/html/D/DWIM.html)_
 
-**If your command is expecting to have something piped to it and `stdin` is an interactive terminal, display help immediately and quit.**
-This means it doesn’t just hang, like `cat`.
-Alternatively, you could print a log message to `stderr`.
+**如果你的命令希望有东西被pipe到它那里，且`stdin`是一个交互式终端，请立即显示帮助并退出.**
+这意味着它不是一直在挂起, 像 `cat`.
+另外，你可以打印一条日志信息到 `stderr`.
 
 ### 输出 {#output}
 
@@ -681,7 +681,7 @@ Consider writing the debug log to a file instead of printing it to the terminal.
 **Make it effortless to submit bug reports.**
 One nice thing you can do is provide a URL and have it pre-populate as much information as possible.
 
-### 参数与标志 {#arguments-and-flags}
+### 参数与选项 {#arguments-and-flags}
 
 A note on terminology:
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-	<meta name="generator" content="Hugo 0.87.0" />
+	<meta name="generator" content="Hugo 0.88.1" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -62,7 +62,7 @@
         <li><a href="#help">帮助</a></li>
         <li><a href="#output">输出</a></li>
         <li><a href="#errors">错误</a></li>
-        <li><a href="#arguments-and-flags">参数与标志</a></li>
+        <li><a href="#arguments-and-flags">参数与选项</a></li>
         <li><a href="#interactivity">交互性</a></li>
         <li><a href="#子命令">子命令</a></li>
         <li><a href="#robustness-guidelines">鲁棒性</a></li>
@@ -169,7 +169,7 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 本文中的大部分建议都是关于如何同时实现这两者的。</p>
 <h3 id="consistency-across-programs">程序间一致性</h3>
 <p>终端的约定已牢牢扎根于我们的手指。
-我们在前期必须支付成本来学习命令行语法、flags、环境变量等等，但只要程序与程序之间的规则模式是一致的，我们付出的学习成本就会在长期的效率方面得到回报。</p>
+我们在前期必须支付成本来学习命令行语法、选项、环境变量等等，但只要程序与程序之间的规则模式是一致的，我们付出的学习成本就会在长期的效率方面得到回报。</p>
 <p>因此，CLI应尽可能地遵循现已存在的规则模式。
 这也就是CLI这么符合直觉性和易猜性的原因，也是使用CLI用户如此高效的原因。</p>
 <p>话虽如此，有些时候一致性会与易用性冲突。
@@ -257,10 +257,10 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 <h3 id="the-basics">基础</h3>
 <p>这里有一些您需要遵守的基本规则。
 弄错这些，您的程序要么使用体验很差，要么就会彻底崩溃。</p>
-<p><strong>可以的话，使用命令行参数解析库.</strong>
+<p><strong>请尽量使用命令行参数解析库.</strong>
 命令行参数解析库要么是语言内置的，要么是优秀的第三方解析库。
-这些解析库通常会以一种合理的方式处理参数、解析标记、提供帮助文本，甚至拼写建议。</p>
-<p>以下是常见的一些解析库：</p>
+这些解析库通常会以一种合理的方式处理参数、解析选项、提供帮助文本，甚至拼写建议。</p>
+<p>以下是一些常见的解析库：</p>
 <ul>
 <li>Go: <a href="https://github.com/spf13/cobra">Cobra</a>, <a href="https://github.com/urfave/cli">cli</a></li>
 <li>Java: <a href="https://picocli.info/">picocli</a></li>
@@ -270,30 +270,30 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 <li>Rust: <a href="https://clap.rs/">clap</a>, <a href="https://github.com/TeXitoi/structopt">structopt</a></li>
 <li>PHP: <a href="https://github.com/symfony/console">console</a></li>
 </ul>
-<p><strong>成功时返回零退出码，失败时返回非零退出码.</strong>
+<p><strong>成功时返回0退出码，失败时返回非0退出码.</strong>
 退出码是描述一个程序执行成功还是失败的方式，因此您应该正确地报告这一点。
-此外，将非零的退出码映射到最重要的失败模式。</p>
+此外，应将非0的退出码映射到最重要的失败模式。</p>
 <p><strong>将 output 发送到 <code>stdout</code>.</strong>
-您的命令的主要的 output 应该是 <code>stdout</code>.
+您命令的主要的 output 应该是 <code>stdout</code>.
 任何机器可读的内容也应该转到 <code>stdout</code>—这是管道默认发送的地方。</p>
 <p><strong>将 messaging 发送到 <code>stderr</code>.</strong>
 日志消息，错误等都应发送到 <code>stderr</code>.
 这意味着当命令通过管道传输时，这些消息将显示给用户，而不是馈入下一个命令。</p>
 <h3 id="help">帮助</h3>
-<p><strong>当程序运行没有任何启动选项, 或者用户输入 <code>-h</code>, 或 <code>--help</code> 时, 显示帮助文本.</strong></p>
-<p><strong>默认显示精简的帮助文档。</strong>
+<p><strong>当命令的调用没有传入任何选项时, 或者用户输入 <code>-h</code>, 或 <code>--help</code> 时, 显示帮助文本.</strong></p>
+<p><strong>默认显示精简的帮助文本。</strong>
 如果可以，尽量在运行 <code>myapp</code> 或 <code>myapp subcommand</code> 时显示帮助文档。
 除非您的应用程序非常简单，并且默认情况下会执行明确的操作 (e.g. <code>ls</code>，或者您的程序是交互式读取输入的 (e.g. <code>cat</code>)。</p>
-<p>精简的帮助文档应该只包含:</p>
+<p>精简的帮助文本应该只包含:</p>
 <ul>
 <li>有关程序功能的说明。</li>
 <li>一到两个调用示例。</li>
-<li>启动参数的描述，除非有很多启动参数。</li>
+<li>选项的描述，除非有很多选项。</li>
 <li>提示通过 <code>--help</code> 可以获取更多信息。</li>
 </ul>
 <p><code>jq</code> 是一个很好的典范。
-当你输入 <code>jq</code> 时，会显示描述信息和使用示例，然后提示你可以通过 <code>jq --help</code> 获取完整的参数列表：</p>
-<pre><code>$ jq
+当你输入 <code>jq</code> 时，会显示描述信息和使用示例，然后提示你可以通过 <code>jq --help</code> 获取完整的选项列表：</p>
+<pre tabindex="0"><code>$ jq
 jq - commandline JSON processor [version 1.6]
 
 Usage:    jq [options] &lt;jq filter&gt; [file...]
@@ -321,19 +321,19 @@ Example:
 For a listing of options, use jq --help.
 </code></pre><p><strong>通过 <code>-h</code> 和 <code>--help</code> 显示完整的帮助信息.</strong>
 以下的输入都应该显示帮助信息:</p>
-<pre><code>$ myapp
+<pre tabindex="0"><code>$ myapp
 $ myapp --help
 $ myapp -h
-</code></pre><p>如果一些命令和参数没有出现在默认帮助信息中，那么应该在该命令或参数的后面通过 <code>-h</code> 可以获取该命令或参数的帮助信息。</p>
-<p>如果你的程序时类<code>git</code>程序，以下的情况也应提供帮助信息：</p>
-<pre><code>$ myapp help
+</code></pre><p>如果一些选项和参数没有出现在默认帮助信息中，那么应该可以在该选项或参数的后面通过 <code>-h</code> 获取该选项或参数的帮助信息。</p>
+<p>如果你的程序是<code>git-like</code>程序，以下的情况也应提供帮助信息：</p>
+<pre tabindex="0"><code>$ myapp help
 $ myapp help subcommand
 $ myapp subcommand --help
 $ myapp subcommand -h
-</code></pre><p><strong>提供反馈和问题的支持途径.</strong>
-一个网站或GitHub链接出现在顶级帮助文档中，这是很常见的做法。</p>
-<p><strong>在帮助文本中提供Web版的文档链接</strong>
-如果您有相关子命令的特定页面或锚点，那就直接链接到该页面或锚点。
+</code></pre><p><strong>提供feedback和issues的途径.</strong>
+一个网站或GitHub链接出现在顶级帮助文本中，这是很常见的做法。</p>
+<p><strong>在帮助文本中提供Web版的文档链接.</strong>
+如果您有关于子命令的特定说明页面或锚点，那就直接加入到帮助中。
 如果在Web上有更详细的说明文档，或者对一些命令参数进行进一步解释，则此功能特别有用。</p>
 <p><strong>提供使用示例.</strong>
 用户倾向于使用示例而不是其他形式的文档，因此请首先在帮助页面中显示使用示例，尤其是常见的一些常见用法。如果可以帮助解释此示例的功能，也请显示实际输出结果。</p>
@@ -341,19 +341,19 @@ $ myapp subcommand -h
 <!-- TK example? -->
 <p><strong>如果您有大量示例，请将它们放在其他地方,</strong> 例如Web上.
 拥有详尽的高级示例很有帮助，但是最好不要让帮助文本太长。</p>
-<p>对于更复杂的用例，例如与其他工具集成时，您可能需要编写完整的教程。</p>
+<p>对于更复杂的用例，例如与需要与其他工具集成，您可能需要编写完整的教程。</p>
 <p><strong>不要去管man page.</strong>
-如果您遵循这些准则获取帮助和文档，那么根本就不需要man page。
-没有太多的人使用man page，并且man page在Windows上也无法使用。
+如果您遵循这些准则提供文档和帮助，那么根本就不需要man page。
+没有多少人使用man page，并且man page在Windows上也无法使用。
 如果您的CLI框架和程序包管理器使输出man page变得容易，那么可以加入man page，否则，您最好把时间用在改进Web文档和内置帮助文本上去。</p>
 <p><em>引用: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
 <p><strong>如果你的帮助文本长, pipe it through a pager.</strong>
 This is one useful thing that <code>man</code> does for you.
 参见下面的“输出”一章</p>
-<p><strong>在帮助文本的开头显示最常用的参数和命令.</strong>
+<p><strong>在帮助文本的开头显示最常用的选项和命令.</strong>
 当有许多参数的时候，首先显示最常用的部分参数。
 例如，Git命令首先显示用于入门的命令以及最常用的子命令：</p>
-<pre><code>$ git
+<pre tabindex="0"><code>$ git
 usage: git [--version] [--help] [-C &lt;path&gt;] [-c &lt;name&gt;=&lt;value&gt;]
            [--exec-path[=&lt;path&gt;]] [--html-path] [--man-path] [--info-path]
            [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
@@ -379,9 +379,9 @@ examine the history and state (see also: git help revisions)
    show       Show various types of objects
    status     Show the working tree status
 …
-</code></pre><p><strong>Use formatting in your help text.</strong>
-Bold headings make it much easier to scan.
-But, try to do it in a terminal-independent way so that your users aren&rsquo;t staring down a wall of escape characters.</p>
+</code></pre><p><strong>在帮助文本中使用不同格式.</strong>
+加粗的标题能够更加容易被找到。
+但是，应尽量以独立于终端的方式进行，这样用户就不会盯着一堆转义字符了。</p>
 <pre>
 <code>
 <strong>$ heroku apps --help</strong>
@@ -423,24 +423,24 @@ list your apps
 </code>
 </pre>
 <p>Note: When <code>heroku apps --help</code> is piped through a pager, the command emits no escape characters.</p>
-<p><strong>If the user did something wrong and you can guess what they meant, suggest it.</strong>
-For example, <code>brew update jq</code> tells you that you should run <code>brew upgrade jq</code>.</p>
-<p>You can ask if they want to run the suggested command, but don’t force it on them.
-For example:</p>
-<pre><code>$ heroku pss
+<p><strong>如果用户进行了错误操作，你可以猜测用户想要做什么，并提出建议.</strong>
+比如, <code>brew update jq</code> 告诉你你应该运行 <code>brew upgrade jq</code>.</p>
+<p>你可以询问他们是否想运行建议的命令，但不要强迫他们这样做。
+比如:</p>
+<pre tabindex="0"><code>$ heroku pss
  ›   Warning: pss is not a heroku command.
 Did you mean ps? [y/n]:
-</code></pre><p>Rather than suggesting the corrected syntax, you might be tempted to just run it for them, as if they’d typed it right in the first place.
-Sometimes this is the right thing to do, but not always.</p>
-<p>Firstly, invalid input doesn’t necessarily imply a simple typo—it can often mean the user has made a logical mistake, or misused a shell variable.
-Assuming what they meant can be dangerous, especially if the resulting action modifies state.</p>
-<p>Secondly, be aware that if you change what the user typed, they won’t learn the correct syntax.
-In effect, you’re ruling that the way they typed it is valid and correct, and you’re committing to supporting that indefinitely.
-Be intentional in making that decision, and document both syntaxes.</p>
+</code></pre><p>你可能会想，与其建议他们使用正确的语法，不如直接为他们运行，就好像他们一开始就打对了一样。
+有时这是正确的，但并不总是这样。</p>
+<p>首先，无效的输入并不一定意味着简单的键入错误&ndash;它往往意味着用户犯了一个逻辑错误，或者误用了一个shell变量。
+假设他们的意思可能是危险的，特别是如果由此产生的操作修改了状态。</p>
+<p>其次，要注意，如果你改变了用户输入的内容，他们就不会学到正确的语法。
+实际上，你是在裁定他们输入的方式是否有效和正确，而且你承诺将无限期地支持这种方式。
+在做出这个决定时，要有意识地记录两种语法。</p>
 <p><em>Further reading: <a href="http://www.catb.org/~esr/jargon/html/D/DWIM.html">“Do What I Mean”</a></em></p>
-<p><strong>If your command is expecting to have something piped to it and <code>stdin</code> is an interactive terminal, display help immediately and quit.</strong>
-This means it doesn’t just hang, like <code>cat</code>.
-Alternatively, you could print a log message to <code>stderr</code>.</p>
+<p><strong>如果你的命令希望有东西被pipe到它那里，且<code>stdin</code>是一个交互式终端，请立即显示帮助并退出.</strong>
+这意味着它不是一直在挂起, 像 <code>cat</code>.
+另外，你可以打印一条日志信息到 <code>stderr</code>.</p>
 <h3 id="output">输出</h3>
 <p><strong>Human-readable output is paramount.</strong>
 Humans come first, machines second.
@@ -476,7 +476,7 @@ For example, <code>cp</code> will not print anything, even if it takes a long ti
 <p><strong>If you change state, tell the user.</strong>
 When a command changes the state of a system, it’s especially valuable to explain what has just happened, so the user can model the state of the system in their head—particularly if the result doesn’t directly map to what the user requested.</p>
 <p>For example, <code>git push</code> tells you exactly what it is doing, and what the new state of the remote branch is:</p>
-<pre><code>$ git push
+<pre tabindex="0"><code>$ git push
 Enumerating objects: 18, done.
 Counting objects: 100% (18/18), done.
 Delta compression using up to 8 threads
@@ -489,7 +489,7 @@ To github.com:replicate/replicate.git
 </code></pre><p><strong>Make it easy to see the current state of the system.</strong>
 If your program does a lot of complex state changes and it is not immediately visible in the filesystem, make sure you make this easy to view.</p>
 <p>For example, <code>git status</code> tells you as much information as possible about the current state of your Git repository, and some hints at how to modify the state:</p>
-<pre><code>$ git status
+<pre tabindex="0"><code>$ git status
 On branch bfirsh/fix-delete
 Your branch is up to date with 'origin/bfirsh/fix-delete'.
 
@@ -512,7 +512,7 @@ This includes things like:</p>
 For example, <code>ls</code> shows permissions in a scannable way.
 When you first see it, you can ignore most of the information.
 Then, as you learn how it works, you pick out more patterns over time.</p>
-<pre><code>-rw-r--r-- 1 root root     68 Aug 22 23:20 resolv.conf
+<pre tabindex="0"><code>-rw-r--r-- 1 root root     68 Aug 22 23:20 resolv.conf
 lrwxrwxrwx 1 root root     13 Mar 14 20:24 rmt -&gt; /usr/sbin/rmt
 drwxr-xr-x 4 root root   4.0K Jul 20 14:51 security
 drwxr-xr-x 2 root root   4.0K Jul 20 14:53 selinux
@@ -541,7 +541,7 @@ This will stop progress bars turning into Christmas trees in CI log output.</p>
 Pictures can be better than words if you need to make several things distinct, catch the user’s attention, or just add a bit of character.
 Be careful, though—it can be easy to overdo it and make your program look cluttered or feel like a toy.</p>
 <p>For example, <a href="https://github.com/FiloSottile/yubikey-agent">yubikey-agent</a> uses emoji to add structure to the output so it isn’t just a wall of text, and a ❌ to draw your attention to an important piece of information:</p>
-<pre><code class="language-shell-session" data-lang="shell-session">$ yubikey-agent -setup
+<pre tabindex="0"><code class="language-shell-session" data-lang="shell-session">$ yubikey-agent -setup
 🔐 The PIN is up to 8 numbers, letters, or symbols. Not just numbers!
 ❌ The key will be lost if the PIN and PUK are locked after 3 incorrect tries.
 
@@ -590,7 +590,7 @@ That said, don’t forget about the signal-to-noise ratio: you don’t want to o
 Consider writing the debug log to a file instead of printing it to the terminal.</p>
 <p><strong>Make it effortless to submit bug reports.</strong>
 One nice thing you can do is provide a URL and have it pre-populate as much information as possible.</p>
-<h3 id="arguments-and-flags">参数与标志</h3>
+<h3 id="arguments-and-flags">参数与选项</h3>
 <p>A note on terminology:</p>
 <ul>
 <li><em>Arguments</em>, or <em>args</em>, are positional parameters to a command.
@@ -678,13 +678,13 @@ For example, imagine a situation where changing a number in a configuration file
 <p><strong>If input or output is a file, support <code>-</code> to read from <code>stdin</code> or write to <code>stdout</code>.</strong>
 This lets the output of another command be the input of your command and vice versa, without using a temporary file.
 For example, <code>tar</code> can extract files from <code>stdin</code>:</p>
-<pre><code>$ curl https://example.com/something.tar.gz | tar xvf -
+<pre tabindex="0"><code>$ curl https://example.com/something.tar.gz | tar xvf -
 </code></pre><p><strong>If a flag can accept an optional value, allow a special word like “none.”</strong>
 For example, <code>ssh -F</code> takes an optional filename of an alternative <code>ssh_config</code> file, and <code>ssh -F none</code> runs SSH with no config file. Don’t just use a blank value—this can make it ambiguous whether arguments are flag values or arguments.</p>
 <p><strong>If possible, make arguments, flags and subcommands order-independent.</strong>
 A lot of CLIs, especially those with subcommands, have unspoken rules on where you can put various arguments.
 For example a command might have a <code>--foo</code> flag that only works if you put it before the subcommand:</p>
-<pre><code>mycmd --foo=1 subcmd
+<pre tabindex="0"><code>mycmd --foo=1 subcmd
 works
 
 $ mycmd subcmd --foo=1
@@ -813,7 +813,7 @@ Add a timeout to any clean-up code so it can’t hang forever.</p>
 <p><strong>If a user hits Ctrl-C during clean-up operations that might take a long time, skip them.</strong>
 Tell the user what will happen when they hit Ctrl-C again, in case it is a destructive action.</p>
 <p>For example, when quitting Docker Compose, you can hit Ctrl-C a second time to force your containers to stop immediately instead of shutting them down gracefully.</p>
-<pre><code>$  docker-compose up
+<pre tabindex="0"><code>$  docker-compose up
 …
 ^CGracefully stopping... (press Ctrl+C again to force)
 </code></pre><p>Your program should expect to be started in a situation where clean-up has not been run.
