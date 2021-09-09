@@ -487,50 +487,85 @@ _Further reading: [“Do What I Mean”](http://www.catb.org/~esr/jargon/html/D/
 这意味着它不是一直在挂起, 像 `cat`.
 另外，你可以打印一条日志信息到 `stderr`.
 
+### 文档 {#documentation}
+
+[帮助文本](#help)的目的是给人一种简短、直接的感觉，让人知道你的工具是什么，有哪些选项，以及如何执行最常见的任务。
+另一方面，文档是深入了解全部细节的地方。
+人们可以通过文档来了解你的工具可以用来做什么，不可以做什么，它是如何工作的，以及使用全部功能的方法。 
+
+**提供Web文档.**
+人们可以通过搜索引擎来查到你提供的文档，并能够通过索引连接到特定的部分。Web文档是目前最具包容性的文档格式。
+
+**提供终端文档.**
+终端文档有几个不错的特性：访问速度快，与工具的安装版本保持同步，而且不需要互联网连接也能工作。
+
+**考虑是否提供 man pages.**
+[man pages](https://en.wikipedia.org/wiki/Man_page), Unix最初的文档系统, 至今仍在使用, 许多用户在尝试了解你的工具时会反射性地查看`man mycmd`.
+为了让man pages跟容易生成，你可以使用一个工具[ronn](http://rtomayko.github.io/ronn/ronn.1.html)（它也可以帮助你自动生成web文档）
+
+然而，不是每个人都知道`man`，而且`man`也并非在全平台都可以运行，所以你应该确保终端文档同样可以获取到。
+比如，`git` 和 `npm` 可以通过  `help` 子命令获取到man pages，因此 `npm help ls` 等同于 `man npm-ls`。
+
+```
+NPM-LS(1)                                                            NPM-LS(1)
+
+NAME
+       npm-ls - List installed packages
+
+SYNOPSIS
+         npm ls [[<@scope>/]<pkg> ...]
+
+         aliases: list, la, ll
+
+DESCRIPTION
+       This command will print to stdout all the versions of packages that are
+       installed, as well as their dependencies, in a tree-structure.
+
+       ...
+```
+
 ### 输出 {#output}
 
-**Human-readable output is paramount.**
-Humans come first, machines second.
-The most simple and straightforward heuristic for whether a particular output stream (`stdout` or `stderr`) is being read by a human is _whether or not it’s a TTY_.
-Whatever language you’re using, it will have a utility or library for doing this (e.g. [Python](https://stackoverflow.com/questions/858623/how-to-recognize-whether-a-script-is-running-on-a-tty), [Node](https://nodejs.org/api/process.html#process_a_note_on_process_i_o), [Go](https://github.com/mattn/go-isatty)).
+**人类可读的输出是至关重要的.**
+要把人放在首位，机器放在第二位。
+对于一个特定的输出流(`stdout` or `stderr`)，要判断它是否被人类读取，最简单和直接的启发方法是看它 _是否是一个TTY_.
 
 _Further reading on [what a TTY is](https://unix.stackexchange.com/a/4132)._
 
-**Have machine-readable output where it does not impact usability.**
-Streams of text is the universal interface in UNIX.
-Programs typically output lines of text, and programs typically expect lines of text as input,
-therefore you can compose multiple programs together.
-This is normally done to make it possible to write scripts,
-but it can also help the usability for humans using programs.
-For example, a user should be able to pipe output to `grep` and it should do what they expect.
+**在不影响可用性的地方要有机器可读的输出.**
+文本流是UNIX中的通用接口。
+程序通常会输出文本行，而程序通常希望有文本行作为输入，
+因此你可以把多个程序编在一起。
+这样做通常是为了使编写脚本成为可能，
+但它也有助于人类使用程序的可用性。
+例如，用户应该能够用管道输出到`grep`，它应该做他们所期望的事情。
 
 > “Expect the output of every program to become the input to another, as yet unknown, program.”
 — [Doug McIlroy](https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html)
 
-**If human-readable output breaks machine-readable output, use `--plain` to display output in plain, tabular text format for integration with tools like `grep` or `awk`.**
-In some cases, you might need to output information in a different way to make it human-readable.
-<!-- (TK example with and without --plain) -->
-For example, if you are displaying a line-based table, you might choose to split a cell into multiple lines, fitting in more information while keeping it within the width of the screen.
-This breaks the expected behavior of there being one piece of data per line, so you should provide a `--plain` flag for scripts, which disables all such manipulation and outputs one record per line.
+**如果人类可读的输出破坏了机器可读的输出，请使用 `--plain` 以纯表格文本格式显示输出，以便与 `grep` 或 `awk` 等工具集成。**
+在某些情况下，你可能需要以不同的方式输出信息以使其易于阅读。
+例如，如果你正在显示一个基于行的表格，你可能会选择将一个单元格分成多行，以适应更多信息，同时将其保持在屏幕宽度内。
+这打破了每行一条数据的预期行为，因此您应该为脚本提供一个 `--plain` 选项，它可以禁用所有此类操作并每行输出一条记录。
 
-**Display output as formatted JSON if `--json` is passed.**
-JSON allows for more structure than plain text, so it makes it much easier to output and handle complex data structures.
-[`jq`](https://stedolan.github.io/jq/) is a common tool for working with JSON on the command-line, and there is now a [whole ecosystem of tools](https://ilya-sher.org/2018/04/10/list-of-json-tools-for-command-line/) that output and manipulate JSON.
+**如果被传入 `--json` ，则输出显示为格式化的 JSON。.**
+JSON比纯文本有更多的结构，所以它能够更容易输出和处理复杂的数据结构。
+[`jq`](https://stedolan.github.io/jq/) 是在命令行中处理JSON的常用工具, 现在具有一个 [完整的工具生态系统](https://ilya-sher.org/2018/04/10/list-of-json-tools-for-command-line/) 可以输出和操作JSON.
 
-It is also widely used on the web, so by using JSON as the input and output of programs, you can pipe directly to and from web services using `curl`.
+它在 Web 上也被广泛使用，因此通过使用 JSON 作为程序的输入和输出，使你可以使用 `curl` 直接与 Web 服务进行管道传输。
 
-**Display output on success, but keep it brief.**
-Traditionally, when nothing is wrong, UNIX commands display no output to the user.
-This makes sense when they’re being used in scripts, but can make commands appear to be hanging or broken when used by humans.
-For example, `cp` will not print anything, even if it takes a long time.
+**成功时显示输出，但要保持简短.**
+传统上，当一切正常时，UNIX 命令不会向用户显示任何输出。 
+这在脚本中是有意义的，但在被人类使用时可能会使命令看起来挂起或损坏。 例如，`cp` 不会打印任何内容，即使它需要很长时间。
 
-It’s rare that printing nothing at all is the best default behavior, but it’s usually best to err on the side of less.
+什么都不打印是最好的默认行为，这种做法是少见的，但是对于错误信息来说，这种行为是常见的。
 
-For instances where you do want no output (for example, when used in shell scripts), to avoid clumsy redirection of `stderr` to `/dev/null`, you can provide a `-q` option to suppress all non-essential output.
+对于不需要输出的情况（例如，在 shell 脚本中使用时），为了避免将 `stderr` 笨拙地重定向到 `/dev/null`，你可以提供一个 `-q` 选项来抑制所有非必要的输出。
 
-**If you change state, tell the user.**
-When a command changes the state of a system, it’s especially valuable to explain what has just happened, so the user can model the state of the system in their head—particularly if the result doesn’t directly map to what the user requested.
+**如果状态改变了，请告诉用户.**
+当命令改变了系统状态时，解释刚刚发生的事情特别有必要，这样用户就可以在脑海中对系统状态进行建模——特别是如果结果没有直接映射到用户请求内容的情况。
 
+比如，`git push` 可以准确地告诉你目前在做什么，以及远程分支的最新状态：
 For example, `git push` tells you exactly what it is doing, and what the new state of the remote branch is:
 
 ```
@@ -546,7 +581,7 @@ To github.com:replicate/replicate.git
  + 6c22c90...a2a5217 bfirsh/fix-delete -> bfirsh/fix-delete
 ```
 
-**Make it easy to see the current state of the system.**
+**让查看系统的当前状态更加容易.**
 If your program does a lot of complex state changes and it is not immediately visible in the filesystem, make sure you make this easy to view.
 
 For example, `git status` tells you as much information as possible about the current state of your Git repository, and some hints at how to modify the state:
@@ -564,17 +599,17 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
-**Suggest commands the user should run.**
+**建议用户应该运行的命令.**
 When several commands form a workflow, suggesting to the user commands they can run next helps them learn how to use your program and discover new functionality.
 For example, in the `git status` output above, it suggests commands you can run to modify the state you are viewing.
 
-**Actions crossing the boundary of the program’s internal world should usually be explicit.**
+**跨越程序内部世界边界的动作通常应该是明确的.**
 This includes things like:
 
 - Reading or writing files that the user didn’t explicitly pass as arguments (unless those files are storing internal program state, such as a cache).
 - Talking to a remote server, e.g. to download a file.
 
-**Increase information density—with ASCII art!**
+**增加信息密度---使用 ASCII 艺术！**
 For example, `ls` shows permissions in a scannable way.
 When you first see it, you can ignore most of the information.
 Then, as you learn how it works, you pick out more patterns over time.
@@ -591,11 +626,11 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 -rw-r--r-- 1 root root      0 Jul 20 14:43 subuid
 ```
 
-**Use color with intention.**
+**有目的地使用颜色.**
 For example, you might want to highlight some text so the user notices it, or use red to indicate an error.
 Don’t overuse it—if everything is a different color, then the color means nothing and only makes it harder to read.
 
-**Disable color if your program is not in a terminal or the user requested it.**
+**如果您的程序不在终端中或用户请求禁用它，则禁用颜色。**
 These things should disable colors:
 
 - `stdout` or `stderr` is not an interactive terminal (a TTY).
@@ -607,10 +642,10 @@ These things should disable colors:
 
 _Further reading: [no-color.org](https://no-color.org/), [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)_
 
-**If `stdout` is not an interactive terminal, don’t display any animations.**
+**如果 `stdout` 不是交互式终端，则不要显示任何动画.**
 This will stop progress bars turning into Christmas trees in CI log output.
 
-**Use symbols and emoji where it makes things clearer.**
+**使用符号和emoji，它使事情变得更清晰.**
 Pictures can be better than words if you need to make several things distinct, catch the user’s attention, or just add a bit of character.
 Be careful, though—it can be easy to overdo it and make your program look cluttered or feel like a toy.
 
@@ -636,16 +671,16 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
 ```
 
-**By default, don’t output information that’s only understandable by the creators of the software.**
+**默认情况下，不输出只有软件作者才能理解的信息.**
 If a piece of output serves only to help you (the developer) understand what your software is doing, it almost certainly shouldn’t be displayed to normal users by default—only in verbose mode.
 
 Invite usability feedback from outsiders and people who are new to your project.
 They’ll help you see important issues that you are too close to the code to notice.
 
-**Don’t treat `stderr` like a log file, at least not by default.**
+**不要将 `stderr` 视为日志文件，至少默认情况下不会.**
 Don’t print log level labels (`ERR`, `WARN`, etc.) or extraneous contextual information, unless in verbose mode.
 
-**Use a pager (e.g. `less`) if you are outputting a lot of text.**
+**如果要输出大量文本，请使用pager (e.g. `less`).**
 For example, `git diff` does this by default.
 Using a pager can be error-prone, so be careful with your implementation such that you don’t make the experience worse for the user.
 You shouldn’t use a pager if `stdin` or `stdout` is not an interactive terminal.
