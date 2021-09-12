@@ -566,7 +566,6 @@ JSON比纯文本有更多的结构，所以它能够更容易输出和处理复�
 当命令改变了系统状态时，解释刚刚发生的事情特别有必要，这样用户就可以在脑海中对系统状态进行建模——特别是如果结果没有直接映射到用户请求内容的情况。
 
 比如，`git push` 可以准确地告诉你目前在做什么，以及远程分支的最新状态：
-For example, `git push` tells you exactly what it is doing, and what the new state of the remote branch is:
 
 ```
 $ git push
@@ -582,9 +581,9 @@ To github.com:replicate/replicate.git
 ```
 
 **让查看系统的当前状态更加容易.**
-If your program does a lot of complex state changes and it is not immediately visible in the filesystem, make sure you make this easy to view.
+如果你的程序进行了很多复杂的状态变化，而且在文件系统中不能立即看到，请确保能够使之易于查看。
 
-For example, `git status` tells you as much information as possible about the current state of your Git repository, and some hints at how to modify the state:
+比如, `git status` 能够告诉你尽可能多的关于Git仓库当前状态的信息，以及如何修改这些状态的提示：
 
 ```
 $ git status
@@ -600,19 +599,19 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
 **建议用户应该运行的命令.**
-When several commands form a workflow, suggesting to the user commands they can run next helps them learn how to use your program and discover new functionality.
-For example, in the `git status` output above, it suggests commands you can run to modify the state you are viewing.
+当多个命令形成一个工作流时，向用户建议他们接下来可以运行的命令有助于他们学习如何使用你的程序并发现新功能。
+例如，在上面的 `git status` 的输出中，向你提出可以修改当前状态的命令。
 
 **跨越程序内部世界边界的动作通常应该是明确的.**
 This includes things like:
 
-- Reading or writing files that the user didn’t explicitly pass as arguments (unless those files are storing internal program state, such as a cache).
-- Talking to a remote server, e.g. to download a file.
+- 读取或写入用户未明确作为参数传递的文件（除非这些文件正在存储内部程序状态，例如缓存）。
+- 与远程服务器进行会话，例如下载文件。
 
 **增加信息密度---使用 ASCII 艺术！**
-For example, `ls` shows permissions in a scannable way.
-When you first see it, you can ignore most of the information.
-Then, as you learn how it works, you pick out more patterns over time.
+例如, `ls` 以一种清晰且详细的方式显示文件的权限.
+当你第一次看到这样的输出时，你可以忽略大多数信息。
+然后，当你了解它的工作原理时，你会随着时间的推移挑选出更多的模式。
 
 ```
 -rw-r--r-- 1 root root     68 Aug 22 23:20 resolv.conf
@@ -627,29 +626,27 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 ```
 
 **有目的地使用颜色.**
-For example, you might want to highlight some text so the user notices it, or use red to indicate an error.
-Don’t overuse it—if everything is a different color, then the color means nothing and only makes it harder to read.
+例如，你可能想突出一些文字，让用户注意到它，或者用红色来表示错误。不要过度使用它--如果所有的东西都是不同的颜色，那么这个颜色就毫无意义，只会使它更难读。
 
-**如果您的程序不在终端中或用户请求禁用它，则禁用颜色。**
-These things should disable colors:
+**如果你的程序不在终端中或用户请求禁用它，则禁用颜色。**
+下面的情况需要禁用颜色:
 
-- `stdout` or `stderr` is not an interactive terminal (a TTY).
-  It’s best to individually check—if you’re piping `stdout` to another program, it’s still useful to get colors on `stderr`.
-- The `NO_COLOR` environment variable is set.
-- The `TERM` environment variable has the value `dumb`.
-- The user passes the option `--no-color`.
-- You may also want to add a `MYAPP_NO_COLOR` environment variable in case users want to disable color specifically for your program.
+- `stdout` 或 `stderr` 不是一个交互式终端 (是一个 TTY).
+  最好单独检查——如果你将 `stdout` 传送到另一个程序，在 `stderr` 上获取颜色仍然很有用。
+- 设置 `NO_COLOR` 环境变量.
+- `TERM` 环境变量的值为 `dumb`.
+- 用户传入了选项 `--no-color`.
+- 你可能还想添加一个 `MYAPP_NO_COLOR` 环境变量，以防用户想要专门为你的程序禁用颜色。
 
 _Further reading: [no-color.org](https://no-color.org/), [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)_
 
 **如果 `stdout` 不是交互式终端，则不要显示任何动画.**
-This will stop progress bars turning into Christmas trees in CI log output.
+这将阻止进度条在 CI 日志输出中变成圣诞树。
 
 **使用符号和emoji，它使事情变得更清晰.**
-Pictures can be better than words if you need to make several things distinct, catch the user’s attention, or just add a bit of character.
-Be careful, though—it can be easy to overdo it and make your program look cluttered or feel like a toy.
+在能使事情更清晰的地方使用符号和表情符号。如果你需要让几件事情与众不同，吸引用户的注意力，或者只是增加一点特色，图片可能比文字更好。但要小心，很容易做得过头，使你的程序看起来杂乱无章或感觉像个玩具。
 
-For example, [yubikey-agent](https://github.com/FiloSottile/yubikey-agent) uses emoji to add structure to the output so it isn’t just a wall of text, and a ❌ to draw your attention to an important piece of information:
+比如, [yubikey-agent](https://github.com/FiloSottile/yubikey-agent) 使用表情符号为输出添加结构，因此它不仅仅是一堵文本墙，还有一个 ❌ 来吸引您对重要信息的注意:
 
 ```shell-session
 $ yubikey-agent -setup
@@ -671,25 +668,24 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
 ```
 
-**默认情况下，不输出只有软件作者才能理解的信息.**
-If a piece of output serves only to help you (the developer) understand what your software is doing, it almost certainly shouldn’t be displayed to normal users by default—only in verbose mode.
+**默认情况下，不要输出只有软件作者才能理解的信息.**
+如果一个输出只是为了帮助你（开发者）理解你的软件在做什么，那么几乎可以肯定的是，它不应该以默认的方式显示给普通用户，而只是在verbose模式下。
 
-Invite usability feedback from outsiders and people who are new to your project.
-They’ll help you see important issues that you are too close to the code to notice.
+邀请局外人和新加入你的项目的人提供可用性反馈。
+他们会帮助你看到那些你离代码太近而没有注意到的重要问题。
 
 **不要将 `stderr` 视为日志文件，至少默认情况下不会.**
-Don’t print log level labels (`ERR`, `WARN`, etc.) or extraneous contextual information, unless in verbose mode.
+不要打印日志级别标签(`ERR`, `WARN`, etc.)或不相干的上下文信息，除非在verbose模式下。
 
-**如果要输出大量文本，请使用pager (e.g. `less`).**
-For example, `git diff` does this by default.
-Using a pager can be error-prone, so be careful with your implementation such that you don’t make the experience worse for the user.
-You shouldn’t use a pager if `stdin` or `stdout` is not an interactive terminal.
+**如果要输出大量文本，请使用分页 (e.g. `less`).**
+比如, `git diff` 默认做这件事
+使用分页可能很容易出错，所以要注意你的实现，不要让用户的体验变得更糟。
+如果`stdin`或`stdout`不是一个交互式终端，你就不应该使用分页。
 
-A good sensible set of options to use for `less` is `less -FIRX`.
-This does not page if the content fills one screen, ignores case when you search, enables color and formatting, and leaves the contents on the screen when `less` quits.
+用于 `less` 的一套合理的选项是 `less -FIRX`。如果内容占满了一个屏幕，它就不翻页，搜索时忽略大小写，启用颜色和格式化，并且在 `less` 退出时把内容留在屏幕上。
 
-There might be libraries in your language that are more robust than piping to `less`.
-For example, [pypager](https://github.com/prompt-toolkit/pypager) in Python.
+在你的语言中，可能有一些库比用管道输送到`less`的方式更强大。
+例如，Python中的[pypager](https://github.com/prompt-toolkit/pypager)。
 
 ### 错误 {#errors}
 
