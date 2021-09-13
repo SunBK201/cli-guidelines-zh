@@ -689,27 +689,28 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 
 ### 错误 {#errors}
 
-One of the most common reasons to consult documentation is to fix errors.
-If you can make errors into documentation, then this will save the user loads of time.
+查阅文档的最常见的原因之一是为了修正错误。
+如果你能把处理错误的方法整理进文档，那么这将为用户节省大量的时间。
 
-**Catch errors and [rewrite them for humans](https://www.nngroup.com/articles/error-message-guidelines/).**
-If you’re expecting an error to happen, catch it and rewrite the error message to be useful.
-Think of it like a conversation, where the user has done something wrong and the program is guiding them in the right direction.
-Example: “Can’t write to file.txt. You might need to make it writable by running ‘chmod +w file.txt’.”
+**捕获错误并[为人们重写之](https://www.nngroup.com/articles/error-message-guidelines/).**
+如果你预计会有错误发生，那就捕获错误并重写错误信息，使之成为有用的信息。
+把它想成是一次对话，用户做错了事，程序在引导他们走向正确的方向。
+例如。"不能写到file.txt。你可能需要通过运行'chmod +w file.txt'来使其可写。"
 
-**Signal-to-noise ratio is crucial.**
-The more irrelevant output you produce, the longer it’s going to take the user to figure out what they did wrong.
-If your program produces multiple errors of the same type, consider grouping them under a single explanatory header instead of printing many similar-looking lines.
+**信噪比至关重要。.**
+你产生的不相关的输出越多，用户就会花更多的时间来弄清楚他们做错了什么。
+如果你的程序产生了多个相同类型的错误，考虑将它们分组在一个解释性的标题下，而不是打印许多看起来相似的行。
 
-**Consider where the user will look first.**
-Put the most important information at the end of the output.
-The eye will be drawn to red text, so use it intentionally and sparingly.
+**考虑用户首先会看哪里.**
+把最重要的信息放在输出的最后。
+用户的视线会被红色的文字所吸引，所以要有意识地谨慎使用它。
 
-**If there is an unexpected or unexplainable error, provide debug and traceback information, and instructions on how to submit a bug.**
-That said, don’t forget about the signal-to-noise ratio: you don’t want to overwhelm the user with information they don’t understand.
-Consider writing the debug log to a file instead of printing it to the terminal.
+**如果有一个意外的或无法解释的错误，提供调试和跟踪信息，以及关于如何提交错误的说明.**
+也就是说，不要忘记信噪比：你不希望用他们不理解的信息来淹没用户。
+考虑将调试日志写到一个文件中，而不是打印到终端。
 
-**Make it effortless to submit bug reports.**
+**让提交错误报告变得毫不费力.**
+你需要提供一个URL，并让它预先填入尽可能多的信息。
 One nice thing you can do is provide a URL and have it pre-populate as much information as possible.
 
 ### 参数与选项 {#arguments-and-flags}
