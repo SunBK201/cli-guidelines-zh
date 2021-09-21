@@ -711,29 +711,28 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 
 **让提交错误报告变得毫不费力.**
 你需要提供一个URL，并让它预先填入尽可能多的信息。
-One nice thing you can do is provide a URL and have it pre-populate as much information as possible.
 
 ### 参数与选项 {#arguments-and-flags}
 
-A note on terminology:
+术语:
 
-- _Arguments_, or _args_, are positional parameters to a command.
-  For example, the file paths you provide to `cp` are args.
-  The order of args is often important: `cp foo bar` means something different from `cp bar foo`.
-- _Flags_ are named parameters, denoted with either a hyphen and a single-letter name (`-r`) or a double hyphen and a multiple-letter name (`--recursive`).
-  They may or may not also include a user-specified value (`--file foo.txt`, or `--file=foo.txt`).
-  The order of flags, generally speaking, does not affect program semantics.
+- _Arguments_, 或 _args_, 是命令的位置参数.
+  比如，你提供给`cp`的文件路径是 args.
+  args的顺序是很重要的：`cp foo bar` 的意思与 `cp bar foo` 是不同的。
+- _Flags_ 是命名参数, 用连字符和单字母名称 (`-r`) 或双连字符和多字母名称 (`--recursive`) 表示.
+  它们可能包含也可能不包含用户指定的值 (`--file foo.txt`, or `--file=foo.txt`).
+  一般来说，flags的顺序不会影响程序语义
 
-**Prefer flags to args.**
-It’s a bit more typing, but it makes it much clearer what is going on.
-It also makes it easier to make changes to how you accept input in the future.
-Sometimes when using args, it’s impossible to add new input without breaking existing behavior or creating ambiguity.
+**相比于参数优先使用选项.**
+虽然这个可能要多打一些字，但是这会让接下来的工作更加清晰。
+这也会使你更加容易适应在未来输入方式的变化。
+有些时候，在使用参数时，不太可能在不破坏现有行为或造成歧义的情况下增加新的输入。
 
 _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
 
-**Have full-length versions of all flags.**
-For example, have both `-h` and `--help`.
-Having the full version is useful in scripts where you want to be verbose and descriptive, and you don’t have to look up the meaning of flags everywhere.
+**所有的选项都应该有完整版本.**
+比如，我们有 `-h` 和 `--help`。
+选项拥有完整的版本在脚本中是很有必要的，有时我们希望我们的脚本更具有描述性，这时完整版本的选项能够使你不必到处查找选项的含义。
 
 _Citation: [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html)._
 

@@ -501,8 +501,7 @@ JSON比纯文本有更多的结构，所以它能够更容易输出和处理复�
 <p>对于不需要输出的情况（例如，在 shell 脚本中使用时），为了避免将 <code>stderr</code> 笨拙地重定向到 <code>/dev/null</code>，你可以提供一个 <code>-q</code> 选项来抑制所有非必要的输出。</p>
 <p><strong>如果状态改变了，请告诉用户.</strong>
 当命令改变了系统状态时，解释刚刚发生的事情特别有必要，这样用户就可以在脑海中对系统状态进行建模——特别是如果结果没有直接映射到用户请求内容的情况。</p>
-<p>比如，<code>git push</code> 可以准确地告诉你目前在做什么，以及远程分支的最新状态：
-For example, <code>git push</code> tells you exactly what it is doing, and what the new state of the remote branch is:</p>
+<p>比如，<code>git push</code> 可以准确地告诉你目前在做什么，以及远程分支的最新状态：</p>
 <pre tabindex="0"><code>$ git push
 Enumerating objects: 18, done.
 Counting objects: 100% (18/18), done.
@@ -514,8 +513,8 @@ remote: Resolving deltas: 100% (8/8), completed with 8 local objects.
 To github.com:replicate/replicate.git
  + 6c22c90...a2a5217 bfirsh/fix-delete -&gt; bfirsh/fix-delete
 </code></pre><p><strong>让查看系统的当前状态更加容易.</strong>
-If your program does a lot of complex state changes and it is not immediately visible in the filesystem, make sure you make this easy to view.</p>
-<p>For example, <code>git status</code> tells you as much information as possible about the current state of your Git repository, and some hints at how to modify the state:</p>
+如果你的程序进行了很多复杂的状态变化，而且在文件系统中不能立即看到，请确保能够使之易于查看。</p>
+<p>比如, <code>git status</code> 能够告诉你尽可能多的关于Git仓库当前状态的信息，以及如何修改这些状态的提示：</p>
 <pre tabindex="0"><code>$ git status
 On branch bfirsh/fix-delete
 Your branch is up to date with 'origin/bfirsh/fix-delete'.
@@ -527,18 +526,18 @@ Changes not staged for commit:
 
 no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
 </code></pre><p><strong>建议用户应该运行的命令.</strong>
-When several commands form a workflow, suggesting to the user commands they can run next helps them learn how to use your program and discover new functionality.
-For example, in the <code>git status</code> output above, it suggests commands you can run to modify the state you are viewing.</p>
+当多个命令形成一个工作流时，向用户建议他们接下来可以运行的命令有助于他们学习如何使用你的程序并发现新功能。
+例如，在上面的 <code>git status</code> 的输出中，向你提出可以修改当前状态的命令。</p>
 <p><strong>跨越程序内部世界边界的动作通常应该是明确的.</strong>
 This includes things like:</p>
 <ul>
-<li>Reading or writing files that the user didn’t explicitly pass as arguments (unless those files are storing internal program state, such as a cache).</li>
-<li>Talking to a remote server, e.g. to download a file.</li>
+<li>读取或写入用户未明确作为参数传递的文件（除非这些文件正在存储内部程序状态，例如缓存）。</li>
+<li>与远程服务器进行会话，例如下载文件。</li>
 </ul>
 <p><strong>增加信息密度&mdash;使用 ASCII 艺术！</strong>
-For example, <code>ls</code> shows permissions in a scannable way.
-When you first see it, you can ignore most of the information.
-Then, as you learn how it works, you pick out more patterns over time.</p>
+例如, <code>ls</code> 以一种清晰且详细的方式显示文件的权限.
+当你第一次看到这样的输出时，你可以忽略大多数信息。
+然后，当你了解它的工作原理时，你会随着时间的推移挑选出更多的模式。</p>
 <pre tabindex="0"><code>-rw-r--r-- 1 root root     68 Aug 22 23:20 resolv.conf
 lrwxrwxrwx 1 root root     13 Mar 14 20:24 rmt -&gt; /usr/sbin/rmt
 drwxr-xr-x 4 root root   4.0K Jul 20 14:51 security
@@ -549,25 +548,23 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 -rw-r--r-- 1 root root      0 Jul 20 14:43 subgid
 -rw-r--r-- 1 root root      0 Jul 20 14:43 subuid
 </code></pre><p><strong>有目的地使用颜色.</strong>
-For example, you might want to highlight some text so the user notices it, or use red to indicate an error.
-Don’t overuse it—if everything is a different color, then the color means nothing and only makes it harder to read.</p>
-<p><strong>如果您的程序不在终端中或用户请求禁用它，则禁用颜色。</strong>
-These things should disable colors:</p>
+例如，你可能想突出一些文字，让用户注意到它，或者用红色来表示错误。不要过度使用它&ndash;如果所有的东西都是不同的颜色，那么这个颜色就毫无意义，只会使它更难读。</p>
+<p><strong>如果你的程序不在终端中或用户请求禁用它，则禁用颜色。</strong>
+下面的情况需要禁用颜色:</p>
 <ul>
-<li><code>stdout</code> or <code>stderr</code> is not an interactive terminal (a TTY).
-It’s best to individually check—if you’re piping <code>stdout</code> to another program, it’s still useful to get colors on <code>stderr</code>.</li>
-<li>The <code>NO_COLOR</code> environment variable is set.</li>
-<li>The <code>TERM</code> environment variable has the value <code>dumb</code>.</li>
-<li>The user passes the option <code>--no-color</code>.</li>
-<li>You may also want to add a <code>MYAPP_NO_COLOR</code> environment variable in case users want to disable color specifically for your program.</li>
+<li><code>stdout</code> 或 <code>stderr</code> 不是一个交互式终端 (是一个 TTY).
+最好单独检查——如果你将 <code>stdout</code> 传送到另一个程序，在 <code>stderr</code> 上获取颜色仍然很有用。</li>
+<li>设置 <code>NO_COLOR</code> 环境变量.</li>
+<li><code>TERM</code> 环境变量的值为 <code>dumb</code>.</li>
+<li>用户传入了选项 <code>--no-color</code>.</li>
+<li>你可能还想添加一个 <code>MYAPP_NO_COLOR</code> 环境变量，以防用户想要专门为你的程序禁用颜色。</li>
 </ul>
 <p><em>Further reading: <a href="https://no-color.org/">no-color.org</a>, <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a></em></p>
 <p><strong>如果 <code>stdout</code> 不是交互式终端，则不要显示任何动画.</strong>
-This will stop progress bars turning into Christmas trees in CI log output.</p>
+这将阻止进度条在 CI 日志输出中变成圣诞树。</p>
 <p><strong>使用符号和emoji，它使事情变得更清晰.</strong>
-Pictures can be better than words if you need to make several things distinct, catch the user’s attention, or just add a bit of character.
-Be careful, though—it can be easy to overdo it and make your program look cluttered or feel like a toy.</p>
-<p>For example, <a href="https://github.com/FiloSottile/yubikey-agent">yubikey-agent</a> uses emoji to add structure to the output so it isn’t just a wall of text, and a ❌ to draw your attention to an important piece of information:</p>
+在能使事情更清晰的地方使用符号和表情符号。如果你需要让几件事情与众不同，吸引用户的注意力，或者只是增加一点特色，图片可能比文字更好。但要小心，很容易做得过头，使你的程序看起来杂乱无章或感觉像个玩具。</p>
+<p>比如, <a href="https://github.com/FiloSottile/yubikey-agent">yubikey-agent</a> 使用表情符号为输出添加结构，因此它不仅仅是一堵文本墙，还有一个 ❌ 来吸引您对重要信息的注意:</p>
 <pre tabindex="0"><code class="language-shell-session" data-lang="shell-session">$ yubikey-agent -setup
 🔐 The PIN is up to 8 numbers, letters, or symbols. Not just numbers!
 ❌ The key will be lost if the PIN and PUK are locked after 3 incorrect tries.
@@ -585,56 +582,55 @@ ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCEJ/
 UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpVS0=
 
 💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
-</code></pre><p><strong>默认情况下，不输出只有软件作者才能理解的信息.</strong>
-If a piece of output serves only to help you (the developer) understand what your software is doing, it almost certainly shouldn’t be displayed to normal users by default—only in verbose mode.</p>
-<p>Invite usability feedback from outsiders and people who are new to your project.
-They’ll help you see important issues that you are too close to the code to notice.</p>
+</code></pre><p><strong>默认情况下，不要输出只有软件作者才能理解的信息.</strong>
+如果一个输出只是为了帮助你（开发者）理解你的软件在做什么，那么几乎可以肯定的是，它不应该以默认的方式显示给普通用户，而只是在verbose模式下。</p>
+<p>邀请局外人和新加入你的项目的人提供可用性反馈。
+他们会帮助你看到那些你离代码太近而没有注意到的重要问题。</p>
 <p><strong>不要将 <code>stderr</code> 视为日志文件，至少默认情况下不会.</strong>
-Don’t print log level labels (<code>ERR</code>, <code>WARN</code>, etc.) or extraneous contextual information, unless in verbose mode.</p>
-<p><strong>如果要输出大量文本，请使用pager (e.g. <code>less</code>).</strong>
-For example, <code>git diff</code> does this by default.
-Using a pager can be error-prone, so be careful with your implementation such that you don’t make the experience worse for the user.
-You shouldn’t use a pager if <code>stdin</code> or <code>stdout</code> is not an interactive terminal.</p>
-<p>A good sensible set of options to use for <code>less</code> is <code>less -FIRX</code>.
-This does not page if the content fills one screen, ignores case when you search, enables color and formatting, and leaves the contents on the screen when <code>less</code> quits.</p>
-<p>There might be libraries in your language that are more robust than piping to <code>less</code>.
-For example, <a href="https://github.com/prompt-toolkit/pypager">pypager</a> in Python.</p>
+不要打印日志级别标签(<code>ERR</code>, <code>WARN</code>, etc.)或不相干的上下文信息，除非在verbose模式下。</p>
+<p><strong>如果要输出大量文本，请使用分页 (e.g. <code>less</code>).</strong>
+比如, <code>git diff</code> 默认做这件事
+使用分页可能很容易出错，所以要注意你的实现，不要让用户的体验变得更糟。
+如果<code>stdin</code>或<code>stdout</code>不是一个交互式终端，你就不应该使用分页。</p>
+<p>用于 <code>less</code> 的一套合理的选项是 <code>less -FIRX</code>。如果内容占满了一个屏幕，它就不翻页，搜索时忽略大小写，启用颜色和格式化，并且在 <code>less</code> 退出时把内容留在屏幕上。</p>
+<p>在你的语言中，可能有一些库比用管道输送到<code>less</code>的方式更强大。
+例如，Python中的<a href="https://github.com/prompt-toolkit/pypager">pypager</a>。</p>
 <h3 id="errors">错误</h3>
-<p>One of the most common reasons to consult documentation is to fix errors.
-If you can make errors into documentation, then this will save the user loads of time.</p>
-<p><strong>Catch errors and <a href="https://www.nngroup.com/articles/error-message-guidelines/">rewrite them for humans</a>.</strong>
-If you’re expecting an error to happen, catch it and rewrite the error message to be useful.
-Think of it like a conversation, where the user has done something wrong and the program is guiding them in the right direction.
-Example: “Can’t write to file.txt. You might need to make it writable by running ‘chmod +w file.txt’.”</p>
-<p><strong>Signal-to-noise ratio is crucial.</strong>
-The more irrelevant output you produce, the longer it’s going to take the user to figure out what they did wrong.
-If your program produces multiple errors of the same type, consider grouping them under a single explanatory header instead of printing many similar-looking lines.</p>
-<p><strong>Consider where the user will look first.</strong>
-Put the most important information at the end of the output.
-The eye will be drawn to red text, so use it intentionally and sparingly.</p>
-<p><strong>If there is an unexpected or unexplainable error, provide debug and traceback information, and instructions on how to submit a bug.</strong>
-That said, don’t forget about the signal-to-noise ratio: you don’t want to overwhelm the user with information they don’t understand.
-Consider writing the debug log to a file instead of printing it to the terminal.</p>
-<p><strong>Make it effortless to submit bug reports.</strong>
-One nice thing you can do is provide a URL and have it pre-populate as much information as possible.</p>
+<p>查阅文档的最常见的原因之一是为了修正错误。
+如果你能把处理错误的方法整理进文档，那么这将为用户节省大量的时间。</p>
+<p><strong>捕获错误并<a href="https://www.nngroup.com/articles/error-message-guidelines/">为人们重写之</a>.</strong>
+如果你预计会有错误发生，那就捕获错误并重写错误信息，使之成为有用的信息。
+把它想成是一次对话，用户做错了事，程序在引导他们走向正确的方向。
+例如。&ldquo;不能写到file.txt。你可能需要通过运行&rsquo;chmod +w file.txt&rsquo;来使其可写。&rdquo;</p>
+<p><strong>信噪比至关重要。.</strong>
+你产生的不相关的输出越多，用户就会花更多的时间来弄清楚他们做错了什么。
+如果你的程序产生了多个相同类型的错误，考虑将它们分组在一个解释性的标题下，而不是打印许多看起来相似的行。</p>
+<p><strong>考虑用户首先会看哪里.</strong>
+把最重要的信息放在输出的最后。
+用户的视线会被红色的文字所吸引，所以要有意识地谨慎使用它。</p>
+<p><strong>如果有一个意外的或无法解释的错误，提供调试和跟踪信息，以及关于如何提交错误的说明.</strong>
+也就是说，不要忘记信噪比：你不希望用他们不理解的信息来淹没用户。
+考虑将调试日志写到一个文件中，而不是打印到终端。</p>
+<p><strong>让提交错误报告变得毫不费力.</strong>
+你需要提供一个URL，并让它预先填入尽可能多的信息。</p>
 <h3 id="arguments-and-flags">参数与选项</h3>
-<p>A note on terminology:</p>
+<p>术语:</p>
 <ul>
-<li><em>Arguments</em>, or <em>args</em>, are positional parameters to a command.
-For example, the file paths you provide to <code>cp</code> are args.
-The order of args is often important: <code>cp foo bar</code> means something different from <code>cp bar foo</code>.</li>
-<li><em>Flags</em> are named parameters, denoted with either a hyphen and a single-letter name (<code>-r</code>) or a double hyphen and a multiple-letter name (<code>--recursive</code>).
-They may or may not also include a user-specified value (<code>--file foo.txt</code>, or <code>--file=foo.txt</code>).
-The order of flags, generally speaking, does not affect program semantics.</li>
+<li><em>Arguments</em>, 或 <em>args</em>, 是命令的位置参数.
+比如，你提供给<code>cp</code>的文件路径是 args.
+args的顺序是很重要的：<code>cp foo bar</code> 的意思与 <code>cp bar foo</code> 是不同的。</li>
+<li><em>Flags</em> 是命名参数, 用连字符和单字母名称 (<code>-r</code>) 或双连字符和多字母名称 (<code>--recursive</code>) 表示.
+它们可能包含也可能不包含用户指定的值 (<code>--file foo.txt</code>, or <code>--file=foo.txt</code>).
+一般来说，flags的顺序不会影响程序语义</li>
 </ul>
-<p><strong>Prefer flags to args.</strong>
-It’s a bit more typing, but it makes it much clearer what is going on.
-It also makes it easier to make changes to how you accept input in the future.
-Sometimes when using args, it’s impossible to add new input without breaking existing behavior or creating ambiguity.</p>
+<p><strong>相比于参数优先使用选项.</strong>
+虽然这个可能要多打一些字，但是这会让接下来的工作更加清晰。
+这也会使你更加容易适应在未来输入方式的变化。
+有些时候，在使用参数时，不太可能在不破坏现有行为或造成歧义的情况下增加新的输入。</p>
 <p><em>Citation: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
-<p><strong>Have full-length versions of all flags.</strong>
-For example, have both <code>-h</code> and <code>--help</code>.
-Having the full version is useful in scripts where you want to be verbose and descriptive, and you don’t have to look up the meaning of flags everywhere.</p>
+<p><strong>所有的选项都应该有完整版本.</strong>
+比如，我们有 <code>-h</code> 和 <code>--help</code>。
+选项拥有完整的版本在脚本中是很有必要的，有时我们希望我们的脚本更具有描述性，这时完整版本的选项能够使你不必到处查找选项的含义。</p>
 <p><em>Citation: <a href="https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html">GNU Coding Standards</a>.</em></p>
 <p><strong>Only use one-letter flags for commonly used flags,</strong> particularly at the top-level when using subcommands.
 That way you don’t “pollute” your namespace of short flags, forcing you to use convoluted letters and cases for flags you add in the future.</p>
