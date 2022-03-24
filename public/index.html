@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-	<meta name="generator" content="Hugo 0.88.1" />
+	<meta name="generator" content="Hugo 0.92.2" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -32,8 +32,8 @@
         </script>
 
         
-        <link rel="stylesheet" media="screen" href="/css/main.css">
-        <link rel="stylesheet" media="print" href="/css/print.css">
+        <link rel="stylesheet" media="screen" href="css/main.css">
+        <link rel="stylesheet" media="print" href="css/print.css">
     </head>
     <body>
     <button id="menu-button">Contents</button>
@@ -89,16 +89,16 @@
 <p><a href="https://github.com/SunBK201">@SunBK201</a></p>
 <iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=SunBK201&repo=cli-guidelines-zh&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="40" title="GitHub"></iframe>
 <h2 id="authors">作者</h2>
-<p><strong>Aanand Prasad</strong><br>
-Engineer at Squarespace, co-creator of Docker Compose.<br>
+<p><strong>Aanand Prasad</strong> <br>
+Engineer at Squarespace, co-creator of Docker Compose. <br>
 <a href="https://twitter.com/aanandprasad">@aanandprasad</a></p>
-<p><strong>Ben Firshman</strong><br>
-Co-creator <a href="https://replicate.ai/">Replicate</a>, co-creator of Docker Compose.<br>
+<p><strong>Ben Firshman</strong> <br>
+Co-creator <a href="https://replicate.ai/">Replicate</a>, co-creator of Docker Compose. <br>
 <a href="https://twitter.com/bfirsh">@bfirsh</a></p>
-<p><strong>Carl Tashian</strong><br>
-Developer Advocate at <a href="https://smallstep.com/">Smallstep</a>, first engineer at Zipcar, co-founder Trove.<br>
+<p><strong>Carl Tashian</strong> <br>
+Developer Advocate at <a href="https://smallstep.com/">Smallstep</a>, first engineer at Zipcar, co-founder Trove. <br>
 <a href="https://tashian.com/">tashian.com</a> <a href="https://twitter.com/tashian">@tashian</a></p>
-<p><strong>Eva Parish</strong><br>
+<p><strong>Eva Parish</strong> <br>
 Technical Writer at Squarespace, O’Reilly contributor.<br>
 <a href="https://evaparish.com/">evaparish.com</a> <a href="https://twitter.com/evpari">@evpari</a></p>
 <p>Design by <a href="https://mhurrell.co.uk/">Mark Hurrell</a>. Thanks to Andreas Jansson for early contributions, and Andrew Reitz, Ashley Williams, Brendan Falk, Chester Ramey, Dj Walker-Morgan, Jacob Maine, James Coglan, Michael Dwan, and Steve Klabnik for reviewing drafts.</p>
@@ -565,24 +565,24 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 <p><strong>使用符号和emoji，它使事情变得更清晰.</strong>
 在能使事情更清晰的地方使用符号和表情符号。如果你需要让几件事情与众不同，吸引用户的注意力，或者只是增加一点特色，图片可能比文字更好。但要小心，很容易做得过头，使你的程序看起来杂乱无章或感觉像个玩具。</p>
 <p>比如, <a href="https://github.com/FiloSottile/yubikey-agent">yubikey-agent</a> 使用表情符号为输出添加结构，因此它不仅仅是一堵文本墙，还有一个 ❌ 来吸引您对重要信息的注意:</p>
-<pre tabindex="0"><code class="language-shell-session" data-lang="shell-session">$ yubikey-agent -setup
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell-session" data-lang="shell-session">$ yubikey-agent -setup
 🔐 The PIN is up to 8 numbers, letters, or symbols. Not just numbers!
 ❌ The key will be lost if the PIN and PUK are locked after 3 incorrect tries.
-
-Choose a new PIN/PUK: 
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>Choose a new PIN/PUK: 
 Repeat the PIN/PUK: 
-
-🧪 Retriculating splines …
-
-✅ Done! This YubiKey is secured and ready to go.
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>🧪 Retriculating splines …
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>✅ Done! This YubiKey is secured and ready to go.
 🤏 When the YubiKey blinks, touch it to authorize the login.
-
-🔑 Here's your new shiny SSH public key:
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>🔑 Here&#39;s your new shiny SSH public key:
 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCEJ/
 UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpVS0=
-
-💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
-</code></pre><p><strong>默认情况下，不要输出只有软件作者才能理解的信息.</strong>
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
+</code></pre></div><p><strong>默认情况下，不要输出只有软件作者才能理解的信息.</strong>
 如果一个输出只是为了帮助你（开发者）理解你的软件在做什么，那么几乎可以肯定的是，它不应该以默认的方式显示给普通用户，而只是在verbose模式下。</p>
 <p>邀请局外人和新加入你的项目的人提供可用性反馈。
 他们会帮助你看到那些你离代码太近而没有注意到的重要问题。</p>
@@ -632,16 +632,16 @@ args的顺序是很重要的：<code>cp foo bar</code> 的意思与 <code>cp bar
 比如，我们有 <code>-h</code> 和 <code>--help</code>。
 选项拥有完整的版本在脚本中是很有必要的，有时我们希望我们的脚本更具有描述性，这时完整版本的选项能够使你不必到处查找选项的含义。</p>
 <p><em>Citation: <a href="https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html">GNU Coding Standards</a>.</em></p>
-<p><strong>Only use one-letter flags for commonly used flags,</strong> particularly at the top-level when using subcommands.
-That way you don’t “pollute” your namespace of short flags, forcing you to use convoluted letters and cases for flags you add in the future.</p>
-<p><strong>Multiple arguments are fine for simple actions against multiple files.</strong>
-For example, <code>rm file1.txt file2.txt file3.txt</code>.
-This also makes it work with globbing: <code>rm *.txt</code>.</p>
-<p><strong>If you’ve got two or more arguments for different things, you’re probably doing something wrong.</strong>
-The exception is a common, primary action, where the brevity is worth memorizing.
-For example, <code>cp &lt;source&gt; &lt;destination&gt;</code>.</p>
+<p><strong>仅对常用的flag使用单字母flag,</strong> 尤其是在顶层使用子命令时。
+这样你就不会 &ldquo;污染 &ldquo;你的flag的命名空间，避免让你对你将来添加的flag使用复杂的字母和大小写。</p>
+<p><strong>对于针对多个文件的简单操作，指定多个参数是可行的.</strong>
+比如, <code>rm file1.txt file2.txt file3.txt</code>.
+使用通配符同样可行: <code>rm *.txt</code>.</p>
+<p><strong>如果被使用了多个不同种类的参数，那么用户或许操作错误了.</strong>
+除非这是一个常用的操作，在这种情况下，你应该提供一个更明确的描述。
+比如, <code>cp &lt;source&gt; &lt;destination&gt;</code>.</p>
 <p><em>Citation: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
-<p><strong>Use standard names for flags, if there is a standard.</strong>
+<p><strong>如果有专门的名称标准的话，请使用标准的flag名称。</strong>
 If another commonly used command uses a flag name, it’s best to follow that existing pattern.
 That way, a user doesn’t have to remember two different options (and which command it applies to), and users can even guess an option without having to look at the help text.</p>
 <p>Here&rsquo;s a list of commonly used options:</p>
@@ -999,6 +999,6 @@ Encourage feedback and feature requests in your docs and repos, and try to draw 
     </main>
 
         
-        <script src="/js/main.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

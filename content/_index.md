@@ -736,20 +736,20 @@ _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-d
 
 _Citation: [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html)._
 
-**Only use one-letter flags for commonly used flags,** particularly at the top-level when using subcommands.
-That way you don’t “pollute” your namespace of short flags, forcing you to use convoluted letters and cases for flags you add in the future.
+**仅对常用的flag使用单字母flag,** 尤其是在顶层使用子命令时。
+这样你就不会 "污染 "你的flag的命名空间，避免让你对你将来添加的flag使用复杂的字母和大小写。
 
-**Multiple arguments are fine for simple actions against multiple files.**
-For example, `rm file1.txt file2.txt file3.txt`.
-This also makes it work with globbing: `rm *.txt`.
+**对于针对多个文件的简单操作，指定多个参数是可行的.**
+比如, `rm file1.txt file2.txt file3.txt`.
+使用通配符同样可行: `rm *.txt`.
 
-**If you’ve got two or more arguments for different things, you’re probably doing something wrong.**
-The exception is a common, primary action, where the brevity is worth memorizing.
-For example, `cp <source> <destination>`.
+**如果被使用了多个不同种类的参数，那么用户或许操作错误了.**
+除非这是一个常用的操作，在这种情况下，你应该提供一个更明确的描述。
+比如, `cp <source> <destination>`.
 
 _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
 
-**Use standard names for flags, if there is a standard.**
+**如果有专门的名称标准的话，请使用标准的flag名称。**
 If another commonly used command uses a flag name, it’s best to follow that existing pattern.
 That way, a user doesn’t have to remember two different options (and which command it applies to), and users can even guess an option without having to look at the help text.
 
