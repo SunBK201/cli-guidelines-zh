@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-	<meta name="generator" content="Hugo 0.92.2" />
+	<meta name="generator" content="Hugo 0.104.3" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
+        <link rel="manifest" href="site.webmanifest">
 
         <title>命令行界面设计指南</title>
         <meta name="twitter:card" content="summary_large_image">
@@ -82,7 +82,7 @@
 
     <main>
         <h1 id="命令行界面设计指南">命令行界面设计指南</h1>
-<p>这是一个<a href="https://github.com/SunBK201/cli-guidelines-zh">开源指南</a>，可以帮助您编写出更好的命令行程序，采用经典的UNIX哲学并对其进行改进，以适应现代生产环境的需要。</p>
+<p>这是一个<a href="https://github.com/SunBK201/cli-guidelines-zh">开源指南</a>，可以帮助您编写出更好的命令行程序，采用经典的 UNIX 哲学并对其进行改进，以适应现代生产环境的需要。</p>
 <h2 id="authors">译者</h2>
 <p><strong>SunBK201</strong></p>
 <p>原项目是<a href="https://github.com/cli-guidelines/cli-guidelines">cli-guidelines</a>，译者对其进行了本地化。</p>
@@ -105,9 +105,9 @@ Technical Writer at Squarespace, O’Reilly contributor.<br>
 <iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=cli-guidelines&repo=cli-guidelines&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 <p><a href="https://discord.gg/EbAW5rUCkE">Join us on Discord</a> if you want to discuss the guide or CLI design.</p>
 <h2 id="foreword">前言</h2>
-<p>在20世纪80年代，如果你需要用一台个人计算机做一些事情，在面对 <code>C:\&gt;</code> 或 <code>~$</code> 时，你需要知道该输入什么。
+<p>在 20 世纪 80 年代，如果你需要用一台个人计算机做一些事情，在面对 <code>C:\&gt;</code> 或 <code>~$</code> 时，你需要知道该输入什么。
 然而帮助是以厚重的螺旋装订手册提供的，错误的信息是不透明的，没有Stack Overflow可以拯救你。
-但是，如果你有幸能够访问Internet，那么你可以从Usenet（一个早期的Internet社区）获得帮助，那里面满是和你一样沮丧的人。
+但是，如果你有幸能够访问 Internet，那么你可以从Usenet（一个早期的Internet社区）获得帮助，那里面满是和你一样沮丧的人。
 他们可以帮助你解决问题，或者至少提供一些精神支持。</p>
 <p>40年后，每个人都能够轻而易举地使用计算机，但这通常是在牺牲以底层终端用户控制为代价实现的。在许多设备上，根本没有命令行访问方式，一部分原因是这与“围墙花园”和应用商店公司的利益相悖。</p>
 <p>今天的大多数人都不知道命令行是什么，更不用说他们为什么要费心思使用它了。正如计算机先驱Alan Kay在<a href="https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now">2017年的一次采访</a>中所说，“Because people don’t understand what computing is about, they think they have it in the iPhone, and that illusion is as bad as the illusion that ‘Guitar Hero’ is the same as a real guitar.”。</p>
@@ -302,21 +302,21 @@ Usage:    jq [options] &lt;jq filter&gt; [file...]
     jq [options] --jsonargs &lt;jq filter&gt; [JSON_TEXTS...]
 
 jq is a tool for processing JSON inputs, applying the given filter to
-its JSON text inputs and producing the filter's results as JSON on
+its JSON text inputs and producing the filter&#39;s results as JSON on
 standard output.
 
-The simplest filter is ., which copies jq's input to its output
+The simplest filter is ., which copies jq&#39;s input to its output
 unmodified (except for formatting, but note that IEEE754 is used
 for number representation internally, with all that that implies).
 
-For more advanced filters see the jq(1) manpage (&quot;man jq&quot;)
+For more advanced filters see the jq(1) manpage (&#34;man jq&#34;)
 and/or https://stedolan.github.io/jq
 
 Example:
 
-    $ echo '{&quot;foo&quot;: 0}' | jq .
+    $ echo &#39;{&#34;foo&#34;: 0}&#39; | jq .
     {
-        &quot;foo&quot;: 0
+        &#34;foo&#34;: 0
     }
 
 For a listing of options, use jq --help.
@@ -517,14 +517,14 @@ To github.com:replicate/replicate.git
 <p>比如, <code>git status</code> 能够告诉你尽可能多的关于Git仓库当前状态的信息，以及如何修改这些状态的提示：</p>
 <pre tabindex="0"><code>$ git status
 On branch bfirsh/fix-delete
-Your branch is up to date with 'origin/bfirsh/fix-delete'.
+Your branch is up to date with &#39;origin/bfirsh/fix-delete&#39;.
 
 Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+  (use &#34;git add &lt;file&gt;...&#34; to update what will be committed)
+  (use &#34;git restore &lt;file&gt;...&#34; to discard changes in working directory)
 	modified:   cli/pkg/cli/rm.go
 
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+no changes added to commit (use &#34;git add&#34; and/or &#34;git commit -a&#34;)
 </code></pre><p><strong>建议用户应该运行的命令.</strong>
 当多个命令形成一个工作流时，向用户建议他们接下来可以运行的命令有助于他们学习如何使用你的程序并发现新功能。
 例如，在上面的 <code>git status</code> 的输出中，向你提出可以修改当前状态的命令。</p>
@@ -565,24 +565,24 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 <p><strong>使用符号和emoji，它使事情变得更清晰.</strong>
 在能使事情更清晰的地方使用符号和表情符号。如果你需要让几件事情与众不同，吸引用户的注意力，或者只是增加一点特色，图片可能比文字更好。但要小心，很容易做得过头，使你的程序看起来杂乱无章或感觉像个玩具。</p>
 <p>比如, <a href="https://github.com/FiloSottile/yubikey-agent">yubikey-agent</a> 使用表情符号为输出添加结构，因此它不仅仅是一堵文本墙，还有一个 ❌ 来吸引您对重要信息的注意:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell-session" data-lang="shell-session">$ yubikey-agent -setup
-🔐 The PIN is up to 8 numbers, letters, or symbols. Not just numbers!
-❌ The key will be lost if the PIN and PUK are locked after 3 incorrect tries.
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>Choose a new PIN/PUK: 
-Repeat the PIN/PUK: 
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>🧪 Retriculating splines …
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>✅ Done! This YubiKey is secured and ready to go.
-🤏 When the YubiKey blinks, touch it to authorize the login.
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>🔑 Here&#39;s your new shiny SSH public key:
-ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCEJ/
-UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpVS0=
-<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
-</code></pre></div><p><strong>默认情况下，不要输出只有软件作者才能理解的信息.</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>$ yubikey-agent -setup
+</span></span><span style="display:flex;"><span>🔐 The PIN is up to 8 numbers, letters, or symbols. Not just numbers!
+</span></span><span style="display:flex;"><span>❌ The key will be lost if the PIN and PUK are locked after 3 incorrect tries.
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>Choose a new PIN/PUK: 
+</span></span><span style="display:flex;"><span>Repeat the PIN/PUK: 
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>🧪 Retriculating splines …
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>✅ Done! This YubiKey is secured and ready to go.
+</span></span><span style="display:flex;"><span>🤏 When the YubiKey blinks, touch it to authorize the login.
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>🔑 Here&#39;s your new shiny SSH public key:
+</span></span><span style="display:flex;"><span>ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCEJ/
+</span></span><span style="display:flex;"><span>UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpVS0=
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
+</span></span></code></pre></div><p><strong>默认情况下，不要输出只有软件作者才能理解的信息.</strong>
 如果一个输出只是为了帮助你（开发者）理解你的软件在做什么，那么几乎可以肯定的是，它不应该以默认的方式显示给普通用户，而只是在verbose模式下。</p>
 <p>邀请局外人和新加入你的项目的人提供可用性反馈。
 他们会帮助你看到那些你离代码太近而没有注意到的重要问题。</p>
@@ -998,6 +998,7 @@ Encourage feedback and feature requests in your docs and repos, and try to draw 
 
     </main>
 
+        
         
         <script src="js/main.js"></script>
     </body>
