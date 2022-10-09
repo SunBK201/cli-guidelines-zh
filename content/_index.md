@@ -6,7 +6,7 @@
 
 **SunBK201** 
 
-原项目是[cli-guidelines](https://github.com/cli-guidelines/cli-guidelines)，译者对其进行了本地化。
+原项目是 [cli-guidelines](https://github.com/cli-guidelines/cli-guidelines)，译者对其进行了本地化。
 
 [@SunBK201](https://github.com/SunBK201)
 
