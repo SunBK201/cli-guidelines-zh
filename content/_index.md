@@ -675,10 +675,10 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 邀请局外人和新加入您的项目的人提供可用性反馈。
 他们会帮助您看到那些您离代码太近而没有注意到的重要问题。
 
-**不要将 `stderr` 视为日志文件，至少默认情况下不要这样做.**
+**不要将 `stderr` 视为日志文件，至少默认情况下不要这样做。**
 不要打印日志级别标签 (`ERR`, `WARN`, etc.) 或不相干的上下文信息，除非在 verbose 模式下。
 
-**如果要输出大量文本，请使用分页 (e.g. `less`).**
+**如果要输出大量文本，请使用分页 (e.g. `less`)。**
 比如, `git diff` 默认做这件事。
 使用分页可能很容易出错，所以要注意您的实现，不要让用户的体验变得更糟。
 如果 `stdin` 或 `stdout` 不是一个交互式终端，您就不应该使用分页。
@@ -693,27 +693,27 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 查阅文档的最常见的原因之一是为了修正错误。
 如果您能把处理错误的方法整理进文档，那么这将为用户节省大量的时间。
 
-**捕获错误并[为人们重写之](https://www.nngroup.com/articles/error-message-guidelines/).**
+**捕获错误并[为人们重写之](https://www.nngroup.com/articles/error-message-guidelines/)。**
 如果您预计会有错误发生，那就捕获错误并重写错误信息，使之成为有用的信息。
 把它想成是一次对话，用户做错了事，程序在引导他们走向正确的方向。
 例如。"不能写到 file.txt。您可能需要通过运行 'chmod +w file.txt' 来使其可写。"
 
-**信噪比至关重要。.**
+**信噪比至关重要。**
 您产生的不相关的输出越多，用户就会花更多的时间来弄清楚他们做错了什么。
 如果您的程序产生了多个相同类型的错误，考虑将它们分组在一个解释性的标题下，而不是打印许多看起来相似的行。
 
-**考虑用户首先会看哪里.**
+**考虑用户首先会看哪里。**
 把最重要的信息放在输出的最后。
 用户的视线会被红色的文字所吸引，所以要有意识地谨慎使用它。
 
-**如果有一个意外的或无法解释的错误，那么提供调试和跟踪信息，以及关于如何提交错误的说明.**
+**如果有一个意外的或无法解释的错误，那么提供调试和跟踪信息，以及关于如何提交错误的说明。**
 也就是说，不要忘记信噪比：您不希望用他们不理解的信息来淹没用户。
 考虑将调试日志写到一个文件中，而不是打印到终端。
 
-**让提交错误报告变得毫不费力.**
+**让提交错误报告变得毫不费力。**
 您需要提供一个 URL，并让它预先填入尽可能多的信息。
 
-### arguments 与 flags {#arguments-and-flags}
+### 参数与选项 {#arguments-and-flags}
 
 术语:
 
@@ -724,14 +724,14 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
   它们可能包含也可能不包含用户指定的值 (`--file foo.txt`, or `--file=foo.txt`).
   一般来说，flags 的顺序不会影响程序语义
 
-**相比于 args 优先使用 flags.**
+**相比于 args 优先使用 flags。**
 虽然这个可能要多打一些字，但是这会让接下来的工作更加清晰。
 这也会使用户更加容易适应在未来输入方式的变化。
 有些时候，在使用参数时，不太可能在不破坏现有行为或造成歧义的情况下增加新的输入。
 
 _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
 
-**所有的 flags 都应该有完整版本.**
+**所有的 flags 都应该有完整版本。**
 比如，我们有 `-h` 和 `--help`。
 flag 拥有完整的版本在脚本中是很有必要的，有时我们希望我们的脚本更具有描述性，这时完整版本的 flag 能够使您不必到处查找 flag 的含义。
 
@@ -740,21 +740,21 @@ _Citation: [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/C
 **仅对常用的 flag 使用单字母 flag,** 尤其是在顶层使用子命令时。
 这样您就不会 "污染 "您的 flag 的命名空间，避免让您对您将来添加的 flag 使用复杂的字母和大小写。
 
-**对于针对多个文件的简单操作，指定多个 argument 是可行的.**
+**对于针对多个文件的简单操作，指定多个 argument 是可行的。**
 比如, `rm file1.txt file2.txt file3.txt`.
 使用通配符同样可行: `rm *.txt`.
 
-**如果被使用了多个不同种类的 argument ，那么用户或许操作错误了.**
+**如果被使用了多个不同种类的 argument ，那么用户或许操作错误了。**
 除非这是一个常用的操作，在这种情况下，您应该提供一个更明确的描述。
 比如, `cp <source> <destination>`.
 
 _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
 
 **如果有专门的名称标准的话，请使用标准的 flag 名称。**
-If another commonly used command uses a flag name, it’s best to follow that existing pattern.
-That way, a user doesn’t have to remember two different options (and which command it applies to), and users can even guess an option without having to look at the help text.
+如果另一个常用的命令使用了一个 flag 名称，最好是遵循这个现有的模式。
+这样，用户就不必记住两个不同的选项（以及它适用于哪个命令），用户甚至可以猜测一个选项，而不必看帮助文本。
 
-Here's a list of commonly used options:
+下面是常用的选项:
 
 - `-a`, `--all`: All.
   For example, `ps`, `fetchmail`.
@@ -781,24 +781,24 @@ Here's a list of commonly used options:
 - `-v`: This can often mean either verbose or version.
   You might want to use `-d` for verbose and this for version, or for nothing to avoid confusion.
 
-**Make the default the right thing for most users.**
-Making things configurable is good, but most users are not going to find the right flag and remember to use it all the time (or alias it).
-If it’s not the default, you’re making the experience worse for most of your users.
+**让默认值成为大多数用户的正确选择。**
+可配置化是不错的，但大多数用户不会找到正确的 flags 并记得一直使用它（或别名）。
+如果它不是默认的，您就会使您的大多数用户的体验变差。
 
-For example, `ls` has terse default output to optimize for scripts and other historical reasons, but if it were designed today, it would probably default to `ls -lhFGT`.
+比如，`ls` 有简明的默认输出以优化脚本和其他历史问题, 但如果是今天的设计，它可能会默认是 `ls -lhFGT`.
 
-**Prompt for user input.**
-If a user doesn’t pass an argument or flag, prompt for it.
-(See also: [Interactivity](#interactivity))
+**向用户提供 prompt。**
+如果用户没有传递 argument 或 flag，那就进行 prompt。
+(See also: [交互性](#interactivity))
 
-**Never _require_ a prompt.**
-Always provide a way of passing input with flags or arguments.
-If `stdin` is not an interactive terminal, skip prompting and just require those flags/args.
+**不再 _需要_ prompt.**
+向用户一直提供一种传递 flags 和 arguments 的输入方式。
+如果 `stdin` 不是一个交互式终端，跳过 prompting 并只需要 flags/args。
 
-**Confirm before doing anything dangerous.**
-A common convention is to prompt for the user to type `y` or `yes` if running interactively, or requiring them to pass `-f` or `--force` otherwise.
+**在做任何危险的操作之前进行确认。**
+如果运行在交互式环境，一个常见的做法是提示用户键入 `y` or `yes`, 或者要求用户传入 `-f` or `--force`.
 
-“Dangerous” is a subjective term, and there are differing levels of danger:
+“危险性” 是一个主观性术语, 存在不同等级的危险:
 
 - **Mild:** A small, local change such as deleting a file.
   You might want to prompt for confirmation, you might not.
@@ -811,8 +811,8 @@ A common convention is to prompt for the user to type `y` or `yes` if running in
   Consider asking them to type something non-trivial such as the name of the thing they’re deleting.
   Let them alternatively pass a flag such as `--confirm="name-of-thing"`, so it’s still scriptable.
 
-Consider whether there are non-obvious ways to accidentally destroy things.
-For example, imagine a situation where changing a number in a configuration file from 10 to 1 means that 9 things will be implicitly deleted—this should be considered a severe risk, and should be difficult to do by accident.
+考虑是否有不明显的方式意外地破坏事物。
+例如，想象一下这样一种情况：将配置文件中的一个数字从 10 改为 1，意味着 9 个东西将被隐式删除--这应该被认为是一种严重的风险，而且应该很难意外地做到。
 
 **If input or output is a file, support `-` to read from `stdin` or write to `stdout`.**
 This lets the output of another command be the input of your command and vice versa, without using a temporary file.
