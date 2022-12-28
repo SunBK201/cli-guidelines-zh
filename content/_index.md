@@ -800,34 +800,34 @@ _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-d
 
 “危险性” 是一个主观性术语, 存在不同等级的危险:
 
-- **Mild:** A small, local change such as deleting a file.
-  You might want to prompt for confirmation, you might not.
-  For example, if the user is explicitly running a command called something like “delete,” you probably don’t need to ask.
-- **Moderate:** A bigger local change like deleting a directory, a remote change like deleting a resource of some kind, or a complex bulk modification that can’t be easily undone.
-  You usually want to prompt for confirmation here.
-  Consider giving the user a way to “dry run” the operation so they can see what’ll happen before they commit to it.
-- **Severe:** Deleting something complex, like an entire remote application or server.
-  You don’t just want to prompt for confirmation here—you want to make it hard to confirm by accident.
-  Consider asking them to type something non-trivial such as the name of the thing they’re deleting.
-  Let them alternatively pass a flag such as `--confirm="name-of-thing"`, so it’s still scriptable.
+- **Mild:** 一个小的、局部的改变，如删除一个文件。
+  您可能想提示确认，也可能不想。
+  例如，如果用户明确地运行一个叫做 "删除 "的命令，您可能不需要询问。
+- **Moderate:** 一个较大的本地变化，如删除一个目录，一个远程变化，如删除某种资源，或一个复杂的批量修改，不容易被撤销。
+  你通常想在这里提示确认。
+  考虑给用户一个 "dry run "操作的方法，这样他们就可以在提交之前看到会发生什么。
+- **Severe:** 删除一些复杂的东西，如整个远程应用程序或服务器。
+  你不只是想在这里提示确认--你想让它很难被意外确认。
+  考虑要求他们输入一些非琐碎的东西，如他们要删除的东西的名称。
+  让他们传递一个 flag，如 `--confirm="name-of-thing"` ，这样就可以用脚本编写了。
 
 考虑是否有不明显的方式意外地破坏事物。
 例如，想象一下这样一种情况：将配置文件中的一个数字从 10 改为 1，意味着 9 个东西将被隐式删除--这应该被认为是一种严重的风险，而且应该很难意外地做到。
 
-**If input or output is a file, support `-` to read from `stdin` or write to `stdout`.**
-This lets the output of another command be the input of your command and vice versa, without using a temporary file.
-For example, `tar` can extract files from `stdin`:
+**如果输入或输出是一个文件, 支持使用 `-` 来从 `stdin` 中读或写出到 `stdout`.**
+这让另一个命令的输出成为你的命令的输入，反之亦然，从而不需要使用临时文件。
+比如，`tar` 可以从 `stdin` 中提取文件：
 
 ```
 $ curl https://example.com/something.tar.gz | tar xvf -
 ```
 
-**If a flag can accept an optional value, allow a special word like “none.”**
-For example, `ssh -F` takes an optional filename of an alternative `ssh_config` file, and `ssh -F none` runs SSH with no config file. Don’t just use a blank value—this can make it ambiguous whether arguments are flag values or arguments.
+**如果一个 flag 可以接受一个可选的值，那么允许使用一个特殊的词，如 "none."。**
+例如，`ssh -F` 需要一个可选的 `ssh_config` 文件的文件名，而用 `ssh -F none` 运行 SSH，则无需配置文件。不要只使用一个空白值--这可能会使参数是 flag values 还是 arguments 变得模糊不清。
 
-**If possible, make arguments, flags and subcommands order-independent.**
-A lot of CLIs, especially those with subcommands, have unspoken rules on where you can put various arguments.
-For example a command might have a `--foo` flag that only works if you put it before the subcommand:
+**如果可以，尽量让 arguments, flags, subcommands 顺序无关**
+很多 CLI，特别是那些含有子命令的 CLI，各种参数的位置顺序存在一定的潜规则。
+例如，一个命令含有一个 `--foo` flag，只有当您把它放在子命令之前时才会起作用：
 
 ```
 mycmd --foo=1 subcmd
@@ -837,21 +837,20 @@ $ mycmd subcmd --foo=1
 unknown flag: --foo
 ```
 
-This can be very confusing for the user—especially given that one of the most common things users do when trying to get a command to work is to hit the up arrow to get the last invocation, stick another option on the end, and run it again.
-If possible, try to make both forms equivalent, although you might run up against the limitations of your argument parser.
+这可能会让用户感到非常困惑--特别是用户常常会复制上次执行的命令，在最后面加上另一个 option，然后再次执行。
+尽量让两种形式等同，尽管你可能会遇到参数分析器的限制。
 
-**Allow sensitive argument values to be passed in via files.**
-Let’s say your command takes a secret via a `--password` argument.
-A raw `--password` argument will leak the secret into `ps` output and potentially shell history.
-It’s easy to misuse.
-Consider allowing secrets only via files, e.g. with a `--password-file` argument.
-A `--password-file` argument allows a secret to be passed in discreetly, in a wide variety of contexts.
+**允许通过文件传入敏感的参数值。**
+假设您的命令通过 `--password` 参数获取敏感信息。
+一个 raw `--password` 参数会将会将秘密泄露到 `ps` 输出中，也可能泄露到 shell history 中。
+考虑只允许通过文件输入秘文，例如使用一个 `--password-file` 参数。
+一个 `--password-file` 参数允许在各种情况下谨慎地传入敏感信息。
 
-(It’s possible to pass a file’s contents into an argument in Bash by using `--password $(< password.txt)`.
-Unfortunately, not every context in which a command is run will have access to magical shell substitutions.
-For example, `systemd` service definitions, `exec` system calls, and some `Dockerfile` command forms do not support the substitutions available in most shells.
-What’s more, this approach has the same security issue of leaking the file’s contents into places like the output of `ps`.
-It’s best avoided.)
+(在 Bash 中可以通过使用 `--password $(< password.txt)` 将文件的内容传递到一个参数中。
+不幸的是，并不是每个命令环境都可以使用神奇的 shell 替换。
+例如，`systemd` 服务，`exec` 系统调用，以及一些 `Dockerfile` 命令形式不支持大多数 shell 中的替换。
+更重要的是，这种方法同样存在安全问题，即把文件内容泄露到 `ps` 的输出等地方。
+最好避免这种做法)。
 
 ### 交互性 {#interactivity}
 
