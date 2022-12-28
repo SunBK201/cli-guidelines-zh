@@ -969,9 +969,9 @@ _Citation: [Crash-only software: More than meets the eye](https://lwn.net/Articl
 
 如果可能的话，您应该检测到用户已经改变了他们的用法，并且不再显示警告：现在，当您最终推出这个变化时，他们不会注意到任何事情。
 
-**Changing output for humans is usually OK.**
-The only way to make an interface easy to use is to iterate on it, and if the output is considered an interface, then you can’t iterate on it.
-Encourage your users to use `--plain` or `--json` in scripts to keep output stable (see [Output](#output)).
+**为人类改变输出通常是可以的。**
+要使一个界面易于使用，唯一的办法就是对它进行迭代，如果输出被认为是一个接口，那么你就不能对它进行迭代。
+鼓励你的用户在脚本中使用 `--plain` 或 `--json` 以保持输出稳定 (see [Output](#output)).
 
 **Don’t have a catch-all subcommand.**
 If you have a subcommand that’s likely to be the most-used one, you might be tempted to let people omit it entirely for brevity’s sake.
