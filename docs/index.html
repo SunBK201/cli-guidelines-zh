@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-	<meta name="generator" content="Hugo 0.104.3" />
+	<meta name="generator" content="Hugo 0.106.0">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -45,8 +45,8 @@
     <li><a href="#introduction">介绍</a></li>
     <li><a href="#philosophy">原则</a>
       <ul>
-        <li><a href="#human-first-design">以人为本设计</a></li>
-        <li><a href="#simple-parts-that-work-together">简单部件协同工作</a></li>
+        <li><a href="#human-first-design">以人为本</a></li>
+        <li><a href="#simple-parts-that-work-together">小即是美</a></li>
         <li><a href="#consistency-across-programs">程序间一致性</a></li>
         <li><a href="#saying-just-enough">输出适中</a></li>
         <li><a href="#ease-of-discovery">功能易发现性</a></li>
@@ -63,7 +63,7 @@
         <li><a href="#documentation">文档</a></li>
         <li><a href="#output">输出</a></li>
         <li><a href="#errors">错误</a></li>
-        <li><a href="#arguments-and-flags">参数与选项</a></li>
+        <li><a href="#arguments-and-flags">arguments 与 flags</a></li>
         <li><a href="#interactivity">交互性</a></li>
         <li><a href="#子命令">子命令</a></li>
         <li><a href="#robustness-guidelines">鲁棒性</a></li>
@@ -85,7 +85,7 @@
 <p>这是一个<a href="https://github.com/SunBK201/cli-guidelines-zh">开源指南</a>，可以帮助您编写出更好的命令行程序，采用经典的 UNIX 哲学并对其进行改进，以适应现代生产环境的需要。</p>
 <h2 id="authors">译者</h2>
 <p><strong>SunBK201</strong></p>
-<p>原项目是<a href="https://github.com/cli-guidelines/cli-guidelines">cli-guidelines</a>，译者对其进行了本地化。</p>
+<p>原项目是 <a href="https://github.com/cli-guidelines/cli-guidelines">cli-guidelines</a>，译者对其进行了本地化。</p>
 <p><a href="https://github.com/SunBK201">@SunBK201</a></p>
 <iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=SunBK201&repo=cli-guidelines-zh&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="40" title="GitHub"></iframe>
 <h2 id="authors">作者</h2>
@@ -106,140 +106,140 @@ Technical Writer at Squarespace, O’Reilly contributor.<br>
 <p><a href="https://discord.gg/EbAW5rUCkE">Join us on Discord</a> if you want to discuss the guide or CLI design.</p>
 <h2 id="foreword">前言</h2>
 <p>在 20 世纪 80 年代，如果您需要用一台个人计算机做一些事情，在面对 <code>C:\&gt;</code> 或 <code>~$</code> 时，您需要知道该输入什么。
-然而帮助是以厚重的螺旋装订手册提供的，错误的信息是不透明的，没有Stack Overflow可以拯救您。
-但是，如果您有幸能够访问 Internet，那么您可以从Usenet（一个早期的Internet社区）获得帮助，那里面满是和您一样沮丧的人。
-他们可以帮助您解决问题，或者至少提供一些精神支持。</p>
-<p>40年后，每个人都能够轻而易举地使用计算机，但这通常是在牺牲以底层终端用户控制为代价实现的。在许多设备上，根本没有命令行访问方式，一部分原因是这与“围墙花园”和应用商店公司的利益相悖。</p>
-<p>今天的大多数人都不知道命令行是什么，更不用说他们为什么要费心思使用它了。正如计算机先驱Alan Kay在<a href="https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now">2017年的一次采访</a>中所说，“Because people don’t understand what computing is about, they think they have it in the iPhone, and that illusion is as bad as the illusion that ‘Guitar Hero’ is the same as a real guitar.”。</p>
-<p>Kay的“真吉他”不完全是CLI。他讨论的是提供CLI功能的计算机编程方式，这种编程方式远超于在文本文件中编写软件。Kay的信徒认为，我们需要打破我们已经生活了几十年的基于文本的局部最大值。</p>
-<p>想象一下未来我们用完全不同的方式来编写计算机程序是一件多么令人兴奋的事情。即使在今天，电子表格仍然是迄今为止最流行的编程语言，而无代码运动正在迅速发展，因为它试图取代一些对有天才程序员的强烈需求。</p>
+然而帮助是以厚重的螺旋装订手册的形式提供的，错误信息是不透明的，没有 Stack Overflow 可以拯救您。
+但是，如果您有幸能够访问 Internet，那么您可以从 Usenet（一个早期的 Internet 社区）获得帮助，那里面满是和您一样沮丧的人。
+他们或许可以帮助您解决问题，或者至少提供一些精神支持。</p>
+<p>40 年后，每个人都能够轻而易举地使用计算机，但是代价往往是牺牲了底层终端用户的控制权。在许多设备上，根本没有命令行访问方式，一部分原因是这与“围墙花园”和应用商店公司的利益相悖。</p>
+<p>今天的大多数人都不知道命令行是什么，更不用说他们为什么要费心思去使用它了。正如计算机先驱 Alan Kay 在<a href="https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now">2017年的一次采访</a>中所说，“Because people don’t understand what computing is about, they think they have it in the iPhone, and that illusion is as bad as the illusion that ‘Guitar Hero’ is the same as a real guitar.”。</p>
+<p>Kay 的“真正的吉他”不完全是 CLI。他讨论的是提供 CLI 功能的计算机编程方式，这种编程方式远超于在文本文件中编写软件。Kay 的信徒们认为，我们需要打破我们已经使用了几十年的基于文本文件编程的局限。</p>
+<p>想象一下未来我们用完全不同的方式来编写计算机程序是一件多么令人兴奋的事情。即使在今天，电子表格仍然是迄今为止最流行的编程语言，而无代码运动正在迅速发展，因为它在试图取代一些抢手的天才程序员。</p>
 <p>然而，尽管命令行有其陈旧的、数十年之久的约束和令人费解的怪异，但它依旧是计算机中最 <em>万能</em> 的一角。
-它让您拉开计算机真正的面纱，看看里面到底发生了什么，并能够让您创造性地以GUI无法承受的复杂和深度与机器进行交互。
+它能够让您拉开计算机真正的面纱，看看里面到底发生了什么，并能够让您以 GUI 无法承受的复杂与深度与机器进行交互。
 任何想学习它的人都可以在几乎所有的笔记本电脑上使用它。
 它可以交互运行，也可以自动化运行。
 此外，它的变化速度不如系统的其他部分快。
-其创造价值源于稳定性。</p>
+其创造性价值源于稳定性。</p>
 <p>所以，当我们仍然拥有命令行的时候，我们应该尽量最大化命令行的效用和可访问性。</p>
 <p>从很早之前开始，我们的计算机编程方式发生了很大的变化。
-过去的命令行是 <em>机器优先</em> 的: 和脚本平台上的REPL差不多。
-但是，随着通用解释语言的蓬勃发展，shell脚本的作用已经减少。
-今天的命令行是 <em>以人为本</em> 的: 一个基于文本的UI，提供对各种工具、系统和平台的访问。
-在过去，编辑器是在终端里的，今天终端通常是编辑器的一个功能。
-类似<code>git</code>的多工具命令也在大量涌现。
-命令中的命令，以及执行整个工作流而不是原子功能的高级命令也相继出现。</p>
-<p>受传统UNIX哲学的启发，受有趣的功能强大的CLI环境的驱动，以及在我们作为程序员的经验的指导下，我们决定是时候重温构建命令行程序的最佳实践和设计原则了。</p>
+过去的命令行是 <em>机器优先</em> 的: 和脚本平台上的 REPL 差不多。
+但是，随着通用解释语言的蓬勃发展，shell 脚本的作用已经减少。
+如今的命令行是 <em>以人为本</em> 的: 一个基于文本的 UI，提供对各种工具、系统和平台的访问。
+在过去，编辑器是在终端里的，如今的终端通常是编辑器的一个功能。
+类似 <code>git</code> 的多工具命令也在大量涌现。
+嵌套命令，以及执行整个工作流而不是原子功能的高级命令也相继出现。</p>
+<p>受传统 UNIX 哲学的启发，受有趣且功能强大的 CLI 环境的驱动，以及在我们作为程序员的经验的指导下，我们决定是时候重温构建命令行程序的最佳实践和设计原则了。</p>
 <p>命令行万岁！</p>
 <h2 id="introduction">介绍</h2>
 <p>本文档涵盖了高层次的设计理念和具体的指导方针。
 它在指导方针上更加偏重，因为作为实践者，我们的原则是不需要进行太多的高谈阔论。
 我们相信要通过例子学习，因此我们也准备了不少范例以供大家参考。</p>
-<p>这篇指南不会包含类似emacs和vim那样全屏终端程序。
+<p>这篇指南不会包含类似 emacs 和 vim 那样全屏终端程序。
 全屏程序是小众项目，很少有人能设计出这样的项目。</p>
 <p>一般来说，本指南也不涉及编程语言和工具。</p>
 <p>本指南适用于谁？</p>
 <ul>
-<li>如果您正在创建一个CLI程序，并且您正在为它的UI设计寻找原则和具体的最佳实践，那么本指南就是为您准备的。</li>
-<li>如果您是专业的 “CLI UI设计师” ，那就太好了，我们很乐意向您学习。</li>
-<li>如果您想避免与40年来CLI设计惯例相悖的错误，本指南非常适合您。</li>
-<li>如果您想通过程序的良好设计和有用的帮助文档让用户满意，那么本指南绝对适合您。</li>
-<li>如果您正在创建一个GUI程序，这篇指南不适合您，但是如果您仍然决意要阅读，您可能会学到一些GUI的错误范式。</li>
-<li>如果您正在设计Minecraft的沉浸式全屏CLI端口，那么本指南不适合您。
+<li>如果您正在创建一个 CLI 程序，并且您正在为它的 UI 设计寻找原则和具体的最佳实践，那么本指南就是为您准备的。</li>
+<li>如果您是专业的“CLI UI设计师” ，那就太好了，我们很乐意向您学习。</li>
+<li>如果您想避免与 40 年来 CLI 设计惯例相悖的错误，本指南非常适合您。</li>
+<li>如果您想通过程序的良好设计和有用的帮助文档令用户满意，那么本指南绝对适合您。</li>
+<li>如果您正在创建一个 GUI 程序，这篇指南不适合您，但是如果您仍然决意要阅读，您可能会学到一些 GUI 的错误范式。</li>
+<li>如果您正在设计 Minecraft 的沉浸式全屏 CLI 端口，那么本指南不适合您。
 (但我们已经等不及要看了!)</li>
 </ul>
 <h2 id="philosophy">原则</h2>
-<p>以下是我们认为优秀的CLI设计应具备的基本原则。</p>
-<h3 id="human-first-design">以人为本设计</h3>
-<p>传统的UNIX命令是为了被其它程序调用编写的。
+<p>以下是我们认为优秀的 CLI 设计应具备的基本原则。</p>
+<h3 id="human-first-design">以人为本</h3>
+<p>传统的 UNIX 命令是为了被其它程序调用而编写的。
 与图形应用程序相比，它们与编程语言中的函数有更多的共同之处。</p>
-<p>如今，尽管许多CLI程序主要(甚至专门)是被人类使用，而不是被程序调用，但它们的许多交互设计仍然承载着过去的包袱。
-现在是时候摆脱这些包袱了: 如果一个命令主要是被人类使用的，而不是程序，那么它就应该首先为人类设计。</p>
-<h3 id="simple-parts-that-work-together">简单部件协同工作</h3>
+<p>如今，尽管许多 CLI 程序主要(甚至专门)是被人类使用，而不是被程序调用，但它们的许多交互设计仍然承载着过去的包袱。
+现在是时候摆脱这些历史包袱了: 如果一个命令主要是被人类所使用的，而不是程序，那么它就应该首先以人为本设计。</p>
+<h3 id="simple-parts-that-work-together">小即是美</h3>
 <p><a href="https://en.wikipedia.org/wiki/Unix_philosophy">最初的UNIX哲学</a>中一个核心原则：
-使用具有干净接口的简单程序组合构建更大的系统。
-您应该是编写足够模块化的程序，以便根据需要进行组合重构，而不是不断地把越来越多的新特性塞到一个程序中去。</p>
-<p>在过去，程序的组合主要是通过管道和shell脚本来实现的。
+使用具有整洁接口的简单程序从而组合构建出更大的系统。
+您应该编写足够模块化的程序，以便根据需要进行组合重构，而不是不断地把越来越多的新特性塞到一个程序中去。</p>
+<p>在过去，程序的组合主要是通过管道和 shell 脚本来实现的。
 随着通用解释语言的兴起，它们的作用可能已减弱，但它们并没有消失。
-此外，以CI/CD，业务流和配置管理形式的大型自动化系统蓬勃发展。程序的组合性与以往一样重要。</p>
-<p>幸运的是，UNIX环境中长期建立的约定(专为这一目的而设计)至今仍对我们有帮助。
-标准的in/out/err，signals，exit codes和其他机制可确保不同的程序很好地连接在一起。
-普通的、基于行的文本很容易在命令之间进行管道连接。
-JSON是一项较新的发明，它在需要时为我们提供了更多结构，并使我们可以更轻松地将命令行工具与Web集成。</p>
+此外，以 CI/CD、业务流和配置管理形式的大型自动化系统蓬勃发展。程序的组合性与以往一样重要。</p>
+<p>幸运的是，UNIX 环境中长期建立的约定(专为这一目的而设计)至今仍对我们有帮助。
+标准的 in/out/err, signals, exit codes 和其他机制可确保不同的程序很好地连接在一起。
+普通基于行的文本很容易在命令之间进行管道连接。
+JSON 是一项较新的发明，它在需要时为我们提供了更多结构，并使我们可以更轻松地将命令行工具与 Web 集成。</p>
 <p>无论您要构建什么软件，人们绝对会以您意想不到的方式使用它。
-您的软件 <em>将</em> 成为一个更大系统中的一部分，您唯一的选择是它是否让它成为这个系统中行为稳定的一部分。</p>
-<p>最重要的是，组合性的设计不必与以人为本的设计相悖。
-本文中的大部分建议都是关于如何同时实现这两者的。</p>
+您的软件 <em>将</em> 成为一个更大系统中的一部分，您唯一的选择只能是能否让它成为这个系统中行为稳定的一部分。</p>
+<p>最重要的是，组合性的设计没有与以人为本的设计相悖。
+本文中的大部分建议都是关于如何同时实现这两者。</p>
 <h3 id="consistency-across-programs">程序间一致性</h3>
 <p>终端的约定已牢牢扎根于我们的手指。
-我们在前期必须支付成本来学习命令行语法、选项、环境变量等等，但只要程序与程序之间的规则模式是一致的，我们付出的学习成本就会在长期的效率方面得到回报。</p>
-<p>因此，CLI应尽可能地遵循现已存在的规则模式。
-这也就是CLI这么符合直觉性和易猜性的原因，也是使用CLI用户如此高效的原因。</p>
-<p>话虽如此，有些时候一致性会与易用性冲突。
-比如，许多历史悠久的UNIX命令默认情况下不会输出太多信息，这可能会给那些不太熟悉命令行的人造成混乱或担忧。</p>
-<p>当遵循约定会损害程序的可用性时，我们可以考虑要不要打破这种约定，但这样的决定应该谨慎做出。</p>
+我们在前期必须支付成本来学习命令行语法、flags、环境变量等等，但只要程序与程序之间的规则模式是一致的，我们付出的学习成本就会在长期的效率方面得到回报。</p>
+<p>因此，CLI 应尽可能地遵循现现存的规则模式。
+这也是 CLI 这么符合直觉性和易猜性的原因，也是 CLI 用户如此高效的原因。</p>
+<p>话虽如此，有些时候程序间一致性会与易用性冲突。
+比如，许多历史悠久的 UNIX 命令默认情况下不会输出太多信息，这可能会给那些不太熟悉命令行的人们造成混乱或担忧。</p>
+<p>当遵守程序间一致性原则会损害程序的可用性时，我们可以考虑是否要打破这种一致性原则，但这样的决定应该谨慎做出。</p>
 <h3 id="saying-just-enough">输出适中</h3>
 <p>终端是一个纯信息的世界。
 您可以认为信息是一个界面，就像任何界面一样，经常有过多或过少的信息。</p>
-<p>当命令挂起几分钟时，由于输出的信息太少，用户会开始怀疑它是否挂掉了。
+<p>在命令挂起几分钟的期间，由于输出的信息太少，用户会开始怀疑它是否挂掉了。
 当命令输出了一页又一页的调试信息时，过多的信息反而淹没了在松散碎片中真正重要的部分。
 最终结果一样: 缺乏清晰度，让用户感到困惑和恼火。</p>
 <p>这种输出适中的平衡很难做到，但如果软件要为用户提供服务，这绝对是至关重要的。</p>
 <h3 id="ease-of-discovery">功能易发现性</h3>
-<p>当涉及到功能的易发现性时，GUI占了上风。
+<p>当涉及到功能的易发现性时，GUI 占了上风。
 您能做的一切都显示在您面前的屏幕上，因此您无需学习任何内容就可以找到所需的功能，甚至可以发现自己不知道的功能。</p>
-<p>假设命令行界面与此相反，您不得不记住所有的功能。
-最初的 <a href="https://archive.org/details/applehumaninterf00appl">Macintosh人机界面指南</a>，发布于1987年，推荐使用 “看见并指向（而不是记住并键入）” 方式，其中的说法默认您似乎只能选择其中一种方式。</p>
+<p>或许您可以假设命令行界面与此相反，您不得不记住所有的功能。
+最初的 <a href="https://archive.org/details/applehumaninterf00appl">Macintosh 人机界面指南</a>，发布于1987年，推荐使用 “看见并指向（而不是记住并键入）” 方式，其中的说法默认您似乎只能选择其中一种方式。</p>
 <p>但这些事情不必相互排斥。
-使用命令行的效率来自于记住命令，但是没有理由命令不能帮助您学习和记住命令。</p>
-<p>具备易发现性的CLI应包含全面的帮助文档，提供许多示例，并能够对下一步要运行什么命令以及发生错误时应采取的措施提出建议。
-我们可以从GUI中窃取想法，以使CLI易于学习和使用，即使对于进阶用户也是如此。</p>
+使用命令行的效率来自于记住命令，但是没有理由命令本身不能帮助您学习和记忆命令。</p>
+<p>具备功能易发现性的 CLI 应包含全面的帮助文档，提供许多示例，并能够对下一步要运行什么命令以及发生错误时应采取的措施提出建议。
+我们可以从 GUI 中窃取想法，以使 CLI 易于学习和使用，即使对于进阶用户也是如此。</p>
 <p><em>引用: The Design of Everyday Things (Don Norman)，Macintosh Human Interface Guidelines</em></p>
 <h3 id="conversation-as-the-norm">对话是常态</h3>
-<p>GUI的设计，尤其是在早期，大量使用了 <em>比喻</em>: 桌面、文件、文件夹、回收站。
+<p>GUI 的设计，尤其是在早期，大量使用了 <em>比喻手法</em>: 桌面、文件、文件夹、回收站。
 这是很有道理的，因为计算机正不断使自己更加符合常识。
-比喻的易于实现是GUI相对于CLI的巨大优势之一。
-然而，很讽刺的是，CLI一直体现了一个偶然的比喻: 它是一场对话。</p>
+比喻的易于实现是 GUI 相对于 CLI 的巨大优势之一。
+然而，很讽刺的是，CLI 一直体现了一个偶然的比喻: 它是一场对话。</p>
 <p>除了最简单的命令之外，运行一个程序通常涉及不止一次的调用。
-通常，这是因为很难在第一次就正确地完成使用：用户键入命令，遇到错误，修改命令，遇到其他错误等等，直到可以正常使用。
+通常，这是因为很难在第一次使用命令就正确地达成目标：用户键入命令，遇到错误，修改命令，遇到其他错误等等，直到可以正常使用。
 通过反复失败来学习的这种模式就像是一场用户与程序之间的对话。</p>
 <p>不过，试错法并不是对话互动的唯一方式。
 此外还有：</p>
 <ul>
 <li>运行一个命令来设置一个工具，然后学习运行哪些命令才能真正开始使用它。</li>
-<li>运行几个命令来进行一个前提操作，然后运行最后一个命令（比如 多个 <code>git add</code>，后面跟着一个 <code>git commit</code>）。</li>
+<li>运行几个命令来进行一个前置操作，然后运行最后一个命令（比如 多个 <code>git add</code>，后面跟着一个 <code>git commit</code>）。</li>
 <li>探索一个系统，例如用许多 <code>cd</code> 和 <code>ls</code> 来了解目录结构，或使用 <code>git log</code> 和 <code>git show</code> 来查看文件的历史。</li>
 <li>在真正运行一个复杂的操作之前，先进行一次演习。</li>
 </ul>
-<p>承认命令行交互的对话性意味着您可以将相关技术应用到它的设计中。
+<p>承认命令行交互的对话性意味着您可以将相关技术应用到命令行的设计中。
 当用户输入无效时，您可以提出纠正建议; 当用户经历多个步骤的过程时，您可以明确中间状态; 您可以在用户做一些骚操作之前向他们确认一切是否进行正常。</p>
 <p>用户正在与您的软件进行对话，不管您是否有意为之。
-在最坏的情况下，这是一场充满敌意的谈话，让他们感到愚蠢和怨恨。
-在最好的情况下，这是一种愉快的交流，可以加速他们获得新知识和成就感的过程。</p>
+在最坏的情况下，这是一场充满敌意的对话，让他们感到愚蠢和怨恨。
+在最好的情况下，这是一场愉快的交流，可以加速他们获得新知识和成就感的过程。</p>
 <p><em>深入阅读: <a href="https://www.nngroup.com/articles/anti-mac-interface/">The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)</a></em></p>
 <h3 id="robustness-principle">鲁棒性</h3>
 <p>鲁棒性既是一种客观属性，也是一种主观属性。
 当然，软件 <em>应该</em> 是健壮的: 异常的输入应该被妥善处理，操作应该在可能的情况下是幂等的，等等。
 但它也应该被 <em>感觉</em> 是健壮的。</p>
-<p>您应该让您的软件在感觉上不会崩溃。
+<p>您应该让您的软件在感官上不会崩溃。
 让它能给人一种即时响应的感觉，就好像它是一个巨大的机械机器，而不是一个脆弱的塑料“软开关”。</p>
 <p>主观的鲁棒性需要关注细节，并认真思考可能出错的地方。
 这里有许多小细节: 让用户知道当前正在发生什么，解释常见错误的含义，不打印输出可怕的堆栈跟踪信息。</p>
 <p>通常，鲁棒性也可以来自简单性。
 许多边缘情况和复杂的代码往往会使程序变得脆弱。</p>
 <h3 id="empathy">同感共情</h3>
-<p>命令行工具是程序员的创作工具，所以使用起来应该很愉快。
+<p>命令行工具是程序员的创作工具，所以使用起来应该让人感到愉悦。
 这并不意味着要把它们变成一款电子游戏，或者使用大量的表情符号（尽管表情符号本身并没有什么错 😉）。
-我们应该要让用户觉得您是站在他们那一边的，您希望他们一切顺利，您已经充分考虑过他们的问题以及解决问题的方案。</p>
-<p>虽然我们的这个建议可能会给您带来一些帮助，但您所能采取的行动并不能确保他们会有这种感觉。
+您需要要让用户觉得您是站在他们那一边的，您希望用户一切顺利，并且您已经充分考虑过他们的问题以及解决问题的方案。</p>
+<p>虽然这个建议可能会给您带来一些帮助，但您所能采取的行动并不能确保用户会有这种感觉。
 取悦用户意味着每一次都 <em>超过他们的期望</em>，这始于同感共情。</p>
 <h3 id="chaos">混乱</h3>
 <p>这个世界的终端一团糟，
 前后矛盾无处不在，拖慢了我们的脚步，让我们不得不反思自己。</p>
 <p>然而，不可否认的是，这种混乱一直是力量的源泉。
-终端，就像一般的UNIX下的计算环境一样，对您可以构建的内容设置很少的限制。
+终端，就像通用的 UNIX 下的计算环境一样，对您可以构建的内容设置很少的限制。
 在这个领域里，各种各样的发明都如雨后春笋般涌现。</p>
 <p>很讽刺的是，本文档恳请您遵循现有模式，并提供与数十年来命令行传统相悖的建议。
 我们和其他人一样对违反规则感到内疚。</p>
-<p>也许您也该打破规矩了。
+<p>但也许您是时候该打破规矩了。
 有明确目的要这样做。</p>
 <blockquote>
 <p>“当一个标准明显损害了生产力或用户满意度时，那么是时候放弃这个标准了” — Jef Raskin, <a href="https://en.wikipedia.org/wiki/The_Humane_Interface">The Humane Interface</a></p>
@@ -250,7 +250,7 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 如果这一部分犯错，您的程序会很难用。</p>
 <p>其余的部分也都值得去学习。
 如果您有时间和精力去添加这些东西，您的程序会比其他一般的程序好很多。</p>
-<p>如果您不打算花太多精力在程序的设计上，则不必：只需遵循这些规则，您的程序就可能很好。
+<p>如果您不打算花太多精力在程序的设计上，那么：只需遵循这些规则，您的程序就可能很好。
 另一方面，如果您考虑过并确定以下规则对您的程序是错误的，那也是可以的。
 (没有一个权威会因为没有遵循任意规则而拒绝您的程序。)</p>
 <p>另外，这些规则不是一成不变的。
@@ -271,19 +271,19 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 <li>Rust: <a href="https://clap.rs/">clap</a>, <a href="https://github.com/TeXitoi/structopt">structopt</a></li>
 <li>PHP: <a href="https://github.com/symfony/console">console</a></li>
 </ul>
-<p><strong>成功时返回0退出码，失败时返回非0退出码.</strong>
+<p><strong>成功时返回 0 退出码，失败时返回非 0 退出码.</strong>
 退出码是描述一个程序执行成功还是失败的方式，因此您应该正确地报告这一点。
-此外，应将非0的退出码映射到最重要的失败模式。</p>
+此外，应将非 0 的退出码应该映射到最重要的失败模式。</p>
 <p><strong>将 output 发送到 <code>stdout</code>.</strong>
-您命令的主要的 output 应该是 <code>stdout</code>.
-任何机器可读的内容也应该转到 <code>stdout</code>—这是管道默认发送的地方。</p>
+您命令的主要的 output 应该是 <code>stdout</code>。
+任何机器可读的内容也应该转到 <code>stdout</code> —这是管道默认发送的地方。</p>
 <p><strong>将 messaging 发送到 <code>stderr</code>.</strong>
-日志消息，错误等都应发送到 <code>stderr</code>.
+日志消息，错误等都应发送到 <code>stderr</code>。
 这意味着当命令通过管道传输时，这些消息将显示给用户，而不是馈入下一个命令。</p>
 <h3 id="help">帮助</h3>
-<p><strong>当命令的调用没有传入任何选项时, 或者用户输入 <code>-h</code>, 或 <code>--help</code> 时, 显示帮助文本.</strong></p>
+<p><strong>当命令的调用没有传入任何 option 时, 或者用户输入 <code>-h</code>, 或 <code>--help</code> 时, 显示帮助文本.</strong></p>
 <p><strong>默认显示精简的帮助文本。</strong>
-如果可以，尽量在运行 <code>myapp</code> 或 <code>myapp subcommand</code> 时显示帮助文档。
+如果可以，尽量在运行 <code>myapp</code> 或 <code>myapp subcommand</code> 时显示帮助文本。
 除非您的应用程序非常简单，并且默认情况下会执行明确的操作 (e.g. <code>ls</code>，或者您的程序是交互式读取输入的 (e.g. <code>cat</code>)。</p>
 <p>精简的帮助文本应该只包含:</p>
 <ul>
@@ -297,7 +297,8 @@ JSON是一项较新的发明，它在需要时为我们提供了更多结构，�
 <pre tabindex="0"><code>$ jq
 jq - commandline JSON processor [version 1.6]
 
-Usage:    jq [options] &lt;jq filter&gt; [file...]
+Usage:
+    jq [options] &lt;jq filter&gt; [file...]
     jq [options] --args &lt;jq filter&gt; [strings...]
     jq [options] --jsonargs &lt;jq filter&gt; [JSON_TEXTS...]
 
@@ -320,40 +321,40 @@ Example:
     }
 
 For a listing of options, use jq --help.
-</code></pre><p><strong>通过 <code>-h</code> 和 <code>--help</code> 显示完整的帮助信息.</strong>
+</code></pre><p><strong>通过 <code>-h</code> 和 <code>--help</code> 显示完整的帮助文本.</strong>
 以下的输入都应该显示帮助信息:</p>
 <pre tabindex="0"><code>$ myapp
 $ myapp --help
 $ myapp -h
-</code></pre><p>如果一些选项和参数没有出现在默认帮助信息中，那么应该可以在该选项或参数的后面通过 <code>-h</code> 获取该选项或参数的帮助信息。</p>
-<p>如果您的程序是<code>git-like</code>程序，以下的情况也应提供帮助信息：</p>
+</code></pre><p>如果一些 flag 和 argument 没有出现在默认帮助文本中，那么应该可以在该 flag 或 argument 的后面通过 <code>-h</code> 获取该 flag 或 argument 的帮助信息。</p>
+<p>如果您的程序是 <code>git-like</code> 程序，以下的情况也应提供帮助文本：</p>
 <pre tabindex="0"><code>$ myapp help
 $ myapp help subcommand
 $ myapp subcommand --help
 $ myapp subcommand -h
-</code></pre><p><strong>提供feedback和issues的途径.</strong>
-一个网站或GitHub链接出现在顶级帮助文本中，这是很常见的做法。</p>
-<p><strong>在帮助文本中提供Web版的文档链接.</strong>
+</code></pre><p><strong>提供 feedback 和 issues 的途径.</strong>
+一个网站或 GitHub 链接出现在顶级帮助文本中，这是很常见的做法。</p>
+<p><strong>在帮助文本中提供 Web 版的文档链接.</strong>
 如果您有关于子命令的特定说明页面或锚点，那就直接加入到帮助中。
-如果在Web上有更详细的说明文档，或者对一些命令参数进行进一步解释，则此功能特别有用。</p>
+如果在 Web 上有更详细的说明文档，或者对一些命令参数进行进一步解释，则此功能特别有用。</p>
 <p><strong>提供使用示例.</strong>
-用户倾向于使用示例而不是其他形式的文档，因此请首先在帮助页面中显示使用示例，尤其是常见的一些常见用法。如果可以帮助解释此示例的功能，也请显示实际输出结果。</p>
+用户倾向于使用示例而不是其他形式的文档，因此请首先在帮助页面中显示使用示例，尤其是常见的一些用法。同时，也可以进一步解释此示例的功能。</p>
 <p>您可以通过一系列示例为复杂的使用打下基础。</p>
 <!-- TK example? -->
-<p><strong>如果您有大量示例，请将它们放在其他地方,</strong> 例如Web上.
+<p><strong>如果您有大量示例，请将它们放在其他地方,</strong> 例如 Web 上.
 拥有详尽的高级示例很有帮助，但是最好不要让帮助文本太长。</p>
 <p>对于更复杂的用例，例如与需要与其他工具集成，您可能需要编写完整的教程。</p>
-<p><strong>不要去管man page.</strong>
-如果您遵循这些准则提供文档和帮助，那么根本就不需要man page。
-没有多少人使用man page，并且man page在Windows上也无法使用。
-如果您的CLI框架和程序包管理器使输出man page变得容易，那么可以加入man page，否则，您最好把时间用在改进Web文档和内置帮助文本上去。</p>
+<p><strong>不要去管 man page.</strong>
+如果您遵循这些准则提供文档和帮助，那么根本就不需要 man page。
+没有多少人使用 man page，并且 man page 在 Windows 上也无法使用。
+如果您的 CLI 框架和程序包管理器使输出 man page 变得很容易，那么可以加入 man page，否则，您最好把时间用在改进 Web 文档和内置帮助文本上去。</p>
 <p><em>引用: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
-<p><strong>如果您的帮助文本长, pipe it through a pager.</strong>
-This is one useful thing that <code>man</code> does for you.
-参见下面的“输出”一章</p>
-<p><strong>在帮助文本的开头显示最常用的选项和命令.</strong>
-当有许多参数的时候，首先显示最常用的部分参数。
-例如，Git命令首先显示用于入门的命令以及最常用的子命令：</p>
+<p><strong>如果您的帮助文本长, 通过管道输入到分页工具里去.</strong>
+<code>man</code> 就是这么做的。
+参见下面的“输出”一章。</p>
+<p><strong>在帮助文本的开头显示最常用的 flags 和 commands.</strong>
+当有许多 flags 的时候，首先显示最常用的部分 flags。
+例如，Git 命令首先显示用于入门的命令以及最常用的子命令：</p>
 <pre tabindex="0"><code>$ git
 usage: git [--version] [--help] [-C &lt;path&gt;] [-c &lt;name&gt;=&lt;value&gt;]
            [--exec-path[=&lt;path&gt;]] [--html-path] [--man-path] [--info-path]
@@ -381,7 +382,7 @@ examine the history and state (see also: git help revisions)
    status     Show the working tree status
 …
 </code></pre><p><strong>在帮助文本中使用不同格式.</strong>
-加粗的标题能够更加容易被找到。
+加粗的标题能够更加容易被发现。
 但是，应尽量以独立于终端的方式进行，这样用户就不会盯着一堆转义字符了。</p>
 <pre>
 <code>
@@ -425,36 +426,36 @@ list your apps
 </pre>
 <p>Note: When <code>heroku apps --help</code> is piped through a pager, the command emits no escape characters.</p>
 <p><strong>如果用户进行了错误操作，您可以猜测用户想要做什么，并提出建议.</strong>
-比如, <code>brew update jq</code> 告诉您您应该运行 <code>brew upgrade jq</code>.</p>
-<p>您可以询问他们是否想运行建议的命令，但不要强迫他们这样做。
+比如, <code>brew update jq</code> 告诉用户应该运行 <code>brew upgrade jq</code>.</p>
+<p>您可以询问用户是否想运行建议的命令，但不要强迫他们这样做。
 比如:</p>
 <pre tabindex="0"><code>$ heroku pss
  ›   Warning: pss is not a heroku command.
 Did you mean ps? [y/n]:
 </code></pre><p>您可能会想，与其建议他们使用正确的语法，不如直接为他们运行，就好像他们一开始就打对了一样。
 有时这是正确的，但并不总是这样。</p>
-<p>首先，无效的输入并不一定意味着简单的键入错误&ndash;它往往意味着用户犯了一个逻辑错误，或者误用了一个shell变量。
-假设他们的意思可能是危险的，特别是如果由此产生的操作修改了状态。</p>
-<p>其次，要注意，如果您改变了用户输入的内容，他们就不会学到正确的语法。
+<p>首先，无效的输入并不一定意味着简单的键入错误&ndash;它往往意味着用户犯了一个逻辑错误，或者误用了一个 shell 变量。
+要假设用户的意图可能是危险的，特别是如果由此产生的操作修改了相关状态。</p>
+<p>其次，要注意，如果您改变了用户输入的内容，他们就不会学习到正确的语法。
 实际上，您是在裁定他们输入的方式是否有效和正确，而且您承诺将无限期地支持这种方式。
 在做出这个决定时，要有意识地记录两种语法。</p>
 <p><em>Further reading: <a href="http://www.catb.org/~esr/jargon/html/D/DWIM.html">“Do What I Mean”</a></em></p>
-<p><strong>如果您的命令希望有东西被pipe到它那里，且<code>stdin</code>是一个交互式终端，请立即显示帮助并退出.</strong>
-这意味着它不是一直在挂起, 像 <code>cat</code>.
+<p><strong>如果您的命令希望有东西被 pipe 到它那里，且 <code>stdin</code> 是一个交互式终端，请立即显示帮助并退出.</strong>
+这意味着它不是一直在挂起, 像 <code>cat</code> 那样.
 另外，您可以打印一条日志信息到 <code>stderr</code>.</p>
 <h3 id="documentation">文档</h3>
 <p><a href="#help">帮助文本</a>的目的是给人一种简短、直接的感觉，让人知道您的工具是什么，有哪些选项，以及如何执行最常见的任务。
 另一方面，文档是深入了解全部细节的地方。
 人们可以通过文档来了解您的工具可以用来做什么，不可以做什么，它是如何工作的，以及使用全部功能的方法。</p>
-<p><strong>提供Web文档.</strong>
-人们可以通过搜索引擎来查到您提供的文档，并能够通过索引连接到特定的部分。Web文档是目前最具包容性的文档格式。</p>
+<p><strong>提供 Web 文档.</strong>
+人们可以通过搜索引擎来查询到您提供的文档，并能够通过索引链接到特定的部分。Web 文档是目前最具包容性的文档格式。</p>
 <p><strong>提供终端文档.</strong>
 终端文档有几个不错的特性：访问速度快，与工具的安装版本保持同步，而且不需要互联网连接也能工作。</p>
 <p><strong>考虑是否提供 man pages.</strong>
-<a href="https://en.wikipedia.org/wiki/Man_page">man pages</a>, Unix最初的文档系统, 至今仍在使用, 许多用户在尝试了解您的工具时会反射性地查看<code>man mycmd</code>.
-为了让man pages跟容易生成，您可以使用一个工具<a href="http://rtomayko.github.io/ronn/ronn.1.html">ronn</a>（它也可以帮助您自动生成web文档）</p>
-<p>然而，不是每个人都知道<code>man</code>，而且<code>man</code>也并非在全平台都可以运行，所以您应该确保终端文档同样可以获取到。
-比如，<code>git</code> 和 <code>npm</code> 可以通过  <code>help</code> 子命令获取到man pages，因此 <code>npm help ls</code> 等同于 <code>man npm-ls</code>。</p>
+<a href="https://en.wikipedia.org/wiki/Man_page">man pages</a>, Unix 最初的文档系统, 至今仍在使用, 许多用户在尝试了解您的工具时会反射性地查看 <code>man mycmd</code>.
+为了让 man pages 跟容易生成，您可以使用一个工具<a href="http://rtomayko.github.io/ronn/ronn.1.html">ronn</a>（它也可以帮助您自动生成 Web 文档）</p>
+<p>然而，不是每个人都知道 <code>man</code>，而且 <code>man</code> 也并非在全平台都可以运行，所以您应该确保终端文档同样可以获取到。
+比如，<code>git</code> 和 <code>npm</code> 可以通过 <code>help</code> 子命令获取到 man pages，因此 <code>npm help ls</code> 等同于 <code>man npm-ls</code>。</p>
 <pre tabindex="0"><code>NPM-LS(1)                                                            NPM-LS(1)
 
 NAME
@@ -473,15 +474,15 @@ DESCRIPTION
 </code></pre><h3 id="output">输出</h3>
 <p><strong>人类可读的输出是至关重要的.</strong>
 要把人放在首位，机器放在第二位。
-对于一个特定的输出流(<code>stdout</code> or <code>stderr</code>)，要判断它是否被人类读取，最简单和直接的启发方法是看它 <em>是否是一个TTY</em>.</p>
+对于一个特定的输出流(<code>stdout</code> or <code>stderr</code>)，要判断它是否被人类读取，最简单且直接的启发方法是看它 <em>是否是一个 TTY</em>.</p>
 <p><em>Further reading on <a href="https://unix.stackexchange.com/a/4132">what a TTY is</a>.</em></p>
 <p><strong>在不影响可用性的地方要有机器可读的输出.</strong>
-文本流是UNIX中的通用接口。
+文本流是 UNIX 中的通用接口。
 程序通常会输出文本行，而程序通常希望有文本行作为输入，
-因此您可以把多个程序编在一起。
-这样做通常是为了使编写脚本成为可能，
-但它也有助于人类使用程序的可用性。
-例如，用户应该能够用管道输出到<code>grep</code>，它应该做他们所期望的事情。</p>
+因此您可以把多个程序编织在一起。
+这样做通常是为了让编写脚本成为可能，
+但它也有助于人类使用程序的易用性。
+比如，用户应该能够用管道输出到 <code>grep</code>，它应该做他们所期望的事情。</p>
 <blockquote>
 <p>“Expect the output of every program to become the input to another, as yet unknown, program.”
 — <a href="https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html">Doug McIlroy</a></p>
@@ -489,10 +490,10 @@ DESCRIPTION
 <p><strong>如果人类可读的输出破坏了机器可读的输出，请使用 <code>--plain</code> 以纯表格文本格式显示输出，以便与 <code>grep</code> 或 <code>awk</code> 等工具集成。</strong>
 在某些情况下，您可能需要以不同的方式输出信息以使其易于阅读。
 例如，如果您正在显示一个基于行的表格，您可能会选择将一个单元格分成多行，以适应更多信息，同时将其保持在屏幕宽度内。
-这打破了每行一条数据的预期行为，因此您应该为脚本提供一个 <code>--plain</code> 选项，它可以禁用所有此类操作并每行输出一条记录。</p>
+但这打破了每行一条数据的预期行为，因此您应该为脚本提供一个 <code>--plain</code> 选项，它可以禁用所有此类操作并每行输出一条记录。</p>
 <p><strong>如果被传入 <code>--json</code> ，则输出显示为格式化的 JSON。.</strong>
-JSON比纯文本有更多的结构，所以它能够更容易输出和处理复杂的数据结构。
-<a href="https://stedolan.github.io/jq/"><code>jq</code></a> 是在命令行中处理JSON的常用工具, 现在具有一个 <a href="https://ilya-sher.org/2018/04/10/list-of-json-tools-for-command-line/">完整的工具生态系统</a> 可以输出和操作JSON.</p>
+JSON 比纯文本有更多的结构，所以它能够更容易输出和处理复杂的数据结构。
+<a href="https://stedolan.github.io/jq/"><code>jq</code></a> 是在命令行中处理 JSON 的常用工具, 现在具有一个<a href="https://ilya-sher.org/2018/04/10/list-of-json-tools-for-command-line/">完整的工具生态系统</a> 可以输出和操作 JSON.</p>
 <p>它在 Web 上也被广泛使用，因此通过使用 JSON 作为程序的输入和输出，使您可以使用 <code>curl</code> 直接与 Web 服务进行管道传输。</p>
 <p><strong>成功时显示输出，但要保持简短.</strong>
 传统上，当一切正常时，UNIX 命令不会向用户显示任何输出。
@@ -501,7 +502,7 @@ JSON比纯文本有更多的结构，所以它能够更容易输出和处理复�
 <p>对于不需要输出的情况（例如，在 shell 脚本中使用时），为了避免将 <code>stderr</code> 笨拙地重定向到 <code>/dev/null</code>，您可以提供一个 <code>-q</code> 选项来抑制所有非必要的输出。</p>
 <p><strong>如果状态改变了，请告诉用户.</strong>
 当命令改变了系统状态时，解释刚刚发生的事情特别有必要，这样用户就可以在脑海中对系统状态进行建模——特别是如果结果没有直接映射到用户请求内容的情况。</p>
-<p>比如，<code>git push</code> 可以准确地告诉您目前在做什么，以及远程分支的最新状态：</p>
+<p>比如，<code>git push</code> 可以准确地告诉用户目前在做什么，以及远程分支的最新状态：</p>
 <pre tabindex="0"><code>$ git push
 Enumerating objects: 18, done.
 Counting objects: 100% (18/18), done.
@@ -514,7 +515,7 @@ To github.com:replicate/replicate.git
  + 6c22c90...a2a5217 bfirsh/fix-delete -&gt; bfirsh/fix-delete
 </code></pre><p><strong>让查看系统的当前状态更加容易.</strong>
 如果您的程序进行了很多复杂的状态变化，而且在文件系统中不能立即看到，请确保能够使之易于查看。</p>
-<p>比如, <code>git status</code> 能够告诉您尽可能多的关于Git仓库当前状态的信息，以及如何修改这些状态的提示：</p>
+<p>比如, <code>git status</code> 能够告诉您尽可能多的关于 Git 仓库当前状态的信息，以及如何修改这些状态的提示：</p>
 <pre tabindex="0"><code>$ git status
 On branch bfirsh/fix-delete
 Your branch is up to date with &#39;origin/bfirsh/fix-delete&#39;.
@@ -529,7 +530,7 @@ no changes added to commit (use &#34;git add&#34; and/or &#34;git commit -a&#34;
 当多个命令形成一个工作流时，向用户建议他们接下来可以运行的命令有助于他们学习如何使用您的程序并发现新功能。
 例如，在上面的 <code>git status</code> 的输出中，向您提出可以修改当前状态的命令。</p>
 <p><strong>跨越程序内部世界边界的动作通常应该是明确的.</strong>
-This includes things like:</p>
+这包括:</p>
 <ul>
 <li>读取或写入用户未明确作为参数传递的文件（除非这些文件正在存储内部程序状态，例如缓存）。</li>
 <li>与远程服务器进行会话，例如下载文件。</li>
@@ -548,8 +549,8 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 -rw-r--r-- 1 root root      0 Jul 20 14:43 subgid
 -rw-r--r-- 1 root root      0 Jul 20 14:43 subuid
 </code></pre><p><strong>有目的地使用颜色.</strong>
-例如，您可能想突出一些文字，让用户注意到它，或者用红色来表示错误。不要过度使用它&ndash;如果所有的东西都是不同的颜色，那么这个颜色就毫无意义，只会使它更难读。</p>
-<p><strong>如果您的程序不在终端中或用户请求禁用它，则禁用颜色。</strong>
+例如，您可能想突出一些文字，让用户注意到它，或者用红色来表示错误。不要过度使用它&ndash;如果所有的东西都是不同的颜色，那么这个颜色就毫无意义，只会使它更难以阅读。</p>
+<p><strong>如果您的程序不在终端中运行或用户请求禁用它，则禁用颜色。</strong>
 下面的情况需要禁用颜色:</p>
 <ul>
 <li><code>stdout</code> 或 <code>stderr</code> 不是一个交互式终端 (是一个 TTY).
@@ -562,7 +563,7 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 <p><em>Further reading: <a href="https://no-color.org/">no-color.org</a>, <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a></em></p>
 <p><strong>如果 <code>stdout</code> 不是交互式终端，则不要显示任何动画.</strong>
 这将阻止进度条在 CI 日志输出中变成圣诞树。</p>
-<p><strong>使用符号和emoji，它使事情变得更清晰.</strong>
+<p><strong>使用符号和 emoji，它使事情变得更清晰.</strong>
 在能使事情更清晰的地方使用符号和表情符号。如果您需要让几件事情与众不同，吸引用户的注意力，或者只是增加一点特色，图片可能比文字更好。但要小心，很容易做得过头，使您的程序看起来杂乱无章或感觉像个玩具。</p>
 <p>比如, <a href="https://github.com/FiloSottile/yubikey-agent">yubikey-agent</a> 使用表情符号为输出添加结构，因此它不仅仅是一堵文本墙，还有一个 ❌ 来吸引您对重要信息的注意:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>$ yubikey-agent -setup
@@ -583,65 +584,65 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 </span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
 </span></span></code></pre></div><p><strong>默认情况下，不要输出只有软件作者才能理解的信息.</strong>
-如果一个输出只是为了帮助您（开发者）理解您的软件在做什么，那么几乎可以肯定的是，它不应该以默认的方式显示给普通用户，而只是在verbose模式下。</p>
+如果一个输出只是为了帮助您（开发者）理解您的软件在做什么，那么几乎可以肯定的是，它不应该以默认的方式显示给普通用户，而只是在 verbose 模式下。</p>
 <p>邀请局外人和新加入您的项目的人提供可用性反馈。
 他们会帮助您看到那些您离代码太近而没有注意到的重要问题。</p>
-<p><strong>不要将 <code>stderr</code> 视为日志文件，至少默认情况下不会.</strong>
-不要打印日志级别标签(<code>ERR</code>, <code>WARN</code>, etc.)或不相干的上下文信息，除非在verbose模式下。</p>
+<p><strong>不要将 <code>stderr</code> 视为日志文件，至少默认情况下不要这样做.</strong>
+不要打印日志级别标签 (<code>ERR</code>, <code>WARN</code>, etc.) 或不相干的上下文信息，除非在 verbose 模式下。</p>
 <p><strong>如果要输出大量文本，请使用分页 (e.g. <code>less</code>).</strong>
-比如, <code>git diff</code> 默认做这件事
+比如, <code>git diff</code> 默认做这件事。
 使用分页可能很容易出错，所以要注意您的实现，不要让用户的体验变得更糟。
-如果<code>stdin</code>或<code>stdout</code>不是一个交互式终端，您就不应该使用分页。</p>
+如果 <code>stdin</code> 或 <code>stdout</code> 不是一个交互式终端，您就不应该使用分页。</p>
 <p>用于 <code>less</code> 的一套合理的选项是 <code>less -FIRX</code>。如果内容占满了一个屏幕，它就不翻页，搜索时忽略大小写，启用颜色和格式化，并且在 <code>less</code> 退出时把内容留在屏幕上。</p>
-<p>在您的语言中，可能有一些库比用管道输送到<code>less</code>的方式更强大。
-例如，Python中的<a href="https://github.com/prompt-toolkit/pypager">pypager</a>。</p>
+<p>在您的语言中，可能有一些库实现分页的方式比用管道输送到 <code>less</code> 更强大。
+例如，Python 中的 <a href="https://github.com/prompt-toolkit/pypager">pypager</a>。</p>
 <h3 id="errors">错误</h3>
 <p>查阅文档的最常见的原因之一是为了修正错误。
 如果您能把处理错误的方法整理进文档，那么这将为用户节省大量的时间。</p>
 <p><strong>捕获错误并<a href="https://www.nngroup.com/articles/error-message-guidelines/">为人们重写之</a>.</strong>
 如果您预计会有错误发生，那就捕获错误并重写错误信息，使之成为有用的信息。
 把它想成是一次对话，用户做错了事，程序在引导他们走向正确的方向。
-例如。&ldquo;不能写到file.txt。您可能需要通过运行&rsquo;chmod +w file.txt&rsquo;来使其可写。&rdquo;</p>
+例如。&ldquo;不能写到 file.txt。您可能需要通过运行 &lsquo;chmod +w file.txt&rsquo; 来使其可写。&rdquo;</p>
 <p><strong>信噪比至关重要。.</strong>
 您产生的不相关的输出越多，用户就会花更多的时间来弄清楚他们做错了什么。
 如果您的程序产生了多个相同类型的错误，考虑将它们分组在一个解释性的标题下，而不是打印许多看起来相似的行。</p>
 <p><strong>考虑用户首先会看哪里.</strong>
 把最重要的信息放在输出的最后。
 用户的视线会被红色的文字所吸引，所以要有意识地谨慎使用它。</p>
-<p><strong>如果有一个意外的或无法解释的错误，提供调试和跟踪信息，以及关于如何提交错误的说明.</strong>
+<p><strong>如果有一个意外的或无法解释的错误，那么提供调试和跟踪信息，以及关于如何提交错误的说明.</strong>
 也就是说，不要忘记信噪比：您不希望用他们不理解的信息来淹没用户。
 考虑将调试日志写到一个文件中，而不是打印到终端。</p>
 <p><strong>让提交错误报告变得毫不费力.</strong>
-您需要提供一个URL，并让它预先填入尽可能多的信息。</p>
-<h3 id="arguments-and-flags">参数与选项</h3>
+您需要提供一个 URL，并让它预先填入尽可能多的信息。</p>
+<h3 id="arguments-and-flags">arguments 与 flags</h3>
 <p>术语:</p>
 <ul>
 <li><em>Arguments</em>, 或 <em>args</em>, 是命令的位置参数.
-比如，您提供给<code>cp</code>的文件路径是 args.
-args的顺序是很重要的：<code>cp foo bar</code> 的意思与 <code>cp bar foo</code> 是不同的。</li>
+比如，您提供给 <code>cp</code> 的文件路径是 args.
+args 的顺序是很重要的：<code>cp foo bar</code> 的意思与 <code>cp bar foo</code> 是不同的。</li>
 <li><em>Flags</em> 是命名参数, 用连字符和单字母名称 (<code>-r</code>) 或双连字符和多字母名称 (<code>--recursive</code>) 表示.
 它们可能包含也可能不包含用户指定的值 (<code>--file foo.txt</code>, or <code>--file=foo.txt</code>).
-一般来说，flags的顺序不会影响程序语义</li>
+一般来说，flags 的顺序不会影响程序语义</li>
 </ul>
-<p><strong>相比于参数优先使用选项.</strong>
+<p><strong>相比于 args 优先使用 flags.</strong>
 虽然这个可能要多打一些字，但是这会让接下来的工作更加清晰。
-这也会使您更加容易适应在未来输入方式的变化。
+这也会使用户更加容易适应在未来输入方式的变化。
 有些时候，在使用参数时，不太可能在不破坏现有行为或造成歧义的情况下增加新的输入。</p>
 <p><em>Citation: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
-<p><strong>所有的选项都应该有完整版本.</strong>
+<p><strong>所有的 flags 都应该有完整版本.</strong>
 比如，我们有 <code>-h</code> 和 <code>--help</code>。
-选项拥有完整的版本在脚本中是很有必要的，有时我们希望我们的脚本更具有描述性，这时完整版本的选项能够使您不必到处查找选项的含义。</p>
+flag 拥有完整的版本在脚本中是很有必要的，有时我们希望我们的脚本更具有描述性，这时完整版本的 flag 能够使您不必到处查找 flag 的含义。</p>
 <p><em>Citation: <a href="https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html">GNU Coding Standards</a>.</em></p>
-<p><strong>仅对常用的flag使用单字母flag,</strong> 尤其是在顶层使用子命令时。
-这样您就不会 &ldquo;污染 &ldquo;您的flag的命名空间，避免让您对您将来添加的flag使用复杂的字母和大小写。</p>
-<p><strong>对于针对多个文件的简单操作，指定多个参数是可行的.</strong>
+<p><strong>仅对常用的 flag 使用单字母 flag,</strong> 尤其是在顶层使用子命令时。
+这样您就不会 &ldquo;污染 &ldquo;您的 flag 的命名空间，避免让您对您将来添加的 flag 使用复杂的字母和大小写。</p>
+<p><strong>对于针对多个文件的简单操作，指定多个 argument 是可行的.</strong>
 比如, <code>rm file1.txt file2.txt file3.txt</code>.
 使用通配符同样可行: <code>rm *.txt</code>.</p>
-<p><strong>如果被使用了多个不同种类的参数，那么用户或许操作错误了.</strong>
+<p><strong>如果被使用了多个不同种类的 argument ，那么用户或许操作错误了.</strong>
 除非这是一个常用的操作，在这种情况下，您应该提供一个更明确的描述。
 比如, <code>cp &lt;source&gt; &lt;destination&gt;</code>.</p>
 <p><em>Citation: <a href="https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46">12 Factor CLI Apps</a>.</em></p>
-<p><strong>如果有专门的名称标准的话，请使用标准的flag名称。</strong>
+<p><strong>如果有专门的名称标准的话，请使用标准的 flag 名称。</strong>
 If another commonly used command uses a flag name, it’s best to follow that existing pattern.
 That way, a user doesn’t have to remember two different options (and which command it applies to), and users can even guess an option without having to look at the help text.</p>
 <p>Here&rsquo;s a list of commonly used options:</p>
