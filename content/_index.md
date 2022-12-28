@@ -804,10 +804,10 @@ _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-d
   您可能想提示确认，也可能不想。
   例如，如果用户明确地运行一个叫做 "删除 "的命令，您可能不需要询问。
 - **Moderate:** 一个较大的本地变化，如删除一个目录，一个远程变化，如删除某种资源，或一个复杂的批量修改，不容易被撤销。
-  你通常想在这里提示确认。
+  您通常想在这里提示确认。
   考虑给用户一个 "dry run "操作的方法，这样他们就可以在提交之前看到会发生什么。
 - **Severe:** 删除一些复杂的东西，如整个远程应用程序或服务器。
-  你不只是想在这里提示确认--你想让它很难被意外确认。
+  您不只是想在这里提示确认--您想让它很难被意外确认。
   考虑要求他们输入一些非琐碎的东西，如他们要删除的东西的名称。
   让他们传递一个 flag，如 `--confirm="name-of-thing"` ，这样就可以用脚本编写了。
 
@@ -815,7 +815,7 @@ _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-d
 例如，想象一下这样一种情况：将配置文件中的一个数字从 10 改为 1，意味着 9 个东西将被隐式删除--这应该被认为是一种严重的风险，而且应该很难意外地做到。
 
 **如果输入或输出是一个文件, 支持使用 `-` 来从 `stdin` 中读或写出到 `stdout`.**
-这让另一个命令的输出成为你的命令的输入，反之亦然，从而不需要使用临时文件。
+这让另一个命令的输出成为您的命令的输入，反之亦然，从而不需要使用临时文件。
 比如，`tar` 可以从 `stdin` 中提取文件：
 
 ```
@@ -838,7 +838,7 @@ unknown flag: --foo
 ```
 
 这可能会让用户感到非常困惑--特别是用户常常会复制上次执行的命令，在最后面加上另一个 option，然后再次执行。
-尽量让两种形式等同，尽管你可能会遇到参数分析器的限制。
+尽量让两种形式等同，尽管您可能会遇到参数分析器的限制。
 
 **允许通过文件传入敏感的参数值。**
 假设您的命令通过 `--password` 参数获取敏感信息。
@@ -853,120 +853,121 @@ unknown flag: --foo
 最好避免这种做法)。
 
 ### 交互性 {#interactivity}
+**只有在 `stdin` 是一个交互式终端（TTY）的情况下才使用 prompts 或交互式元素。**
+这是一个非常可靠的方法，可以判断您是把数据输入到一个命令中，还是在一个脚本中运行，在这种情况下，prompt 是不起作用的，您应该抛出一个错误，告诉用户应该传递什么 flag。
 
-**Only use prompts or interactive elements if `stdin` is an interactive terminal (a TTY).**
-This is a pretty reliable way to tell whether you’re piping data into a command or whether it's being run in a script, in which case a prompt won’t work and you should throw an error telling the user what flag to pass.
+**如果传入 `--no-input`，则不要 prompt 或做其它任何交互。**
+这允许用户以明确的方式禁用命令中的所有 prompts。
+如果命令需要输入，则返回失败，并告诉用户如何将信息作为一个 flag 传递。
 
-**If `--no-input` is passed, don’t prompt or do anything interactive.**
-This allows users an explicit way to disable all prompts in commands.
-If the command requires input, fail and tell the user how to pass the information as a flag.
+**如果您在 prompt 一个密码，不要在用户键入时将密码显示打印出来。**
+这可以通过关闭终端中的 echo 来实现。
+您的语言应该有这方面的帮助工具。
 
-**If you’re prompting for a password, don’t print it as the user types.**
-This is done by turning off echo in the terminal.
-Your language should have helpers for this.
-
-**Let the user escape.**
-Make it clear how to get out.
-(Don’t do what vim does.)
-If your program hangs on network I/O etc, always make Ctrl-C still work.
-If it’s a wrapper around program execution where Ctrl-C can’t quit (SSH, tmux, telnet, etc), make it clear how to do that.
-For example, SSH allows escape sequences with the `~` escape character.
+**让用户 escape.**
+清楚地说明如何退出。
+(不要像 vim 那样)
+如果您的程序在网络 I/O 等方面挂起，总是让 Ctrl-C 仍然有效。
+如果它是一个围绕着程序执行的 wrapper，而 Ctrl-C 不能退出（SSH、tmux、telnet 等），那么要明确如何进行退出操作。
+例如，SSH 允许使用 `~` 转义字符的转义序列。
 
 ### 子命令
 
-If you’ve got a tool that’s sufficiently complex, you can reduce its complexity by making a set of subcommands.
-If you have several tools that are very closely related, you can make them easier to use and discover by combining them into a single command (for example, RCS vs. Git).
+如果您有一个足够复杂的工具，您可以通过制作一组子命令来降低其复杂性。
+如果您有几个关系非常密切的工具，您可以通过把它们合并成一个命令来使它们更容易使用和发现（例如，RCS 与 Git）。
 
-They’re useful for sharing stuff—global flags, help text, configuration, storage mechanisms.
+它们对于分享东西很有用--全局 flag、帮助文本、配置、存储机制。
 
-**Be consistent across subcommands.**
-Use the same flag names for the same things, have similar output formatting, etc. 
+**在各个子命令中要保持一致。**
+对相同的东西使用相同的 flag 名称、使用相似的输出格式，等等。
 
-**Use consistent names for multiple levels of subcommand.**
-If a complex piece of software has lots of objects and operations that can be performed on those objects, it is a common pattern to use two levels of subcommand for this, where one is a noun and one is a verb.
-For example, `docker container create`.
-Be consistent with the verbs you use across different types of objects.
+**对多层次的子命令使用一致的名称。**
+如果一个复杂的软件有很多对象和可以对这些对象进行的操作，使用两级子命令是一种常见的模式，其中一个是名词，一个是动词。
+例如，`docker container create`。
+在不同类型的对象中，您使用的动词要一致。
+
+`名词 动词` 或 `动词 名词` 排序都可以，但 `名词 动词` 似乎更常见。
 
 Either `noun verb` or `verb noun` ordering works, but `noun verb` seems to be more common.
 
 _Further reading: [User experience, CLIs, and breaking the world, by John Starich](https://uxdesign.cc/user-experience-clis-and-breaking-the-world-baed8709244f)._
 
-**Don’t have ambiguous or similarly-named commands.**
-For example, having two subcommands called “update” and “upgrade” is quite confusing.
-You might want to use different words, or disambiguate with extra words.
+**不要有模棱两可或名称相似的命令。**
+例如，有两个叫 "update" 和 "upgrade" 的子命令是相当混乱的。
+您可能需要使用不同的词，或者用额外的词来消除歧义。
 
 ### 鲁棒性 {#robustness-guidelines}
 
-**Validate user input.**
-Everywhere your program accepts data from the user, it will eventually be given bad data.
-Check early and bail out before anything bad happens, and [make the errors understandable](#errors).
+**验证用户的输入**
+在您的程序接受用户数据的任何地方，最终都会得到坏的数据。
+尽早检查并在坏事发生之前跳出，并且 [让错误信息易于理解](#errors)
 
-**Responsive is more important than fast.**
-Print something to the user in <100ms.
-If you’re making a network request, print something before you do it so it doesn’t hang and look broken.
+**响应性比快速更重要。**
+在 <100ms 内打印一些东西给用户。
+如果您正在做一个网络请求，在您做之前打印一些东西，这样它就不会挂起，看起来也不会是坏掉了。
 
-**Show progress if something takes a long time.**
-If your program displays no output for a while, it will look broken.
-A good spinner or progress indicator can make a program appear to be faster than it is.
+**如果某件事情需要很长的时间，就显示进度。**
+如果您的程序在一段时间内没有显示输出，它就会显得貌似挂掉了。
+一个好的旋转进度器或进度条可以使一个程序看起来比实际速度要快。
 
-Ubuntu 20.04 has a nice progress bar that sticks to the bottom of the terminal.
+Ubuntu 20.04 有一个漂亮的进度条，粘在终端的底部。
 
 <!-- (TK reproduce this as a code block or animated SVG) -->
 
-If the progress bar gets stuck in one place for a long time, the user won’t know if stuff is still happening or if the program’s crashed.
-It’s good to show estimated time remaining, or even just have an animated component, to reassure them that you’re still working on it.
+如果进度条在一个地方卡了很久，用户就不知道任务是否还在继续工作，或者程序是否崩溃了。
+显示估计的剩余时间，或者甚至只是一个动画组件，以使用确信软件仍在工作，这是好事。
 
-There are many good libraries for generating progress bars.
-For example, [tqdm](https://github.com/tqdm/tqdm) for Python, [schollz/progressbar](https://github.com/schollz/progressbar) for Go, and [node-progress](https://github.com/visionmedia/node-progress) for Node.js.
+有许多用于生成进度条的优秀软件库。
+比如, [tqdm](https://github.com/tqdm/tqdm) for Python, [schollz/progressbar](https://github.com/schollz/progressbar) for Go, and [node-progress](https://github.com/visionmedia/node-progress) for Node.js.
 
-**Do stuff in parallel where you can, but be thoughtful about it.**
-It’s already difficult to report progress in the shell; doing it for parallel processes is ten times harder.
-Make sure it’s robust, and that the output isn’t confusingly interleaved.
-If you can use a library, do so—this is code you don’t want to write yourself.
-Libraries like [tqdm](https://github.com/tqdm/tqdm) for Python and [schollz/progressbar](https://github.com/schollz/progressbar) for Go support multiple progress bars natively.
+**并发处理任务，但要考虑周全。**
+在 shell 中报告进度已经很困难了；为并行进程做报告更是是十倍的困难。
+要确保它是稳健的，而且输出不会出现混乱的交错。
+尽量使用外部库来实现--您不会想写这块代码。
+软件库有 [tqdm](https://github.com/tqdm/tqdm) for Python and [schollz/progressbar](https://github.com/schollz/progressbar) for Go 原生支持多种进度条.
 
-The upside is that it can be a huge usability gain.
-For example, `docker pull`’s multiple progress bars offer crucial insight into what’s going on.
+好处是，它可以带来巨大的可用性收益。
+例如，`docker pull` 的多个进度条提供了对正在发生的事情的关键洞察力。
 
 <!-- (TK docker pull animation) -->
 
-One thing to be aware of: hiding logs behind progress bars when things go _well_ makes it much easier for the user to understand what’s going on, but if there is an error, make sure you print out the logs.
-Otherwise, it will be very hard to debug.
+有一点需要注意：当任务进展顺利时，将日志隐藏在进度条后面，使用户更容易理解发生了什么，但如果出现了错误，请确保您打印出日志。
+否则，将很难进行调试。
 
-**Make things time out.**
-Allow network timeouts to be configured, and have a reasonable default so it doesn’t hang forever.
+**实现超时机制。**
+允许配置网络超时，并有一个合理的默认值，这样它就不会永远挂起。
 
-**Make it idempotent.**
-If the program fails for some transient reason (e.g. the internet connection went down), you should be able to hit `<up>` and `<enter>` and it should pick up from where it left off.
+**实现幂等性.**
+如果程序由于某种短暂的原因而失败（例如网络连接中断），用户应该能够通过点击 `<up>` 和 `<enter>` 实现从间断的地方继续运行。
 
-**Make it crash-only.**
-This is the next step up from idempotence.
-If you can avoid needing to do any cleanup after operations, or you can defer that cleanup to the next run, your program can exit immediately on failure or interruption.
-This makes it both more robust and more responsive.
+**实现 crash-only.**
+这个实现幂等性下一步。
+如果您能避免在操作后做任何清理工作，或者能将清理工作推迟到下一次运行，您的程序就能在失败或中断时立即退出。
+这会使程序变得更加健壮，反应更加灵敏。
 
 _Citation: [Crash-only software: More than meets the eye](https://lwn.net/Articles/191059/)._
 
-**People are going to misuse your program.**
-Be prepared for that.
-They will wrap it in scripts, use it on bad internet connections, run many instances of it at once, and use it in environments you haven’t tested in, with quirks you didn’t anticipate.
-(Did you know macOS filesystems are case-insensitive but also case-preserving?)
+**用户将会滥用您的程序.**
+要做好心理准备。
+用户会用脚本包装您的程序，在糟糕的网络连接中使用它，一次运行许多实例，并在您没有测试过的环境中使用它，有您没有预料到的怪癖。
+(您知道 macOS 的文件系统是不区分大小写的，但也保留了大小写吗？）
 
 ### 前瞻性 {#future-proofing}
 
-In software of any kind, it’s crucial that interfaces don’t change without a lengthy and well-documented deprecation process.
-Subcommands, arguments, flags, configuration files, environment variables: these are all interfaces, and you’re committing to keeping them working.
-([Semantic versioning](https://semver.org/) can only excuse so much change; if you’re putting out a major version bump every month, it’s meaningless.)
+在任何类型的软件中，如果没有一个冗长的、有据可查的废止过程，接口就不会改变，这一点至关重要。
+子命令、arguments、flags、配置文件、环境变量：这些都是接口，您要承诺让它们将继续工作。
+([Semantic versioning](https://semver.org/) 只能为这么多的变化找借口；如果您每个月都推出一个重大的版本升级，那就没有意义了。)
 
-**Keep changes additive where you can.**
-Rather than modify the behavior of a flag in a backwards-incompatible way, maybe you can add a new flag—as long as it doesn’t bloat the interface too much.
+**在可能的情况下，保持变化的增量性。**
+与其以一种向后不兼容的方式修改一个 flag 的行为，也许您可以添加一个新的 flag --只要它不会使界面过于臃肿。
 (See also: [Prefer flags to args](#arguments-and-flags).)
 
-**Warn before you make a non-additive change.**
-Eventually, you’ll find that you can’t avoid breaking an interface.
-Before you do, forewarn your users in the program itself: when they pass the flag you’re looking to deprecate, tell them it’s going to change soon.
-Make sure there’s a way they can modify their usage today to make it future-proof, and tell them how to do it.
+**在您做非增量性的更改之前，要发出警告。**
+最终，您会发现，您无法避免破坏一个接口。
+在这之前，请在程序中预先警告您的用户：当他们同意您想要废除的 flag 时，告诉他们它很快就会改变。
+确保有一种方法可以让用户今天就改变他们的用法，使之适应未来，并告诉他们如何去做。
 
-If possible, you should detect when they’ve changed their usage and not show the warning any more: now they won’t notice a thing when you finally roll out the change.
+如果可能的话，您应该检测到用户已经改变了他们的用法，并且不再显示警告：现在，当您最终推出这个变化时，他们不会注意到任何事情。
 
 **Changing output for humans is usually OK.**
 The only way to make an interface easy to use is to iterate on it, and if the output is considered an interface, then you can’t iterate on it.
