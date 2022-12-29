@@ -973,31 +973,30 @@ _Citation: [Crash-only software: More than meets the eye](https://lwn.net/Articl
 要使一个界面易于使用，唯一的办法就是对它进行迭代，如果输出被认为是一个接口，那么你就不能对它进行迭代。
 鼓励你的用户在脚本中使用 `--plain` 或 `--json` 以保持输出稳定 (see [Output](#output)).
 
-**Don’t have a catch-all subcommand.**
+**不要有一个包罗万象的子命令。**
 If you have a subcommand that’s likely to be the most-used one, you might be tempted to let people omit it entirely for brevity’s sake.
-For example, say you have a `run` command that wraps an arbitrary shell command:
-
+如果你有一个是最常用的子命令，那就让用户为了简洁起见而完全省略它。
+例如，假设有一个 `run` 命令，它被包含于任意一个 shell 命令。
     $ mycmd run echo "hello world"
 
-You could make it so that if the first argument to `mycmd` isn’t the name of an existing subcommand, you assume the user means `run`, so they can just type this:
-
+您可以这么做，如果 `mycmd` 的第一个参数不是 `run` 子命令，就默认认为用户是要运行 `run`，所以用户可以直接输入：
     $ mycmd echo "hello world"
 
-This has a serious drawback, though: now you can never add a subcommand named `echo`—or _anything at all_—without risking breaking existing usages.
-If there’s a script out there that uses `mycmd echo`, it will do something entirely different after that user upgrades to the new version of your tool.
+但这有一个严重的缺点：现在你永远不能默认添加一个名为 `echo` 的子命令--或者 _任何东西_ --不会有破坏现有使用的风险。
+如果存在一个使用 `mycmd echo` 的脚本，在该用户升级到你的工具的新版本后，它的行为将会完全不同。
 
-**Don’t allow arbitrary abbreviations of subcommands.**
-For example, say your command has an `install` subcommand.
-When you added it, you wanted to save users some typing, so you allowed them to type any non-ambiguous prefix, like `mycmd ins`, or even just `mycmd i`, and have it be an alias for `mycmd install`.
-Now you’re stuck: you can’t add any more commands beginning with `i`, because there are scripts out there that assume `i` means `install`.
+**不允许对子命令进行任意的缩写。**
+例如，假设你的命令有一个 `install` 子命令。
+当你添加它时，你想为用户节省一些键入的时间，所以你允许他们键入任何非明确的前缀，比如 `mycmd ins`，或者甚至只是 `mycmd i`，并让它成为 `mycmd install` 的别名。
+然而现在你被限制住了：你不能再添加任何以 `i` 开头的命令，因为有一些脚本认为 `i` 意味着 `install`。
 
-There’s nothing wrong with aliases—saving on typing is good—but they should be explicit and remain stable.
+使用别名并无不妥，但它们应该是明确的，并保持稳定。
 
-**Don’t create a “time bomb.”**
-Imagine it’s 20 years from now.
-Will your command still run the same as it does today, or will it stop working because some external dependency on the internet has changed or is no longer maintained?
-The server most likely to not exist in 20 years is the one that you are maintaining right now.
-(But don’t build in a blocking call to Google Analytics either.)
+**不要制造一个“定时炸弹”。**
+想象一下，20 年后。
+你的命令还能像今天一样运行吗？还是会因为互联网上的一些外部依赖发生了变化或不再维护而无法工作？
+最有可能的是在 20 年后消失的服务器就是你现在正在维护的那台。
+(但也不要建立在对 Google Analytics 的封锁性调用中）。
 
 ### 信号和控制字符 {#signals}
 

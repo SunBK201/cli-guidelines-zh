@@ -810,26 +810,25 @@ unknown flag: --foo
 <p><strong>为人类改变输出通常是可以的。</strong>
 要使一个界面易于使用，唯一的办法就是对它进行迭代，如果输出被认为是一个接口，那么你就不能对它进行迭代。
 鼓励你的用户在脚本中使用 <code>--plain</code> 或 <code>--json</code> 以保持输出稳定 (see <a href="#output">Output</a>).</p>
-<p><strong>Don’t have a catch-all subcommand.</strong>
+<p><strong>不要有一个包罗万象的子命令。</strong>
 If you have a subcommand that’s likely to be the most-used one, you might be tempted to let people omit it entirely for brevity’s sake.
-For example, say you have a <code>run</code> command that wraps an arbitrary shell command:</p>
-<pre><code>$ mycmd run echo &quot;hello world&quot;
-</code></pre>
-<p>You could make it so that if the first argument to <code>mycmd</code> isn’t the name of an existing subcommand, you assume the user means <code>run</code>, so they can just type this:</p>
-<pre><code>$ mycmd echo &quot;hello world&quot;
-</code></pre>
-<p>This has a serious drawback, though: now you can never add a subcommand named <code>echo</code>—or <em>anything at all</em>—without risking breaking existing usages.
-If there’s a script out there that uses <code>mycmd echo</code>, it will do something entirely different after that user upgrades to the new version of your tool.</p>
-<p><strong>Don’t allow arbitrary abbreviations of subcommands.</strong>
-For example, say your command has an <code>install</code> subcommand.
-When you added it, you wanted to save users some typing, so you allowed them to type any non-ambiguous prefix, like <code>mycmd ins</code>, or even just <code>mycmd i</code>, and have it be an alias for <code>mycmd install</code>.
-Now you’re stuck: you can’t add any more commands beginning with <code>i</code>, because there are scripts out there that assume <code>i</code> means <code>install</code>.</p>
-<p>There’s nothing wrong with aliases—saving on typing is good—but they should be explicit and remain stable.</p>
-<p><strong>Don’t create a “time bomb.”</strong>
-Imagine it’s 20 years from now.
-Will your command still run the same as it does today, or will it stop working because some external dependency on the internet has changed or is no longer maintained?
-The server most likely to not exist in 20 years is the one that you are maintaining right now.
-(But don’t build in a blocking call to Google Analytics either.)</p>
+如果你有一个是最常用的子命令，那就让用户为了简洁起见而完全省略它。
+例如，假设有一个 <code>run</code> 命令，它被包含于任意一个 shell 命令。
+$ mycmd run echo &ldquo;hello world&rdquo;</p>
+<p>您可以这么做，如果 <code>mycmd</code> 的第一个参数不是 <code>run</code> 子命令，就默认认为用户是要运行 <code>run</code>，所以用户可以直接输入：
+$ mycmd echo &ldquo;hello world&rdquo;</p>
+<p>但这有一个严重的缺点：现在你永远不能默认添加一个名为 <code>echo</code> 的子命令&ndash;或者 <em>任何东西</em> &ndash;不会有破坏现有使用的风险。
+如果存在一个使用 <code>mycmd echo</code> 的脚本，在该用户升级到你的工具的新版本后，它的行为将会完全不同。</p>
+<p><strong>不允许对子命令进行任意的缩写。</strong>
+例如，假设你的命令有一个 <code>install</code> 子命令。
+当你添加它时，你想为用户节省一些键入的时间，所以你允许他们键入任何非明确的前缀，比如 <code>mycmd ins</code>，或者甚至只是 <code>mycmd i</code>，并让它成为 <code>mycmd install</code> 的别名。
+然而现在你被限制住了：你不能再添加任何以 <code>i</code> 开头的命令，因为有一些脚本认为 <code>i</code> 意味着 <code>install</code>。</p>
+<p>使用别名并无不妥，但它们应该是明确的，并保持稳定。</p>
+<p><strong>不要制造一个“定时炸弹”。</strong>
+想象一下，20 年后。
+你的命令还能像今天一样运行吗？还是会因为互联网上的一些外部依赖发生了变化或不再维护而无法工作？
+最有可能的是在 20 年后消失的服务器就是你现在正在维护的那台。
+(但也不要建立在对 Google Analytics 的封锁性调用中）。</p>
 <h3 id="signals">信号和控制字符</h3>
 <p><strong>If a user hits Ctrl-C (the INT signal), exit as soon as possible.</strong>
 Say something immediately, before you start clean-up.
