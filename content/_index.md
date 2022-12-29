@@ -258,7 +258,7 @@ _深入阅读: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 这里有一些您需要遵守的基本规则。
 弄错这些，您的程序要么使用体验很差，要么就会彻底崩溃。
 
-**请尽量使用命令行参数解析库.**
+**请尽量使用命令行参数解析库。**
 命令行参数解析库要么是语言内置的，要么是优秀的第三方解析库。
 这些解析库通常会以一种合理的方式处理参数、解析选项、提供帮助文本，甚至拼写建议。
 
@@ -271,21 +271,21 @@ _深入阅读: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 * Rust: [clap](https://clap.rs/), [structopt](https://github.com/TeXitoi/structopt)
 * PHP: [console](https://github.com/symfony/console)
 
-**成功时返回 0 退出码，失败时返回非 0 退出码.**
+**成功时返回 0 退出码，失败时返回非 0 退出码。**
 退出码是描述一个程序执行成功还是失败的方式，因此您应该正确地报告这一点。
 此外，应将非 0 的退出码应该映射到最重要的失败模式。
 
-**将 output 发送到 `stdout`.**
+**将 output 发送到 `stdout`。**
 您命令的主要的 output 应该是 `stdout`。
 任何机器可读的内容也应该转到 `stdout` —这是管道默认发送的地方。
 
-**将 messaging 发送到 `stderr`.**
+**将 messaging 发送到 `stderr`。**
 日志消息，错误等都应发送到 `stderr`。
 这意味着当命令通过管道传输时，这些消息将显示给用户，而不是馈入下一个命令。
 
 ### 帮助 {#help}
 
-**当命令的调用没有传入任何 option 时, 或者用户输入 `-h`, 或 `--help` 时, 显示帮助文本.**
+**当命令的调用没有传入任何 option 时, 或者用户输入 `-h`, 或 `--help` 时, 显示帮助文本。**
 
 **默认显示精简的帮助文本。**
 如果可以，尽量在运行 `myapp` 或 `myapp subcommand` 时显示帮助文本。
@@ -331,7 +331,7 @@ Example:
 For a listing of options, use jq --help.
 ```
 
-**通过 `-h` 和 `--help` 显示完整的帮助文本.**
+**通过 `-h` 和 `--help` 显示完整的帮助文本。**
 以下的输入都应该显示帮助信息:
 
 ```
@@ -351,10 +351,10 @@ $ myapp subcommand --help
 $ myapp subcommand -h
 ```
 
-**提供 feedback 和 issues 的途径.**
+**提供 feedback 和 issues 的途径。**
 一个网站或 GitHub 链接出现在顶级帮助文本中，这是很常见的做法。
 
-**在帮助文本中提供 Web 版的文档链接.**
+**在帮助文本中提供 Web 版的文档链接。**
 如果您有关于子命令的特定说明页面或锚点，那就直接加入到帮助中。
 如果在 Web 上有更详细的说明文档，或者对一些命令参数进行进一步解释，则此功能特别有用。
 
@@ -369,18 +369,18 @@ $ myapp subcommand -h
 
 对于更复杂的用例，例如与需要与其他工具集成，您可能需要编写完整的教程。
 
-**不要去管 man page.**
+**不要去管 man page。**
 如果您遵循这些准则提供文档和帮助，那么根本就不需要 man page。
 没有多少人使用 man page，并且 man page 在 Windows 上也无法使用。
 如果您的 CLI 框架和程序包管理器使输出 man page 变得很容易，那么可以加入 man page，否则，您最好把时间用在改进 Web 文档和内置帮助文本上去。
 
 _引用: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
 
-**如果您的帮助文本长, 通过管道输入到分页工具里去.**
+**如果您的帮助文本长, 通过管道输入到分页工具里去。**
 `man` 就是这么做的。
 参见下面的“输出”一章。
 
-**在帮助文本的开头显示最常用的 flags 和 commands.**
+**在帮助文本的开头显示最常用的 flags 和 commands。**
 当有许多 flags 的时候，首先显示最常用的部分 flags。
 例如，Git 命令首先显示用于入门的命令以及最常用的子命令：
 
@@ -413,7 +413,7 @@ examine the history and state (see also: git help revisions)
 …
 ```
 
-**在帮助文本中使用不同格式.**
+**在帮助文本中使用不同格式。**
 加粗的标题能够更加容易被发现。
 但是，应尽量以独立于终端的方式进行，这样用户就不会盯着一堆转义字符了。
 
@@ -460,7 +460,7 @@ list your apps
 
 Note: When `heroku apps --help` is piped through a pager, the command emits no escape characters.
 
-**如果用户进行了错误操作，您可以猜测用户想要做什么，并提出建议.**
+**如果用户进行了错误操作，您可以猜测用户想要做什么，并提出建议。**
 比如, `brew update jq` 告诉用户应该运行 `brew upgrade jq`.
 
 您可以询问用户是否想运行建议的命令，但不要强迫他们这样做。
@@ -484,7 +484,7 @@ Did you mean ps? [y/n]:
 
 _Further reading: [“Do What I Mean”](http://www.catb.org/~esr/jargon/html/D/DWIM.html)_
 
-**如果您的命令希望有东西被 pipe 到它那里，且 `stdin` 是一个交互式终端，请立即显示帮助并退出.**
+**如果您的命令希望有东西被 pipe 到它那里，且 `stdin` 是一个交互式终端，请立即显示帮助并退出。**
 这意味着它不是一直在挂起, 像 `cat` 那样.
 另外，您可以打印一条日志信息到 `stderr`.
 
@@ -494,13 +494,13 @@ _Further reading: [“Do What I Mean”](http://www.catb.org/~esr/jargon/html/D/
 另一方面，文档是深入了解全部细节的地方。
 人们可以通过文档来了解您的工具可以用来做什么，不可以做什么，它是如何工作的，以及使用全部功能的方法。 
 
-**提供 Web 文档.**
+**提供 Web 文档。**
 人们可以通过搜索引擎来查询到您提供的文档，并能够通过索引链接到特定的部分。Web 文档是目前最具包容性的文档格式。
 
-**提供终端文档.**
+**提供终端文档。**
 终端文档有几个不错的特性：访问速度快，与工具的安装版本保持同步，而且不需要互联网连接也能工作。
 
-**考虑是否提供 man pages.**
+**考虑是否提供 man pages。**
 [man pages](https://en.wikipedia.org/wiki/Man_page), Unix 最初的文档系统, 至今仍在使用, 许多用户在尝试了解您的工具时会反射性地查看 `man mycmd`.
 为了让 man pages 跟容易生成，您可以使用一个工具[ronn](http://rtomayko.github.io/ronn/ronn.1.html)（它也可以帮助您自动生成 Web 文档）
 
@@ -527,13 +527,13 @@ DESCRIPTION
 
 ### 输出 {#output}
 
-**人类可读的输出是至关重要的.**
+**人类可读的输出是至关重要的。**
 要把人放在首位，机器放在第二位。
 对于一个特定的输出流(`stdout` or `stderr`)，要判断它是否被人类读取，最简单且直接的启发方法是看它 _是否是一个 TTY_.
 
 _Further reading on [what a TTY is](https://unix.stackexchange.com/a/4132)._
 
-**在不影响可用性的地方要有机器可读的输出.**
+**在不影响可用性的地方要有机器可读的输出。**
 文本流是 UNIX 中的通用接口。
 程序通常会输出文本行，而程序通常希望有文本行作为输入，
 因此您可以把多个程序编织在一起。
@@ -549,13 +549,13 @@ _Further reading on [what a TTY is](https://unix.stackexchange.com/a/4132)._
 例如，如果您正在显示一个基于行的表格，您可能会选择将一个单元格分成多行，以适应更多信息，同时将其保持在屏幕宽度内。
 但这打破了每行一条数据的预期行为，因此您应该为脚本提供一个 `--plain` 选项，它可以禁用所有此类操作并每行输出一条记录。
 
-**如果被传入 `--json` ，则输出显示为格式化的 JSON。.**
+**如果被传入 `--json` ，则输出显示为格式化的 JSON。**
 JSON 比纯文本有更多的结构，所以它能够更容易输出和处理复杂的数据结构。
 [`jq`](https://stedolan.github.io/jq/) 是在命令行中处理 JSON 的常用工具, 现在具有一个[完整的工具生态系统](https://ilya-sher.org/2018/04/10/list-of-json-tools-for-command-line/) 可以输出和操作 JSON.
 
 它在 Web 上也被广泛使用，因此通过使用 JSON 作为程序的输入和输出，使您可以使用 `curl` 直接与 Web 服务进行管道传输。
 
-**成功时显示输出，但要保持简短.**
+**成功时显示输出，但要保持简短。**
 传统上，当一切正常时，UNIX 命令不会向用户显示任何输出。 
 这在脚本中是有意义的，但在被人类使用时可能会使命令看起来挂起或损坏。 例如，`cp` 不会打印任何内容，即使它需要很长时间。
 
@@ -563,7 +563,7 @@ JSON 比纯文本有更多的结构，所以它能够更容易输出和处理复
 
 对于不需要输出的情况（例如，在 shell 脚本中使用时），为了避免将 `stderr` 笨拙地重定向到 `/dev/null`，您可以提供一个 `-q` 选项来抑制所有非必要的输出。
 
-**如果状态改变了，请告诉用户.**
+**如果状态改变了，请告诉用户。**
 当命令改变了系统状态时，解释刚刚发生的事情特别有必要，这样用户就可以在脑海中对系统状态进行建模——特别是如果结果没有直接映射到用户请求内容的情况。
 
 比如，`git push` 可以准确地告诉用户目前在做什么，以及远程分支的最新状态：
@@ -581,7 +581,7 @@ To github.com:replicate/replicate.git
  + 6c22c90...a2a5217 bfirsh/fix-delete -> bfirsh/fix-delete
 ```
 
-**让查看系统的当前状态更加容易.**
+**让查看系统的当前状态更加容易。**
 如果您的程序进行了很多复杂的状态变化，而且在文件系统中不能立即看到，请确保能够使之易于查看。
 
 比如, `git status` 能够告诉您尽可能多的关于 Git 仓库当前状态的信息，以及如何修改这些状态的提示：
@@ -599,11 +599,11 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
-**建议用户应该运行的命令.**
+**建议用户应该运行的命令。**
 当多个命令形成一个工作流时，向用户建议他们接下来可以运行的命令有助于他们学习如何使用您的程序并发现新功能。
 例如，在上面的 `git status` 的输出中，向您提出可以修改当前状态的命令。
 
-**跨越程序内部世界边界的动作通常应该是明确的.**
+**跨越程序内部世界边界的动作通常应该是明确的。**
 这包括:
 
 - 读取或写入用户未明确作为参数传递的文件（除非这些文件正在存储内部程序状态，例如缓存）。
@@ -626,7 +626,7 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 -rw-r--r-- 1 root root      0 Jul 20 14:43 subuid
 ```
 
-**有目的地使用颜色.**
+**有目的地使用颜色。**
 例如，您可能想突出一些文字，让用户注意到它，或者用红色来表示错误。不要过度使用它--如果所有的东西都是不同的颜色，那么这个颜色就毫无意义，只会使它更难以阅读。
 
 **如果您的程序不在终端中运行或用户请求禁用它，则禁用颜色。**
@@ -641,10 +641,10 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 
 _Further reading: [no-color.org](https://no-color.org/), [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)_
 
-**如果 `stdout` 不是交互式终端，则不要显示任何动画.**
+**如果 `stdout` 不是交互式终端，则不要显示任何动画。**
 这将阻止进度条在 CI 日志输出中变成圣诞树。
 
-**使用符号和 emoji，它使事情变得更清晰.**
+**使用符号和 emoji，它使事情变得更清晰。**
 在能使事情更清晰的地方使用符号和表情符号。如果您需要让几件事情与众不同，吸引用户的注意力，或者只是增加一点特色，图片可能比文字更好。但要小心，很容易做得过头，使您的程序看起来杂乱无章或感觉像个玩具。
 
 比如, [yubikey-agent](https://github.com/FiloSottile/yubikey-agent) 使用表情符号为输出添加结构，因此它不仅仅是一堵文本墙，还有一个 ❌ 来吸引您对重要信息的注意:
@@ -669,7 +669,7 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 💭 Remember: everything breaks, have a backup plan for when this YubiKey does.
 ```
 
-**默认情况下，不要输出只有软件作者才能理解的信息.**
+**默认情况下，不要输出只有软件作者才能理解的信息。**
 如果一个输出只是为了帮助您（开发者）理解您的软件在做什么，那么几乎可以肯定的是，它不应该以默认的方式显示给普通用户，而只是在 verbose 模式下。
 
 邀请局外人和新加入您的项目的人提供可用性反馈。
@@ -791,7 +791,7 @@ _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-d
 如果用户没有传递 argument 或 flag，那就进行 prompt。
 (See also: [交互性](#interactivity))
 
-**不再 _需要_ prompt.**
+**不再 _需要_ prompt。**
 向用户一直提供一种传递 flags 和 arguments 的输入方式。
 如果 `stdin` 不是一个交互式终端，跳过 prompting 并只需要 flags/args。
 
@@ -814,7 +814,7 @@ _Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-d
 考虑是否有不明显的方式意外地破坏事物。
 例如，想象一下这样一种情况：将配置文件中的一个数字从 10 改为 1，意味着 9 个东西将被隐式删除--这应该被认为是一种严重的风险，而且应该很难意外地做到。
 
-**如果输入或输出是一个文件, 支持使用 `-` 来从 `stdin` 中读或写出到 `stdout`.**
+**如果输入或输出是一个文件, 支持使用 `-` 来从 `stdin` 中读或写出到 `stdout`。**
 这让另一个命令的输出成为您的命令的输入，反之亦然，从而不需要使用临时文件。
 比如，`tar` 可以从 `stdin` 中提取文件：
 
@@ -825,7 +825,7 @@ $ curl https://example.com/something.tar.gz | tar xvf -
 **如果一个 flag 可以接受一个可选的值，那么允许使用一个特殊的词，如 "none."。**
 例如，`ssh -F` 需要一个可选的 `ssh_config` 文件的文件名，而用 `ssh -F none` 运行 SSH，则无需配置文件。不要只使用一个空白值--这可能会使参数是 flag values 还是 arguments 变得模糊不清。
 
-**如果可以，尽量让 arguments, flags, subcommands 顺序无关**
+**如果可以，尽量让 arguments, flags, subcommands 顺序无关。**
 很多 CLI，特别是那些含有子命令的 CLI，各种参数的位置顺序存在一定的潜规则。
 例如，一个命令含有一个 `--foo` flag，只有当您把它放在子命令之前时才会起作用：
 
@@ -864,7 +864,7 @@ unknown flag: --foo
 这可以通过关闭终端中的 echo 来实现。
 您的语言应该有这方面的帮助工具。
 
-**让用户 escape.**
+**让用户 escape。**
 清楚地说明如何退出。
 (不要像 vim 那样)
 如果您的程序在网络 I/O 等方面挂起，总是让 Ctrl-C 仍然有效。
@@ -898,7 +898,7 @@ _Further reading: [User experience, CLIs, and breaking the world, by John Staric
 
 ### 鲁棒性 {#robustness-guidelines}
 
-**验证用户的输入**
+**验证用户的输入。**
 在您的程序接受用户数据的任何地方，最终都会得到坏的数据。
 尽早检查并在坏事发生之前跳出，并且 [让错误信息易于理解](#errors)
 
@@ -937,17 +937,17 @@ Ubuntu 20.04 有一个漂亮的进度条，粘在终端的底部。
 **实现超时机制。**
 允许配置网络超时，并有一个合理的默认值，这样它就不会永远挂起。
 
-**实现幂等性.**
+**实现幂等性。**
 如果程序由于某种短暂的原因而失败（例如网络连接中断），用户应该能够通过点击 `<up>` 和 `<enter>` 实现从间断的地方继续运行。
 
-**实现 crash-only.**
+**实现 crash-only。**
 这个实现幂等性下一步。
 如果您能避免在操作后做任何清理工作，或者能将清理工作推迟到下一次运行，您的程序就能在失败或中断时立即退出。
 这会使程序变得更加健壮，反应更加灵敏。
 
 _Citation: [Crash-only software: More than meets the eye](https://lwn.net/Articles/191059/)._
 
-**用户将会滥用您的程序.**
+**用户将会滥用您的程序。**
 要做好心理准备。
 用户会用脚本包装您的程序，在糟糕的网络连接中使用它，一次运行许多实例，并在您没有测试过的环境中使用它，有您没有预料到的怪癖。
 (您知道 macOS 的文件系统是不区分大小写的，但也保留了大小写吗？）
@@ -970,44 +970,44 @@ _Citation: [Crash-only software: More than meets the eye](https://lwn.net/Articl
 如果可能的话，您应该检测到用户已经改变了他们的用法，并且不再显示警告：现在，当您最终推出这个变化时，他们不会注意到任何事情。
 
 **为人类改变输出通常是可以的。**
-要使一个界面易于使用，唯一的办法就是对它进行迭代，如果输出被认为是一个接口，那么你就不能对它进行迭代。
-鼓励你的用户在脚本中使用 `--plain` 或 `--json` 以保持输出稳定 (see [Output](#output)).
+要使一个界面易于使用，唯一的办法就是对它进行迭代，如果输出被认为是一个接口，那么您就不能对它进行迭代。
+鼓励您的用户在脚本中使用 `--plain` 或 `--json` 以保持输出稳定 (see [Output](#output)).
 
 **不要有一个包罗万象的子命令。**
 If you have a subcommand that’s likely to be the most-used one, you might be tempted to let people omit it entirely for brevity’s sake.
-如果你有一个是最常用的子命令，那就让用户为了简洁起见而完全省略它。
+如果您有一个是最常用的子命令，那就让用户为了简洁起见而完全省略它。
 例如，假设有一个 `run` 命令，它被包含于任意一个 shell 命令。
     $ mycmd run echo "hello world"
 
 您可以这么做，如果 `mycmd` 的第一个参数不是 `run` 子命令，就默认认为用户是要运行 `run`，所以用户可以直接输入：
     $ mycmd echo "hello world"
 
-但这有一个严重的缺点：现在你永远不能默认添加一个名为 `echo` 的子命令--或者 _任何东西_ --不会有破坏现有使用的风险。
-如果存在一个使用 `mycmd echo` 的脚本，在该用户升级到你的工具的新版本后，它的行为将会完全不同。
+但这有一个严重的缺点：现在您永远不能默认添加一个名为 `echo` 的子命令--或者 _任何东西_ --不会有破坏现有使用的风险。
+如果存在一个使用 `mycmd echo` 的脚本，在该用户升级到您的工具的新版本后，它的行为将会完全不同。
 
 **不允许对子命令进行任意的缩写。**
-例如，假设你的命令有一个 `install` 子命令。
-当你添加它时，你想为用户节省一些键入的时间，所以你允许他们键入任何非明确的前缀，比如 `mycmd ins`，或者甚至只是 `mycmd i`，并让它成为 `mycmd install` 的别名。
-然而现在你被限制住了：你不能再添加任何以 `i` 开头的命令，因为有一些脚本认为 `i` 意味着 `install`。
+例如，假设您的命令有一个 `install` 子命令。
+当您添加它时，您想为用户节省一些键入的时间，所以您允许他们键入任何非明确的前缀，比如 `mycmd ins`，或者甚至只是 `mycmd i`，并让它成为 `mycmd install` 的别名。
+然而现在您被限制住了：您不能再添加任何以 `i` 开头的命令，因为有一些脚本认为 `i` 意味着 `install`。
 
 使用别名并无不妥，但它们应该是明确的，并保持稳定。
 
 **不要制造一个“定时炸弹”。**
 想象一下，20 年后。
-你的命令还能像今天一样运行吗？还是会因为互联网上的一些外部依赖发生了变化或不再维护而无法工作？
-最有可能的是在 20 年后消失的服务器就是你现在正在维护的那台。
+您的命令还能像今天一样运行吗？还是会因为互联网上的一些外部依赖发生了变化或不再维护而无法工作？
+最有可能的是在 20 年后消失的服务器就是您现在正在维护的那台。
 (但也不要建立在对 Google Analytics 的封锁性调用中）。
 
 ### 信号和控制字符 {#signals}
 
-**If a user hits Ctrl-C (the INT signal), exit as soon as possible.**
-Say something immediately, before you start clean-up.
-Add a timeout to any clean-up code so it can’t hang forever.
+**如果用户点击 Ctrl-C（INT 信号），应尽快退出。**
+在您开始 clean-up 之前，立即说些什么。
+给任何 clean-up 代码添加一个超时，这样它就不会永远挂起。
 
-**If a user hits Ctrl-C during clean-up operations that might take a long time, skip them.**
-Tell the user what will happen when they hit Ctrl-C again, in case it is a destructive action.
+**如果用户在可能需要很长时间的 clean-up 操作中键入 Ctrl-C，则跳过清理操作。**。
+告诉用户当他们再次点击 Ctrl-C 时会发生什么，以防这是一个破坏性的操作。
 
-For example, when quitting Docker Compose, you can hit Ctrl-C a second time to force your containers to stop immediately instead of shutting them down gracefully.
+例如，在退出 Docker Compose 时，您可以第二次按下 Ctrl-C，强迫您的容器立即停止，而不是优雅地关闭它们。
 
 ```
 $  docker-compose up
@@ -1015,87 +1015,87 @@ $  docker-compose up
 ^CGracefully stopping... (press Ctrl+C again to force)
 ```
 
-Your program should expect to be started in a situation where clean-up has not been run.
+您的程序应该在没有运行 clean-up 的预期情况下被启动。
 (See [Crash-only software: More than meets the eye](https://lwn.net/Articles/191059/).)
 
 ### 配置 {#configuration}
 
-Command-line tools have lots of different types of configuration, and lots of different ways to supply it (flags, environment variables, project-level config files).
-The best way to supply each piece of configuration depends on a few factors, chief among them _specificity_, _stability_ and _complexity_.
+命令行工具有很多不同配置类型，也有很多不同的方式来支持配置（flags、环境变量、项目级配置文件）。
+提供配置的最佳方式取决于几个因素，其中主要是 _特定性_, _稳定性_ and _复杂性_。
 
-Configuration generally falls into a few categories:
+配置一般分为下面几类：
 
-1.  Likely to vary from one invocation of the command to the next.
+1.  在每次调用命令时都有所不同。
 
-    Examples:
+    例如:
 
-    - Setting the level of debugging output
-    - Enabling a safe mode or dry run of a program
+    - 设置调试输出的级别
+    - 启用安全模式或程序的 dry run
 
     Recommendation: **Use [flags](#arguments-and-flags).**
     [Environment variables](#environment-variables) may or may not be useful as well.
 
-2.  Generally stable from one invocation to the next, but not always.
-    Might vary between projects.
-    Definitely varies between different users working on the same project.
+2.  一般来说，从一个调用到下一个调用都很稳定，但不一定会一直会这样。
+    在不同的项目之间可能会有所不同。
+    在同一个项目上工作的不同用户之间肯定会有所不同。
 
-    This type of configuration is often specific to an individual computer.
+    这种类型的配置通常是针对特定个别计算机的。
 
-    Examples:
+    例如:
 
-    - Providing a non-default path to items needed for a program to start
-    - Specifying how or whether color should appear in output
-    - Specifying an HTTP proxy server to route all requests through
+    - 为程序启动所需的项目提供一个非默认的路径
+    - 指定颜色如何或是否应出现在输出中
+    - 指定一个 HTTP 代理服务器，将所有的请求通过该服务器进行路由。
 
     Recommendation: **Use [flags](#arguments-and-flags) and probably [environment variables](#environment-variables) too.**
     Users may want to set the variables in their shell profile so they apply globally, or in `.env` for a particular project.
 
-    If this configuration is sufficiently complex, it may warrant a configuration file of its own, but environment variables are usually good enough.
+    如果这种配置足够复杂，可能需要一个配置文件来实现，但环境变量通常已经足够好了。
 
-3.  Stable within a project, for all users.
+3.  在一个项目内，对所有用户都是稳定的。
 
-    This is the type of configuration that belongs in version control.
-    Files like `Makefile`, `package.json` and `docker-compose.yml` are all examples of this.
+    这就是属于版本控制的配置类型。
+    像 `Makefile`、`package.json` 和 `docker-compose.yml` 等文件都是这样的例子。
 
     Recommendation: **Use a command-specific, version-controlled file.**
 
-**Follow the XDG-spec.**
-In 2010 the X Desktop Group, now [freedesktop.org](https://freedesktop.org), developed a specification for the location of base directories where config files may be located.
-One goal was to limit the proliferation of dotfiles in a user’s home directory by supporting a general-purpose `~/.config` folder.
+**遵循 XDG-spec。**
+在 2010 年 X Desktop Group, now [freedesktop.org](https://freedesktop.org), 制定了配置文件所在目录位置的规范。
+目标是通过支持一个通用的 `~/.config` 文件夹，来限制用户主目录中 dotfiles 的扩散。
 The XDG Base Directory Specification ([full spec](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html), [summary](https://wiki.archlinux.org/index.php/XDG_Base_Directory#Specification)) is supported by yarn, fish, wireshark, emacs, neovim, tmux, and many other projects you know and love.
 
-**If you automatically modify configuration that is not your program’s, ask the user for consent and tell them exactly what you’re doing.**
-Prefer creating a new config file (e.g. `/etc/cron.d/myapp`) rather than appending to an existing config file (e.g. `/etc/crontab`).
-If you have to append or modify to a system-wide config file, use a dated comment in that file to delineate your additions.
+**如果您自动修改不属于您的程序的配置，请征得用户的同意，并准确地告诉他们您在做什么。**
+尽量创建一个新的配置文件（例如 `/etc/cron.d/myapp`），而不是追加到一个现有的配置文件（例如 `/etc/crontab`）。
+如果您必须追加或修改一个系统级的配置文件，请在该文件中使用一个日期注释来划分您的添加内容。
 
-**Apply configuration parameters in order of precedence.**
-Here is the precedence for config parameters, from highest to lowest:
+**按优先顺序应用配置参数。**
+以下是配置参数的优先顺序，从高到低:
 
 - Flags
-- The running shell’s environment variables
-- Project-level configuration (eg. `.env`)
-- User-level configuration
-- System wide configuration
+- 正在运行的 shell 的环境变量
+- 项目级别的配置文件 (eg. `.env`)
+- 用户级别的配置文件
+- 系统级配置文件
 
 ### 环境变量 {#environment-variables}
 
-**Environment variables are for behavior that _varies with the context_ in which a command is run.**
-The “environment” of an environment variable is the terminal session—the context in which the command is running.
-So, an env var might change each time a command runs, or between terminal sessions on one machine, or between instantiations of one project across several machines.
+**环境变量的存在是为了使软件行为 _随命令运行的上下文_ 变化而变化。**
+环境变量的”环境“是指终端会话--命令运行的环境。
+因此，一个环境变量可能会在命令运行时发生变化，或者在一台机器的终端会话之间发生变化，或者在几台机器上的一个项目实例之间发生变化。
 
-Environment variables may duplicate the functionality of flags or configuration parameters, or they may be distinct from those things.
-See [Configuration](#configuration) for a breakdown of common types of configuration and recommendations on when environment variables are most appropriate.
+环境变量可能会重复 flags 或配置参数的功能，或者它们可能与这些东西不同。
+参见 [配置](#configuration) 以了解常见的配置类型和关于环境变量何时最合适的建议。
 
-**For maximum portability, environment variable names must only contain uppercase letters, numbers, and underscores (and mustn't start with a number).**
-Which means `O_O` and `OWO` are the only emoticons that are also valid environment variable names.
+**为了获得最大的可移植性，环境变量名称必须只包含大写字母、数字和下划线（而且不能以数字开头）。**
+这意味着 `O_O` 和 `OWO` 是唯一同时也是有效的环境变量名称的表情符号。
 
-**Aim for single-line environment variable values.**
-While multi-line values are possible, they create usability issues with the `env` command.
+**争取用单行的环境变量值。**
+虽然多行值是可行的，但它们会给 `env` 命令带来易用性问题。
 
-**Avoid commandeering widely used names.**
-Here’s a [list of POSIX standard env vars](https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html).
+**避免使用被广泛使用的名称。**
+下面是 [POSIX 标准环境变量](https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html).
 
-**Check general-purpose environment variables for configuration values when possible:**
+**在可能的情况下，检查通用环境变量的配置值：**
 
 - `NO_COLOR`, to disable color (see [Output](#output)).
 - `DEBUG`, to enable more verbose output.
@@ -1110,70 +1110,70 @@ Here’s a [list of POSIX standard env vars](https://pubs.opengroup.org/onlinepu
 - `PAGER`, if you want to automatically page output.
 - `LINES` and `COLUMNS`, for output that’s dependent on screen size (e.g. tables).
 
-**Read environment variables from `.env` where appropriate.**
-If a command defines environment variables that are unlikely to change as long as the user is working in a particular directory, then it should also read them from a local `.env` file so users can configure it differently for different projects without having to specify them every time.
-Many languages have libraries for reading `.env` files ([Rust](https://crates.io/crates/dotenv), [Node](https://www.npmjs.com/package/dotenv), [Ruby](https://github.com/bkeepers/dotenv)).
+**适当时从 `.env` 读取环境变量。**
+如果一个命令定义的环境变量，只要用户在一个特定的目录下工作，就不可能改变，那么它也应该从本地的 `.env` 文件中读取这些变量，这样用户就可以为不同的项目进行不同的配置，而不必每次都指定它们。
+许多编程语言都有读取 `.env` 文件的软件库 ([Rust](https://crates.io/crates/dotenv), [Node](https://www.npmjs.com/package/dotenv), [Ruby](https://github.com/bkeepers/dotenv)).
 
-**Don’t use `.env` as a substitute for a proper [configuration file](#configuration).**
-`.env` files have a lot of limitations:
+**不要把 `.env` 用作 [配置文件](#configuration) 的替代。**
+`.env` 文件有许多限制:
 
-- A `.env` file is not commonly stored in source control
-- (Therefore, any configuration stored in it has no history)
-- It has only one data type: string
-- It lends itself to being poorly organized
-- It makes encoding issues easy to introduce
-- It often contains sensitive credentials & key material that would be better stored more securely
+- 一个 `.env` 文件通常不存储在版本控制系统中
+- 因此，存储在其中的任何配置都没有历史记录)
+- 它只有一种数据类型：字符串
+- 它本身的组织性很差
+- 它使编码问题容易被引入
+- 它通常包含敏感的证书和关键材料，最好以更安全的方式存储。
 
-If it seems like these limitations will hamper usability or security, then a dedicated config file might be more appropriate.
+如果看起来这些限制会妨碍可用性或安全性，那么一个专门的配置文件可能更合适。
 
 ### 命名 {#naming}
 
-The name of your program is particularly important on the CLI: your users will be typing it all the time, and it needs to be easy to remember and type.
+您的程序的名字在 CLI 上特别重要：您的用户将一直在输入它，它需要易于记忆和键入。
 
-**Make it a simple, memorable word.**
-But not too generic, or you’ll step on the toes of other commands and confuse users.
-For example, both ImageMagick and Windows used the command `convert`.
+**使用简单易于记忆的单词。**
+但不能太常见，否则会踩到其他命令的脚，使用户感到困惑。
+例如，ImageMagick 和 Windows 都使用 `convert` 命令。
 
-**Use only lowercase letters, and dashes if you really need to.**
-`curl` is a good name, `DownloadURL` is not.
+**只使用小写字母，如果您真的需要，可以使用破折号。**
+`curl` 是个好名字，`DownloadURL` 则不是。
 
-**Keep it short.**
-Users will be typing it all the time.
-Don’t make it _too_ short: the very shortest commands are best reserved for the common utilities used all the time, such as `cd`, `ls`, `ps`.
+**尽量简短。**
+用户将会经常键入它。
+不过不要把名字弄得 _太短_：最短的命令最好保留给经常使用的常用工具，如`cd`、`ls`、`ps`。
 
-**Make it easy to type.**
-Some words flow across the QWERTY keyboard much more easily than others, and it’s not just about brevity.
-`plum` may be short but it’s an awkward, angular dance.
-`apple` trips you up with the double letter.
-`orange` is longer than both, but flows much better.
+**易于键入。**
+有些词在 QWERTY 键盘上比其他词更容易键入，这不仅仅是关于简洁的问题。
+`plum` 可能很简短，但它是一个尴尬的、有棱角的键入舞蹈。
+`apple` 用双字母把您绊倒了。
+`orange` 比上面两个都长，但流畅得多。
 
 _Further reading: [The Poetics of CLI Command Names](https://smallstep.com/blog/the-poetics-of-cli-command-names/)_
 
 ### 发布 {#distribution}
 
-**If possible, distribute as a single binary.**
-If your language doesn’t compile to binary executables as standard, see if it has something like [PyInstaller](https://www.pyinstaller.org/).
-If you really can’t distribute as a single binary, use the platform’s native package installer so you aren’t scattering things on disk that can’t easily be removed.
-Tread lightly on the user’s computer.
+**尽量使用单个二进制文件发布。**
+如果您的编程语言无法编译成标准的二进制可执行文件，看看它是否有类似 [PyInstaller](https://www.pyinstaller.org/) 的工具。
+如果您真的不能以二进制文件的形式发布，请使用平台的本地包安装程序，这样您就不会在磁盘上散落一些不容易被删除的东西。
+在用户的计算机上轻装前进。
 
-If you’re making a language-specific tool, such as a code linter, then this rule doesn’t apply—it’s safe to assume the user has an interpreter for that language installed on their computer.
+如果您正在制作一个特定语言的工具，例如 code linter，那么这条规则就不适用了--可以假定用户在他们的计算机上安装了该语言的解释器。
 
-**Make it easy to uninstall.**
-If it needs instructions, put them at the bottom of the install instructions—one of the most common times people want to uninstall software is right after installing it.
+**易于卸载。**
+如果它需要说明，就把它们放在安装说明的底部--人们想要卸载软件的最常见时机是在安装之后。
 
 ### 分析数据 {#analytics}
 
-Usage metrics can be helpful to understand how users are using your program, how to make it better, and where to focus effort.
-But, unlike websites, users of the command-line expect to be in control of their environment, and it is surprising when programs do things in the background without telling them.
+分析数据可以帮助了解用户是如何使用您的程序的，如何使程序变得更好，以及哪里需要集中精力。
+但是，与网站不同，使用命令行的用户希望能够控制他们的环境，当程序在后台不告诉他们的情况下做一些事情时，是令人震惊的。
 
-**Do not phone home usage or crash data without consent.**
-Users will find out, and they will be angry.
-Be very explicit about what you collect, why you collect it, how anonymous it is and how you go about anonymizing it, and how long you retain it for.
+**不要在未经同意的情况下收集使用或崩溃数据。**
+用户会发现的，他们会很生气。
+要非常明确地说明您要收集什么，为什么收集，如何匿名，如何进行匿名化，以及保留多久。
 
-Ideally, ask users whether they want to contribute data (“opt-in”).
-If you choose to do it by default (“opt-out”), then clearly tell users about it on your website or first run, and make it easy to disable.
+理想情况下，询问用户是否愿意贡献数据（"选择加入"）。
+如果您选择默认的方式（"退出"），那么在您的网站上或首次运行时明确告诉用户，并使其易于禁用。
 
-Examples of projects that collect usage statistics:
+收集使用统计数据的项目实例:
 
 - Angular.js [collects detailed analytics using Google Analytics](https://angular.io/analytics), in the name of feature prioritization.
   You have to explicitly opt in.
@@ -1181,16 +1181,16 @@ Examples of projects that collect usage statistics:
 - Homebrew sends metrics to Google Analytics and has [a nice FAQ](https://docs.brew.sh/Analytics) detailing their practices.
 - Next.js [collects anonymized usage statistics](https://nextjs.org/telemetry) and is enabled by default.
 
-**Consider alternatives to collecting analytics.**
+**考虑收集分析数据的替代方案。**
 
-- Instrument your web docs.
-  If you want to know how people are using your CLI tool, make a set of docs around the use cases you’d like to understand best, and see how they perform over time.
-  Look at what people search for within your docs.
-- Instrument your downloads.
-  This can be a rough metric to understand usage and what operating systems your users are running.
-- Talk to your users.
-  Reach out and ask people how they’re using your tool.
-  Encourage feedback and feature requests in your docs and repos, and try to draw out more context from those who submit feedback.
+- 分析您的 Web 文档使用情况。
+  如果您想知道用户是如何使用您的 CLI 工具的，围绕您想了解的最佳用例制作一套文档，并看看文档的使用情况随着时间的推移是如何表现的。
+  看看用户在您的文档中在搜索什么。
+- 统计您的下载量.
+  这可以作为一个粗略的指标来了解使用情况以及您的用户正在运行什么操作系统。
+- 与您的用户对话。
+  接触并询问用户他们是如何使用您的工具的。
+  在您的文档和资源库中鼓励反馈和功能请求，并尝试从那些提交反馈的用户那里提取更多的内容。
 
 _Further reading: [Open Source Metrics](https://opensource.guide/metrics/)_
 
